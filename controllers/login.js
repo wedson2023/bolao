@@ -1,7 +1,15 @@
 module.exports = function(app){	
-	return function(req, res){		
-		app.models.schemas.agentes.find({}, function(err, resposta){
-			res.json(resposta);
-		})
+	return {
+		entrar : function(req, res){		
+				app.models.schemas.agentes.find({}, function(err, resposta){
+					res.json(resposta);
+				})				
+		},
+		
+		sair : function(req, res){		
+				//app.models.schemas.agentes.find({}, function(err, resposta){
+					res.json({ resposta : 'sair' });
+				//})				
+		} 
 	}
 }
