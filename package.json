@@ -1,0 +1,19 @@
+{
+  "name": "bolao",
+  "version": "1.0.0",
+  "description": "Bolão de apostas desportivas ",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Wedson Santos <wedson_cross@hotmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "1.17.1",
+    "express": "4.15.2",
+    "express-load": "1.1.15",
+    "express-session": "1.15.2",
+    "mongoose": "4.9.3"
+  }
+}
