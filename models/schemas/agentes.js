@@ -9,7 +9,7 @@ module.exports = function(){
 	
 	var apostador = Schema({
 			nome : { type : String, required : true },
-			valor : { type : Number, require : true },
+			valor : { type : Number, required : true },
 			apostas : [aposta],
 			horario : Date
 		})
