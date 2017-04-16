@@ -7,13 +7,12 @@ module.exports = function(){
 			fora : String,
 			pcasa : Number,
 			pfora : Number
-		})
-	
+		})	
 	
 	var boloes = Schema({
 		nome : String,
 		confrontos : [confronto],		
-		valor : String,
+		valor : Number,
 		porcentagem : [String],
 		lugares : [String],
 		create_at : Date,

@@ -6,7 +6,7 @@ var mongoose = require('mongoose');
 var error = require('./middlewares/error');
 var app = express();
 
-global.conexao = mongoose.connect('localhost/boloes');
+global.conexao = mongoose.connect('mongodb://localhost/boloes');
 
 app.disable('x-powered-by');
 app.use(expressSession({	 
