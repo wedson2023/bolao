@@ -1,21 +1,14 @@
 {
-  "name": "bolao",
-  "version": "1.0.0",
-  "description": "Bolão de apostas desportivas ",
-  "main": "app.js",
-  "scripts": {
-    "start": "nodemon app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "Wedson Santos <wedson_cross@hotmail.com>",
-  "license": "ISC",
-  "dependencies": {
-    "bcrypt": "1.0.2",
-    "body-parser": "1.17.1",
-    "express": "4.15.2",
-    "express-load": "1.1.15",
-    "express-session": "1.15.2",
-    "jsonwebtoken": "7.3.0",
-    "mongoose": "4.9.3"
-  }
+  "name": "Bolão Futebol",
+  "version": "1.1.1",
+  "description": "Sistema de bolão de apostas desportivas",
+  "cordovaPlugins": [
+    "cordova-plugin-device",
+    "cordova-plugin-console",
+    "cordova-plugin-whitelist",
+    "cordova-plugin-splashscreen",
+    "cordova-plugin-statusbar",
+    "ionic-plugin-keyboard"
+  ],
+  "cordovaPlatforms": []
 }
