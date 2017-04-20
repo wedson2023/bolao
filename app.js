@@ -6,7 +6,7 @@ var mongoose = require('mongoose');
 var error = require('./middlewares/error');
 var app = express();
 
-global.conexao = mongoose.connect('mongodb://localhost/boloes');
+global.conexao = mongoose.connect('mongodb://localhost/bolao');
 
 app.disable('x-powered-by');
 app.use(expressSession({	 
@@ -21,7 +21,7 @@ app.use(expressSession({
 app.use(bodyParser.urlencoded({ extended : false }));
 app.use(bodyParser.json());
 
-load('models').then('controllers').then('routers').into(app);
+load('models').then('controllers').then('middlewares').then('routers').into(app);
 
 app.use(error.notFound);
 app.use(error.serverError);
