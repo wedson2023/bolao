@@ -10,9 +10,10 @@ module.exports = function(){
 		})	
 	
 	var boloes = Schema({
-		nome : String,
+		nome : {type : String, required : true },
 		confrontos : [confronto],		
-		valor : Number,
+		valor : {type : Number, required : true },
+		visivel : { type : String, default : 0 },
 		porcentagem : [String],
 		lugares : [String],
 		create_at : Date,
