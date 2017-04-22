@@ -1,0 +1,31 @@
+﻿<!doctype html>
+<html ng-app="bolao">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+<title>Sistema Bolão</title>
+<link rel="stylesheet" href="css/ionic.css" />
+<link rel="stylesheet" href="css/animate.css" />
+<script src="js/lib/ionic.bundle.js"></script>
+<script src="cordova.js"></script>
+<script src="js/routers/router.js"></script>
+<script src="js/controllers/homeCtrl.js"></script>
+</head>
+<body ng-controller="principaCtrl as ctrl">
+
+ <ion-side-menus>
+  <ion-side-menu side="left" width="250">  
+  </ion-side-menu>
+  <ion-side-menu-content>
+  	<ion-header-bar class="bar-calm">
+       <button ng-click="ctrl.menu()" class="button icon ion-navicon-round"></button>
+        <h1 class="title">Bolao Apostas</h1>
+      </ion-header-bar>
+	<ion-nav-view>		
+		
+	</ion-nav-view>
+  </ion-side-menu-content>  
+</ion-side-menus>
+	
+</body>
+</html>

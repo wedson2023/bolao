@@ -6,7 +6,7 @@ module.exports = function(app){
 					agentes.comparar(req.body.senha, resposta.senha, function(err, comparar){
 						if(comparar){
 							req.session.usuarios = req.body;
-							res.status(200).json({ resposta : true , mensagem : 'Acesso Permitido'});
+							res.status(200).json({ resposta : resposta , mensagem : 'Acesso Permitido'});
 						}else{
 						   res.status(200).json({ resposta : false , mensagem : 'Login ou senha incorretos'});
 						}
