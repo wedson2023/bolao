@@ -48,6 +48,7 @@ module.exports = function(app){
 					res.status(500).json({resposta : false, mensagem : 'Houve algum problema tente novamente!', erro : err});
 				}else if(resposta){
 					app.models.schemas.boloes.findById(req.params.id, function(err, resposta){
+						//resposta.nome = req.body.nome;
 						resposta.save(function(){
 							res.status(200).json(resposta);
 							});

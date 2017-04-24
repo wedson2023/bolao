@@ -24,7 +24,18 @@ var app = angular.module('bolao', ['ionic'])
 	.state('home', {
 		url : '/home',
 		templateUrl : 'content/home.html',
-		controller : 'homeCtrl as ctrl'
+		controller : 'homeCtrl as ctrl',
+		resolve : {
+			boloes : function(config, http){
+				return http('GET', config.host + '/boloes', null, { 'token' : config.token });
+			}
+		}
+	})
+	
+	.state('boloes/:id', {
+		url : '/boloes/:id',
+		templateUrl : 'content/boloes.html',
+		controller : 'boloesCtrl as ctrl'
 	})
 	
 	$urlRouterProvider.otherwise('/');

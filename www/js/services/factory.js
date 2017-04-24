@@ -16,9 +16,7 @@ app
 })
 
 .factory('http', function($http){
-	return {
-		acessar : function(method, url, data, headers){
-			return $http({ method : method, url : url, data : data, headers : headers});
-		}
+	return function(method, url, data, headers){		
+			return $http({ method : method, url : url, data : data, headers : headers});		
 	}
 })

@@ -1,12 +1,13 @@
-﻿<section class="animated fadeInDown form-login">
+﻿<form class="animated fadeInDown form-login" ng-submit="ctrl.acessar(ctrl.agentes)">
 	<img class="logo" src="img/bolao.png" />
 	<label class="item item-input">
 		 <i class="icon ion-person placeholder-icon"></i>
-		<input type="text" ng-model="ctrl.agentes.nome" placeholder="Seu login">
+		<input type="text" required ng-model="ctrl.agentes.nome" placeholder="Seu login">
+		<span class="error" ng-show="ctrl.agentes.nome.$error.required">Nome é obrigatório</span>
 	</label>		
 	<label class="item item-input">
 		 <i class="icon ion-key placeholder-icon"></i>
-		<input type="password" ng-model="ctrl.agentes.senha" placeholder="Sua senha">
+		<input type="password" required ng-model="ctrl.agentes.senha" placeholder="Sua senha">
 	</label>
-	<button ng-click="ctrl.acessar(ctrl.agentes)" class="button button-block button-positive">Entrar</button
-</section>
+	<input type="submit" value="Entrar" class="button button-block button-positive" />
+</form>
