@@ -45,16 +45,16 @@ var app = angular.module('bolao', ['ionic'])
 		
 	})
 	
-	.state('menu.boloes', {
-		url : '/boloes/:id',
+	.state('menu.bolao', {
+		url : '/bolao/:id',
 		views : {
 			'menucontent' : {
-				templateUrl : 'content/boloes.html',
-				controller : 'boloesCtrl as ctrl'
+				templateUrl : 'content/bolao.html',
+				controller : 'bolaoCtrl as ctrl'
 			}
 		}
 		
 	})
 	
-	//$urlRouterProvider.otherwise('/');
+	$urlRouterProvider.otherwise('/login');
 })

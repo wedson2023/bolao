@@ -55,6 +55,7 @@ module.exports = function(app){
 					app.models.schemas.boloes.findById(req.params.id, function(err, resposta){						
 							var confrontos = resposta.confrontos.id(req.body.id);
 							confrontos.casa = req.body.casa;
+							confrontos.horario = req.body.horario;
 							resposta.save(function(err, resposta){
 								res.status(200).json(resposta);
 								})

@@ -1,4 +1,4 @@
-<ion-view>
+<ion-view view-title="{{ ctrl.titulo }}">
 	<ion-content padding="true">
 		<!--inicio Content -->
 	  <label class="item item-input">
@@ -7,7 +7,7 @@
 	  </label>
 
 	  <div ng-repeat="bolao in ctrl.boloes | filter : pesquisar" class="list card">
-		  <a ng-href="#/menu/boloes/{{ bolao._id }}" class="item item-icon-left">
+		  <a ng-href="#/menu/bolao/{{ bolao._id }}" class="item item-icon-left">
 			<i class="icon ion-ios-football"></i>
 			<span ng-bind="bolao.nome"></span>
 		  </a>

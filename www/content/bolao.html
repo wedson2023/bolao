@@ -1,0 +1,37 @@
+<ion-view view-title="{{ ctrl.titulo }}">	
+	<ion-content>
+	<!--inicio Content -->
+		<style>
+			.meus.titulo{display: block; text-align: center; font-size: 1.2em; margin: 5px;}
+			.meus.placar{border: solid thin #f1f1f1;}
+			.meus.placar.number{border-bottom: solid thin #f1f1f1; padding:5px 20px;}
+			.meus.center{text-align: center;}
+			.meus.left{text-align: left;}
+			.meus.right{text-align: right;}
+		</style>
+		<div class="card"> 	
+ 	 	<div class="row">
+		  <div class="col col-33"><button class="button button-calm button-block icon-left ion-printer">Tabela</button></div>
+		  <div class="col col-33"><button class="button button-calm button-block icon-left ion-document">Apostar</button></div>
+		  <div class="col col-33"><button class="button button-calm button-block icon-left ion-person-stalker">Clientes</button></div>
+		</div> 	
+  	 	
+	  	 <h2 class="meus titulo" ng-bind="ctrl.bolao.nome"></h2>
+	  	 <div style="text-align: center; font-size:0.8em;">
+			<span ng-bind="ctrl.horario.abertura"></span> às
+  	  		<span ng-bind="ctrl.horario.fechamento"></span>
+	  	  </div>	  	
+		  <div class="list list-inset">
+
+		<div class="item" ng-repeat="confrontos in ctrl.bolao.confrontos">
+			<div class="row">
+				<div class="col col-35 meus left"><span ng-bind="confrontos.casa"></span></div>
+				<div class="col col-30 meus center"><span class="meus placar number" ng-bind="!confrontos.pfora ? 0 : confrontos.pfora"></span> <span>x</span> <span class="meus placar number" ng-bind="!confrontos.pcasa ? 0 : confrontos.pcasa"></span></div>
+				<div class="col col-35 meus right"><span ng-bind="confrontos.fora"></span></div>
+			</div>
+		</div> 
+		</div>
+		</div>
+	 <!--fim Content -->
+	</ion-content>
+</io-view>
