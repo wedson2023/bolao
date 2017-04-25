@@ -14,29 +14,47 @@ var app = angular.module('bolao', ['ionic'])
 
 .config(function($stateProvider, $urlRouterProvider){
 	
-	$stateProvider		
+	$urlRouterProvider.otherwise('/login');
+	
+	$stateProvider	
 	.state('login', {
-		url : '/',
+		url : '/login',
 		templateUrl : 'content/login.html',
 		controller : 'loginCtrl as ctrl'
 	})
 	
-	.state('home', {
+	.state('menu', {
+		url : '/menu',
+		templateUrl : 'content/menu.html',
+		controller : 'menuCtrl as ctrl'
+	})
+	
+	.state('menu.home', {
 		url : '/home',
-		templateUrl : 'content/home.html',
-		controller : 'homeCtrl as ctrl',
-		resolve : {
-			boloes : function(config, http){
-				return http('GET', config.host + '/boloes', null, { 'token' : config.token });
+		views : {
+			'menucontent' : {
+			templateUrl : 'content/home.html',
+			controller : 'homeCtrl as ctrl',
+			resolve : {
+				boloes : function(config, http){
+					return http('GET', config.host + '/boloes', null, { 'token' : config.token });
+				}
 			}
 		}
+	}
+		
 	})
 	
-	.state('boloes/:id', {
+	.state('menu.boloes', {
 		url : '/boloes/:id',
-		templateUrl : 'content/boloes.html',
-		controller : 'boloesCtrl as ctrl'
+		views : {
+			'menucontent' : {
+				templateUrl : 'content/boloes.html',
+				controller : 'boloesCtrl as ctrl'
+			}
+		}
+		
 	})
 	
-	$urlRouterProvider.otherwise('/');
+	//$urlRouterProvider.otherwise('/');
 })

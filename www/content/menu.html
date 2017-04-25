@@ -1,11 +1,37 @@
-<ion-side-menus class="animated bounceInUp" ng-controller="menuCtrl as menu"> 
-  <ion-side-menu side="left" width="250">  
-  </ion-side-menu>
-  <ion-side-menu-content>
-  	<ion-header-bar class="bar-calm">
-   <button ng-click="menu.openmenu()" class="button button-clear icon ion-navicon-round"></button>
-	<h1 class="title" ng-bind="menu.empresa"></h1>
-  </ion-header-bar>	    
-		<ion-nav-view name="content"></ion-nav-view>
-  </ion-side-menu-content>  
+<ion-side-menus> 	
+	<ion-side-menu-content>
+	
+		<ion-nav-bar class="bar-positive">
+		
+			<ion-nav-back-button>  			
+			</ion-nav-back-button>
+			
+			<ion-nav-buttons side="left">			
+				<button class="button button-clear button-icon ion-navicon" menu-toggle="left"></button>	
+			</ion-nav-buttons>
+			
+		</ion-nav-bar>	
+		    
+		<ion-nav-view name="menucontent"></ion-nav-view>
+		
+	</ion-side-menu-content> 
+	
+	<ion-side-menu side="left" width="250"> 
+	 	
+	 	<ion-header-bar side="left">
+	 		<h1 class="title">Menu</h1>
+	 	</ion-header-bar>
+	 	
+		 <ion-content>		 	
+		 	
+		 	<ion-list>
+		 		<ion-item href="#/menu/Agentes" menu-close>Agentes</ion-item>
+		 		<ion-item href="#/menu/Bolões" menu-close>Bolões</ion-item>
+		 		<ion-item href="#/menu/Sair" menu-close>Sair</ion-item>
+		 	</ion-list>
+		 	
+		 </ion-content>
+		 
+	</ion-side-menu>
+	
 </ion-side-menus>

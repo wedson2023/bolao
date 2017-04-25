@@ -6,7 +6,7 @@ app.controller('loginCtrl', ['config', 'agentes', 'http', '$window', 'sessoes', 
 		http('POST', config.host + '/entrar', agentes).then(function(response){	
 			if(response.data.resposta){
 				sessoes(response.data.resposta);
-				$window.location.href = '#/home';
+				$window.location.href = '#/menu/home';
 				}
 		}, function(err){
 			mensagem('Mensagem de alerta', 'Erro ao conectar. <br>/n Cod. Erro : ' + err);
