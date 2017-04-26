@@ -5,7 +5,6 @@ app.controller('loginCtrl', ['config', 'agentes', 'http', '$window', 'sessoes', 
 	self.acessar = function(agentes){
 		$ionicLoading.show({ template: 'Aguarde ...', duration: 5000 });
 		http('POST', config.host + '/entrar', agentes).then(function(response){	
-			console.log(response)
 			if(response.data.resposta){
 				sessoes(response.data.resposta);
 				$window.location.href = '#/menu/home';

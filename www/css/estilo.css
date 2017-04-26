@@ -1,14 +1,12 @@
-.corpo{}
+.form-login { width: 75%; display: block; margin: 10% auto;}
+.logo { display: block; margin: 10% auto; width: 100%;}
+.meus.center{text-align: center;}
+.meus.left{text-align: left;}
+.meus.right{text-align: right;}
 
+.meus.titulo{display: block; text-align: center; font-size: 1.2em; margin: 5px;}
+.meus.placar{border: solid thin #f1f1f1;}
+.meus.placar.number{border-bottom: solid thin #f1f1f1; padding:5px 20px;}
+.meus.inputleft{width:35%; text-align: center; height: 30px; padding: 2px 5px; float: left; border: solid thin #f1f1f1;}
+.meus.inputright{width:35%; text-align: center; height: 30px; padding: 2px 5px; float: right; border: solid thin #f1f1f1;}
 
-.form-login {
-	width: 75%;
-	display: block;
-	margin: 10% auto;
-}
-
-.logo {
-	display: block;
-	margin: 10% auto;
-	width: 100%;
-}

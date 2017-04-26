@@ -41,8 +41,7 @@ var app = angular.module('bolao', ['ionic'])
 				}
 			}
 		}
-	}
-		
+	}		
 	})
 	
 	.state('menu.bolao', {
@@ -52,8 +51,12 @@ var app = angular.module('bolao', ['ionic'])
 				templateUrl : 'content/bolao.html',
 				controller : 'bolaoCtrl as ctrl'
 			}
-		}
-		
+		}		
+	})
+	
+	.state('menu.bolao.cadastrar-aposta', {
+		url : '/cadastrar-aposta',
+		templateUrl : 'content/cadastrar-aposta.html'			
 	})
 	
 	$urlRouterProvider.otherwise('/login');

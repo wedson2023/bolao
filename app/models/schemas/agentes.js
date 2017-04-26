@@ -4,16 +4,17 @@ module.exports = function(){
 	var Schema = require('mongoose').Schema;	
 	
 	var aposta = Schema({
-			idconfronto : Number,
+			_id : String,
 			pcasa : Number,
 			pfora : Number
 		})
 	
 	var apostador = Schema({
+			idbolao : String,
 			nome : { type : String, required : true },
 			valor : { type : Number, required : true },
 			apostas : [aposta],
-			horario : Date
+			horario : {type : Date, default : Date.now }
 		})
 	
 	var agentes = Schema({

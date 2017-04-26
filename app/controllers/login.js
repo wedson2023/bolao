@@ -9,7 +9,7 @@ module.exports = function(app){
 								req.session.usuarios = req.body;
 								res.status(200).json({ resposta : resposta , mensagem : 'Acesso Permitido'});	
 							}else{
-								res.status(200).json({ resposta : false , mensagem : 'Login ou senha incorretos'});													   
+								res.status(200).json({ resposta : false , mensagem : 'Senha esta incorreta tente novamente'});													   
 							}
 						});
 					}else{

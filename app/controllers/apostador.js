@@ -37,7 +37,7 @@ module.exports = function(app){
 				}else if(resposta){
 					app.models.schemas.agentes.findById(req.params.id, function(err, resposta){						
 							resposta.apostador.push(req.body);
-							resposta.save(function(){
+							resposta.save(function(err, resposta){
 								res.status(200).json(resposta);
 								})
 					})	
