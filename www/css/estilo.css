@@ -9,4 +9,5 @@
 .meus.placar.number{border-bottom: solid thin #f1f1f1; padding:5px 20px;}
 .meus.inputleft{width:35%; text-align: center; height: 30px; padding: 2px 5px; float: left; border: solid thin #f1f1f1;}
 .meus.inputright{width:35%; text-align: center; height: 30px; padding: 2px 5px; float: right; border: solid thin #f1f1f1;}
+.meus.capitalize{text-transform: capitalize;}
 

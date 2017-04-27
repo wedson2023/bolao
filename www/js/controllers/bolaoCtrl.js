@@ -1,6 +1,6 @@
 app
 
-.controller('bolaoCtrl', ['http', 'config', 'mensagem', '$stateParams', '$ionicLoading', '$filter', '$ionicModal', '$scope', 'confrontos', function(http, config, mensagem, $stateParams, $ionicLoading, $filter, $ionicModal, $scope, confrontos){
+.controller('bolaoCtrl', ['http', 'config', 'mensagem', '$stateParams', '$ionicLoading', '$filter', '$ionicModal', '$scope', 'confrontos', '$ionicListDelegate', '$ionicPopup', function(http, config, mensagem, $stateParams, $ionicLoading, $filter, $ionicModal, $scope, confrontos, $ionicListDelegate, $ionicPopup){
 	
 	var self = this;
 	self.titulo = 'Bolão';
@@ -18,10 +18,8 @@ app
 	})
 	
 	
-	
 	self.cadastrar = function(confronto){
-		console.log(confronto);
-		http('POST', config.host + /apostador/ + config._id, confronto, { token : config.token }).then(function(response){			
+		http('POST', config.host + '/apostador/' , confronto, { token : config.token }).then(function(response){			
 			if(response){
 				self.confrontos.nome = null;
 				self.confrontos.apostas = [];
@@ -37,16 +35,62 @@ app
 		scope: $scope,
 		animation: 'slide-in-up'
 	}).then(function(modal){
-		$scope.modal = modal;
+		$scope.cadastro = modal;
 	})
 		
-	self.abrirmodal = function(){		
-		$scope.modal.show();  	
+	self.abrirmodalcadastro = function(){		
+		$scope.cadastro.show();  	
 	}
 	
-	self.fecharmodal = function(){		
-		$scope.modal.hide();  	
+	self.fecharmodalcadastro = function(){		
+		$scope.cadastro.hide();  	
 	}
 	
+	$ionicModal.fromTemplateUrl('content/clientes.html', {
+		scope: $scope,
+		animation: 'slide-in-up'
+	}).then(function(modal){
+		$scope.clientes = modal;
+	})
+		
+	self.abrirmodalclientes = function(){
+		$ionicLoading.show({ template: 'Aguarde ...', duration: 5000 });
+		http('GET', config.host + '/apostador', null, { token : config.token }).then(function(response){			
+			$ionicLoading.hide();
+			if(response){
+				self.clientes = response.data;
+				}
+		}, function(err){
+			mensagem('Mensagem de alerta', 'Erro ao listar clientes. Erro: ' + err.data);
+		})
+		$scope.clientes.show();  	
+	}
+	
+	self.fecharmodalclientes = function(){		
+		$scope.clientes.hide();  	
+	}
+	
+	self.showdelete = function() {
+		if($ionicListDelegate.showDelete()){
+			$ionicListDelegate.showDelete(false);
+		}else{
+			$ionicListDelegate.showDelete(true);
+		}    	
+	};
+	
+	self.deletar = function(cliente){
+		$ionicPopup.confirm({
+			title : 'Confrime',
+			template : 'Tem certeza que deseja excluir o cliente ' + cliente.nome.toUpperCase() + '?'
+		}).then(function(res){
+			 if(res){
+				http('DELETE', config.host + '/apostador/' + cliente._id, null, { token : config.token }).then(function(response){
+					if(response.data.resposta){
+						self.clientes.splice(self.clientes.indexOf(cliente), 1);
+					}
+				})				 
+			 }
+		})
+	}
 	
 }])

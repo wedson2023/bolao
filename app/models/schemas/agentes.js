@@ -3,27 +3,12 @@ module.exports = function(){
 	var bcrypt = require('bcrypt');
 	var Schema = require('mongoose').Schema;	
 	
-	var aposta = Schema({
-			_id : String,
-			pcasa : Number,
-			pfora : Number
-		})
-	
-	var apostador = Schema({
-			idbolao : String,
-			nome : { type : String, required : true },
-			valor : { type : Number, required : true },
-			apostas : [aposta],
-			horario : {type : Date, default : Date.now }
-		})
-	
 	var agentes = Schema({
 		nome : { type : String, required : true, index : { unique : true }},
 		senha : { type : String, required : true },
 		token : { type : String, required : true },
 		visivel : { type : Number, default : 2 },
 		nivel : { type : Number, default : 0 },
-		apostador : [apostador],
 		create_at : Date,
 		update_at : Date
 	})

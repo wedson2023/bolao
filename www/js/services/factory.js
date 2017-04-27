@@ -13,10 +13,11 @@ app
 	}
 })
 
-.factory('confrontos', function(){
+.factory('confrontos', function(config){
 	return function(response){
 		return {
 			idbolao : response._id,
+			idagente : config._id,
 			valor : response.valor,
 			apostas : []
 		}
