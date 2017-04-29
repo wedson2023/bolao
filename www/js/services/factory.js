@@ -13,15 +13,31 @@ app
 	}
 })
 
-.factory('confrontos', function(config){
+.factory('apostador', function(config){
 	return function(response){
 		return {
-			idbolao : response._id,
-			idagente : config._id,
+			bolao : response._id,
+			agente : config._id,
 			valor : response.valor,
 			apostas : []
 		}
 	}
+})
+	
+.factory('bolao', function(config){	
+		return {
+			nome : null,
+			valor : null,
+			lugares : [],
+			porcentagem : [],
+			confrontos : [
+				{id : 1, horario : null, casa : null, fora : null, pcasa : null, pfora : null },
+				{id : 2, horario : null, casa : null, fora : null, pcasa : null, pfora : null },
+				{id : 3, horario : null, casa : null, fora : null, pcasa : null, pfora : null },
+				{id : 4, horario : null, casa : null, fora : null, pcasa : null, pfora : null },
+				{id : 5, horario : null, casa : null, fora : null, pcasa : null, pfora : null },
+				]
+			}	
 })
 
 .factory('agentes', function(){

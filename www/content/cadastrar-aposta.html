@@ -4,19 +4,20 @@
 		<button ng-click="ctrl.fecharmodalcadastro()" class="button button-icon left button-clear ion-android-exit"></button>
 	</ion-header-bar>
 	<ion-content>
-		<form name="cadastro" ng-submit="ctrl.cadastrar(ctrl.confrontos)">
+		<form name="cadastro" ng-submit="ctrl.cadastrar(ctrl.apostador)">
 			<div class="list list-inset">		 
 			<label class="item item-input">
-				<input type="text" ng-required="true" name="nome" ng-model="ctrl.confrontos.nome" placeholder="Nome do cliente">
+				<input type="text" autofocus id="nome" ng-required="true" name="nome" ng-model="ctrl.apostador.nome" placeholder="Nome do cliente">
 			</label>
 			<div class="item" ng-repeat="confrontos in ctrl.bolao.confrontos">
 				<div class="row">				
 					<div class="col col-35 meus left"><span ng-bind="confrontos.casa"></span></div>
 					<div class="col col-30 meus center">
-					<input type="hidden" ng-model="ctrl.confrontos.apostas[$index]._id" ng-init="ctrl.confrontos.apostas[$index]._id=confrontos._id">
-					<input type="number" name="placar" ng-required="true" class="meus inputleft" ng-model="ctrl.confrontos.apostas[$index].pcasa" />
-					<span> x </span>
-					<input type="number" name="placar" ng-required="true" class="meus inputright" ng-model="ctrl.confrontos.apostas[$index].pfora" /></div>
+						<input type="hidden" ng-model="ctrl.apostador.apostas[$index]._id" ng-init="ctrl.apostador.apostas[$index]._id=confrontos._id">
+						<input type="number" name="placar" ng-required="true" class="meus inputleft" ng-model="ctrl.apostador.apostas[$index].pcasa" />
+						<span> x </span>
+						<input type="number" name="placar" ng-required="true" class="meus inputright" ng-model="ctrl.apostador.apostas[$index].pfora" />
+					</div>
 					<div class="col col-35 meus right"><span ng-bind="confrontos.fora"></span></div>
 				</div>
 			</div>

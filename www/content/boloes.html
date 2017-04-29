@@ -1,0 +1,24 @@
+<ion-view view-title="{{ ctrl.titulo }}">
+	<ion-content padding="true">
+	<!--inicio Content -->
+		<label class="item item-input">
+			<i class="icon ion-search placeholder-icon"></i>
+			<input type="text" list="times" placeholder="Digite um bolão" ng-model="pesquisar">
+		</label>
+		
+		<ion-list>
+			<ion-item ng-href="#/menu/bolao/{{ bolao._id }}" can-swipe="true" ng-repeat="bolao in ctrl.boloes | filter : { nome : pesquisar }" class="item item-icon-left">
+				<i class="icon ion-ios-football"></i>
+				<span ng-bind="bolao.nome"></span>
+				 <ion-option-button class="button-assertive button-info" ng-click="ctrl.deletar(bolao)">Excluir</ion-option-button>
+			</ion-item>
+		</ion-list>
+		<ion-infinite-scroll
+			ng-if="ctrl.cancelar"
+			on-infinite="ctrl.loadmore()"
+			distance="40%">
+		</ion-infinite-scroll>
+		<button ng-click="ctrl.showmodalcadastro()">Entrar</button>
+	<!--fim Content -->
+	</ion-content>
+</ion-view>

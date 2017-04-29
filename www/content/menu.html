@@ -18,18 +18,20 @@
 	
 	<ion-side-menu side="left" width="250"> 
 	 	
-	 	<ion-header-bar side="left">
+	 	<ion-header-bar class="bar-positive">
 	 		<h1 class="title">Menu</h1>
 	 	</ion-header-bar>
 	 	
-		 <ion-content>		 	
-		 	
-		 	<ion-list>
-		 		<ion-item href="#/menu/Agentes" menu-close>Agentes</ion-item>
-		 		<ion-item href="#/menu/Bolões" menu-close>Bolões</ion-item>
-		 		<ion-item href="#/menu/Sair" menu-close>Sair</ion-item>
+		 <ion-content>	
+		 
+			</ion-list>
+				<ion-item href="#/menu/home" class="item-icon-left" menu-close><i class="icon ion-ios-home-outline"></i>Início</ion-item>
+		 		<ion-item class="item-divider">Cadastrar</ion-item>
+		 		<ion-item class="item-icon-left" href="#/menu/boloes" menu-close><i class="icon ion-ios-football-outline"></i>Bolões</ion-item>
+		 		<ion-item class="item-icon-left" href="#/menu/Agentes" menu-close><i class="icon ion-ios-personadd-outline"></i>Agentes</ion-item>		 		
+		 		<ion-item class="item-icon-left" href="#/menu/Sair" menu-close><i class="icon ion-ios-close-outline"></i>Sair</ion-item>
 		 	</ion-list>
-		 	
+		 			 	
 		 </ion-content>
 		 
 	</ion-side-menu>

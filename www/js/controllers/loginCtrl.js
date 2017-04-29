@@ -7,6 +7,7 @@ app.controller('loginCtrl', ['config', 'agentes', 'http', '$window', 'sessoes', 
 		http('POST', config.host + '/entrar', agentes).then(function(response){	
 			if(response.data.resposta){
 				sessoes(response.data.resposta);
+				console.log(config)
 				$window.location.href = '#/menu/home';
 				$ionicLoading.hide();
 				}else{

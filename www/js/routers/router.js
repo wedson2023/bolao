@@ -42,7 +42,32 @@ var app = angular.module('bolao', ['ionic'])
 			}
 		}
 	}		
-	})
+	})	
+	
+	.state('menu.boloes', {
+		url : '/boloes',
+		views : {
+			'menucontent' : {
+			templateUrl : 'content/boloes.html',
+			controller : 'boloesCtrl as ctrl',
+			resolve : {
+				boloes : function(config, http){
+					return http('GET', config.host + '/boloes', null, { 'token' : config.token });
+				}
+			}
+		}
+	}		
+	})/*
+	
+	.state('menu.boloes.cadastrar-boloes', {
+		url : '/cadastrar-boloes',
+		templateUrl : 'content/cadastrar-boloes.html',
+		resolve : {
+			times : function(http){
+				return http('GET', 'times.json');
+			}
+		}
+	})*/
 	
 	.state('menu.bolao', {
 		url : '/bolao/:id',
@@ -57,6 +82,11 @@ var app = angular.module('bolao', ['ionic'])
 	.state('menu.bolao.cadastrar-aposta', {
 		url : '/cadastrar-aposta',
 		templateUrl : 'content/cadastrar-aposta.html'			
+	})
+	
+	.state('menu.bolao.listar-clientes', {
+		url : '/listar-clientes',
+		templateUrl : 'content/listar-clientes.html'			
 	})
 	
 	$urlRouterProvider.otherwise('/login');

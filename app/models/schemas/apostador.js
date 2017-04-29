@@ -8,8 +8,8 @@ module.exports = function(){
 		})
 	
 	var apostador = Schema({
-			idbolao : String,
-			idagente : String,
+			bolao : String,
+			agente : String,
 			nome : { type : String, required : true },
 			valor : { type : Number, required : true },
 			apostas : [aposta],

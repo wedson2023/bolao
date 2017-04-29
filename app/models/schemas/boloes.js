@@ -16,8 +16,8 @@ module.exports = function(){
 		visivel : { type : String, default : 0 },
 		porcentagem : [String],
 		lugares : [String],
-		create_at : Date,
-		update_at : Date
+		create_at : {type : Date, default : Date.now },
+		update_at : {type : Date, default : Date.now }
 	})
 	
 	return conexao.model('boloes', boloes);

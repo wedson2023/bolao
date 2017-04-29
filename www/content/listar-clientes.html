@@ -12,10 +12,15 @@
 		<ion-list>
 			<ion-item can-swipe="true" ng-repeat="clientes in ctrl.clientes | filter : { nome : pesquisar }">		 		
 			 	<span class="meus capitalize" ng-bind="clientes.nome"></span>			 	
-			 	 <span class="badge badge-assertive">0</span>			 	
+			 	 <span class="badge badge-assertive">0</span>		 	
 			 	 <ion-delete-button ng-click="ctrl.deletar(clientes)" class="ion-minus-circled"></ion-delete-button>
 			 	 <ion-option-button class="button-assertive button-info" ng-click="ctrl.imprimir(contato)">Imprimir</ion-option-button>
 			</ion-item>
 		</ion-list>
+		<ion-infinite-scroll
+			ng-if="ctrl.cancelar"
+			on-infinite="ctrl.loadmore()"
+			distance="40%">
+		</ion-infinite-scroll>
 	</ion-content>
 </ion-modal-view>
