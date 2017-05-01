@@ -57,17 +57,12 @@ var app = angular.module('bolao', ['ionic'])
 			}
 		}
 	}		
-	})/*
+	})
 	
 	.state('menu.boloes.cadastrar-boloes', {
 		url : '/cadastrar-boloes',
 		templateUrl : 'content/cadastrar-boloes.html',
-		resolve : {
-			times : function(http){
-				return http('GET', 'times.json');
-			}
-		}
-	})*/
+	})
 	
 	.state('menu.bolao', {
 		url : '/bolao/:id',

@@ -14,8 +14,8 @@ module.exports = function(){
 		confrontos : [confronto],		
 		valor : {type : Number, required : true },
 		visivel : { type : String, default : 0 },
-		porcentagem : [String],
-		lugares : [String],
+		porcentagem : [Number],
+		lugares : [Number],
 		create_at : {type : Date, default : Date.now },
 		update_at : {type : Date, default : Date.now }
 	})

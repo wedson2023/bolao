@@ -36,7 +36,7 @@ module.exports = function(app){
 					res.status(500).json({resposta : false, mensagem : 'Houve algum problema tente novamente!', erro : err});
 				}else if(resposta){
 					app.models.schemas.boloes.create(req.body, function(err, resposta){
-						res.status(200).json(resposta);
+						res.status(200).json({ resposta : resposta  });
 					})
 				}else{
 					res.status(403).json({ resposta : false, mensagem : 'Talvez você não esteja logado!'});
@@ -50,7 +50,11 @@ module.exports = function(app){
 					res.status(500).json({resposta : false, mensagem : 'Houve algum problema tente novamente!', erro : err});
 				}else if(resposta){
 					app.models.schemas.boloes.findById(req.params.id, function(err, resposta){
-						//resposta.nome = req.body.nome;
+						resposta.nome = req.body.nome;
+						resposta.valor = req.body.valor;
+						resposta.confrontos = req.body.confrontos;
+						resposta.lugares = req.body.lugares;
+						resposta.porcentagem = req.body.porcentagem;
 						resposta.save(function(){
 							res.status(200).json(resposta);
 							});

@@ -1,42 +1,17 @@
-<ion-side-menus class="animated bounceInUp" ng-controller="menuCtrl as ctrl"> 
-  <ion-side-menu side="left" width="250">  
-  </ion-side-menu>
-  <ion-side-menu-content>
-  	<ion-header-bar class="bar-calm">
-   <button ng-click="ctrl.openmenu()" class="button button-clear icon ion-navicon-round"></button>
-	<h1 class="title" ng-bind="ctrl.empresa"></h1>
-  </ion-header-bar>	    
+<ion-view view-title="{{ ctrl.titulo }}">
 	<ion-content padding="true">
-		
-	  <label class="item item-input">
-		<i class="icon ion-search placeholder-icon"></i>
-		<input type="text" placeholder="Digite um bolão">
-	  </label>
-	  
-	  <div class="list card">
-		  <a href="#" class="item item-icon-left">
-			<i class="icon ion-ios-football"></i>
-			Série A - Rodada 01
-		  </a>
+	<!--inicio Content -->
+		<label class="item item-input">
+			<i class="icon ion-search placeholder-icon"></i>
+			<input type="text" placeholder="Digite um bolão" ng-model="pesquisar">
+		</label>
 
-		  <a href="#" class="item item-icon-left">
-			<i class="icon ion-ios-football"></i>
-			Série A - Rodada 02
-		  </a>
-
-		  <a href="#" class="item item-icon-left">
-			<i class="icon ion-ios-football"></i>
-			Série A - Rodada 03
-		  </a>
-
-		  <a href="#" class="item item-icon-left">
-			<i class="icon ion-ios-football"></i>
-			Série A - Rodada 04
-		  </a>
-
+		<div ng-repeat="bolao in ctrl.boloes | filter : { nome : pesquisar }" class="list card">
+			<a ng-href="#/menu/bolao/{{ bolao._id }}" class="item item-icon-left">
+				<i class="icon ion-ios-football"></i>
+				<span ng-bind="bolao.nome"></span>
+			</a>
 		</div>
-		 <!--fim Content -->
+	<!--fim Content -->
 	</ion-content>
-	
-  </ion-side-menu-content>  
-</ion-side-menus>
+</ion-view>

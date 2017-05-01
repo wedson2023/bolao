@@ -1,0 +1,26 @@
+﻿<ion-modal-view>
+	<ion-header-bar class="bar-positive">
+		<button ng-click="ctrl.showdelete()" class="button button-icon left button-clear ion-trash-a"></button>
+		<h2 class="title">Clientes</h2>			
+		<button ng-click="ctrl.fecharmodalclientes()" class="button button-icon right button-clear ion-android-exit"></button>
+	</ion-header-bar>
+	<ion-content>
+		<label class="item item-input">
+			<i class="icon ion-search placeholder-icon"></i>
+			<input type="text" placeholder="Digite um cliente" ng-model="pesquisar">
+		</label>
+		<ion-list>
+			<ion-item can-swipe="true" ng-repeat="clientes in ctrl.clientes | filter : { nome : pesquisar }">		 		
+			 	<span class="meus capitalize" ng-bind="clientes.nome"></span>			 	
+			 	 <span class="badge badge-assertive">0</span>		 	
+			 	 <ion-delete-button ng-click="ctrl.deletar(clientes)" class="ion-minus-circled"></ion-delete-button>
+			 	 <ion-option-button class="button-assertive button-info" ng-click="ctrl.imprimir(contato)">Imprimir</ion-option-button>
+			</ion-item>
+		</ion-list>
+		<ion-infinite-scroll
+			ng-if="ctrl.cancelar"
+			on-infinite="ctrl.loadmore()"
+			distance="40%">
+		</ion-infinite-scroll>
+	</ion-content>
+</ion-modal-view>

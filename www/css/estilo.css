@@ -1,3 +1,4 @@
+*{ box-sizing: border-box; }
 .form-login { width: 75%; display: block; margin: 10% auto;}
 .logo { display: block; margin: 10% auto; width: 100%;}
 .meus.center{text-align: center;}

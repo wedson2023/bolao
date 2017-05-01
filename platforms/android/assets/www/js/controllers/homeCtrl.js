@@ -1,10 +1,8 @@
 app
 
-.controller('homeCtrl', function(){
+.controller('homeCtrl', ['http', 'boloes', 'mensagem', function(http, boloes, mensagem){
 	
-	var self = this;
-	
-	self.openmenu = function() {
-    	$ionicSideMenuDelegate.toggleLeft();
-	};
-})
+	var self = this;	
+	self.titulo = 'Bolões';
+	self.boloes = boloes.data;
+}])

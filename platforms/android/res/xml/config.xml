@@ -20,11 +20,11 @@
         <param name="onload" value="true" />
     </feature>
     <name>Bolão Futebol</name>
-    <description>
-        Sitema de bolão de apostas desportiva
+    <description>
+        Sitema de bolão de apostas desportiva
     </description>
-    <author email="Wedson_cross@hotmail.com" href="http://wedsonwebdesigner.com.br/">
-      Wedson Santos
+    <author email="Wedson_cross@hotmail.com" href="http://wedsonwebdesigner.com.br/">
+      Wedson Santos
     </author>
     <content src="index.html" />
     <access origin="*" />
