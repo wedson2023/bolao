@@ -7,11 +7,17 @@
 		</label>
 		
 		<ion-list>
-			<ion-item ng-href="#/menu/bolao/{{ bolao._id }}" can-swipe="true" ng-repeat="bolao in ctrl.boloes | filter : { nome : pesquisar }" class="item item-icon-left">
+			<ion-item can-swipe="true" ng-repeat="bolao in ctrl.boloes | filter : { nome : pesquisar }" class="item-toggle item item-icon-left">
 				<i class="icon ion-ios-football"></i>
-				<span ng-bind="bolao.nome"></span>
+				<span class="meus capitalize" ng-bind="bolao.nome"></span>
 				 <ion-option-button class="button-assertive button-dark" ng-click="ctrl.showmodalcadastro(bolao)">Editar</ion-option-button>
 				 <ion-option-button class="button-assertive button-info" ng-click="ctrl.deletar(bolao)">Excluir</ion-option-button>
+					<label class="toggle toggle-assertive">
+					   <input ng-checked="bolao.visivel" ng-change="ctrl.visivel(ckeck, bolao._id)" ng-model="ckeck" type="checkbox">
+					   <div class="track">
+						 <div class="handle"></div>
+					   </div>
+					</label>
 			</ion-item>
 		</ion-list>
 		<ion-infinite-scroll
@@ -19,7 +25,9 @@
 			on-infinite="ctrl.loadmore()"
 			distance="40%">
 		</ion-infinite-scroll>
-		<button ng-click="ctrl.showmodalcadastro()">Entrar</button>
+		<button ng-click="ctrl.showmodalcadastro()" class="button button-float" ng-click="showActionsheet()">
+        	<i class="icon ion-plus"></i>
+      	</button>
 	<!--fim Content -->
 	</ion-content>
 </ion-view>

@@ -29,8 +29,7 @@ app
 		}, function(err){
 			mensagem('Mensagem de sucesso', 'Cadastro realizado com sucesso! Erro: ' + err.data);
 		})
-	}
-	
+	}	
 			
 	$ionicModal.fromTemplateUrl('content/cadastrar-aposta.html', {
 		scope: $scope,
@@ -56,7 +55,8 @@ app
 		
 	self.abrirmodalclientes = function(){		
 		$ionicLoading.show({ template: 'Aguarde ...', duration: 5000 });
-		http('GET', config.host + '/apostador?limite=100', null, { token : config.token }).then(function(response){			
+		http('GET', config.host + '/apostador?bolao=' + $stateParams.id + '&limite=100', null, { token : config.token }).then(function(response){
+			console.log(response.data);
 			$ionicLoading.hide();
 			if(response){
 				self.clientes = response.data;
@@ -64,7 +64,7 @@ app
 		}, function(err){
 			mensagem('Mensagem de alerta', 'Erro ao listar clientes. Erro: ' + err.data);
 		})
-		$scope.clientes.show();  	
+		$scope.clientes.show();	
 	}
 	
 	self.fecharmodalclientes = function(){			
@@ -83,7 +83,7 @@ app
 	self.loadmore = function(){
 		var total = self.clientes.length;
 		var limite = total + 100;		
-		http('GET', config.host + '/apostador?limite=' + limite, null, { token : config.token }).then(function(response){
+		http('GET', config.host + '/apostador?bolao=' + $stateParams.id + '&limite=' + limite, null, { token : config.token }).then(function(response){			
 			self.cancelar = total == response.data.length ? false : true;
 			if(response) self.clientes = response.data;						
 		}, function(err){

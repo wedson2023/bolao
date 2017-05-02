@@ -13,7 +13,7 @@ module.exports = function(){
 		nome : {type : String, required : true },
 		confrontos : [confronto],		
 		valor : {type : Number, required : true },
-		visivel : { type : String, default : 0 },
+		visivel : { type : Number, default : 0 },
 		porcentagem : [Number],
 		lugares : [Number],
 		create_at : {type : Date, default : Date.now },

@@ -45,7 +45,7 @@ app
 	}	
 	
 	self.showmodalcadastro = function(dados){
-		$ionicLoading.show({ template: 'Aguarde ...', duration: 5000 });
+		 $ionicLoading.show({ template: 'Aguarde ...', duration: 5000 });
 		
 		http('GET', 'times.json').then(function(response){			
 			$ionicLoading.hide();
@@ -54,7 +54,6 @@ app
 			mensagem('Mensagem alerta', 'Verifique sua conexão com a internet ou tente novamente');
 		})
 		$scope.boloes.show(); 
-		console.log(dados)
 		
 		self.bolao = dados ? dados : bolao;
 	}

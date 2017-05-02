@@ -3,6 +3,7 @@ module.exports = function(app){
 	return {		
 		registros : function(req, res){
 			var limite = parseInt(url.parse(req.url, true).query.limite);
+			var bolao = parseInt(url.parse(req.url, true).query.bolao);
 			app.models.schemas.agentes.findOne({token : req.token}, function(err, resposta){
 				if(err){
 					res.status(500).json({resposta : false, mensagem : 'Houve algum problema tente novamente!', erro : err});
@@ -36,7 +37,7 @@ module.exports = function(app){
 					res.status(500).json({resposta : false, mensagem : 'Houve algum problema tente novamente!', erro : err});
 				}else if(resposta){
 					app.models.schemas.boloes.create(req.body, function(err, resposta){
-						res.status(200).json({ resposta : resposta  });
+						res.status(200).json(resposta);
 					})
 				}else{
 					res.status(403).json({ resposta : false, mensagem : 'Talvez você não esteja logado!'});
@@ -55,6 +56,24 @@ module.exports = function(app){
 						resposta.confrontos = req.body.confrontos;
 						resposta.lugares = req.body.lugares;
 						resposta.porcentagem = req.body.porcentagem;
+						resposta.save(function(){
+							res.status(200).json(resposta);
+							});
+					})
+				}else{
+					res.status(403).json({ resposta : false, mensagem : 'Talvez você não esteja logado!'});
+				}
+			})	
+		},
+		
+		
+		visivel : function(req, res){	
+			app.models.schemas.agentes.findOne({token : req.token}, function(err, resposta){
+				if(err){
+					res.status(500).json({resposta : false, mensagem : 'Houve algum problema tente novamente!', erro : err});
+				}else if(resposta){
+					app.models.schemas.boloes.findById(req.params.id, function(err, resposta){
+						resposta.visivel = req.body.visivel;
 						resposta.save(function(){
 							res.status(200).json(resposta);
 							});

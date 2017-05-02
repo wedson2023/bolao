@@ -3,11 +3,13 @@ module.exports = function(app){
 	return {
 		registros : function(req, res){
 			var limite = parseInt(url.parse(req.url, true).query.limite);
+			var bolao = url.parse(req.url, true).query.bolao;
+			
 			app.models.schemas.agentes.findOne({ token : req.token }, '_id', function(err, respostas){
 				if(err){
 					res.status(500).json({resposta : false, mensagem : 'Houve algum problema tente novamente!', erro : err});
 				}else if(respostas){
-					app.models.schemas.apostador.find().limit(limite).exec(function(err, resposta){							
+					app.models.schemas.apostador.find({ bolao : bolao }).limit(limite).exec(function(err, resposta){							
 							res.status(200).json(resposta);
 						})
 				}else{

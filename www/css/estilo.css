@@ -12,3 +12,39 @@
 .meus.inputright{width:35%; text-align: center; height: 30px; padding: 2px 5px; float: right; border: solid thin #f1f1f1;}
 .meus.capitalize{text-transform: capitalize;}
 
+.padding-zero{padding : 0;}
+.cego{display : none;}
+.margin-zero{ margin : 0;}
+.border{border:solid thin #f1f1f1;}	
+.border-none{border: none;}
+.margin-bottom{ margin-bottom: 10px;}
+.block{width: 100%;}
+.center{text-align: center;}
+.bg-white{background: white;}
+.meus.cadastro.input{height: 25px; width: 100%; font: 1em; color: #666666; }		
+.meus.cadastro.placar{border: solid #f1f1f1 thin; height: 25px; width: 100%; text-align: center; }		
+
+.button-float{
+  background: #ef473a !important;
+  color:white !important;
+  z-index: 12 !important;
+  position: absolute !important; 
+  bottom: 10px !important;
+  right: 10px !important;
+  border-radius: 50% !important;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26) !important;
+  -webkit-transform: translate3d(0, 0, 0) !important;
+  transform: translate3d(0, 0, 0) !important;
+  -webkit-transition: 0.2s linear !important;
+  transition: 0.2s linear !important;
+  -webkit-transition-property: -webkit-transform, all !important;
+  transition-property: transform, all !important;
+
+}
+
+.button-float:hover{
+  -webkit-transform: translate3d(0, -1px, 0)  !important;
+  transform: translate3d(0, -1px, 0) !important;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4) !important;
+	background: darken(#ef473a, 10%) !important;
+}
