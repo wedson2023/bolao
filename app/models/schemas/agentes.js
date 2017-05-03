@@ -7,10 +7,10 @@ module.exports = function(){
 		nome : { type : String, required : true, index : { unique : true }},
 		senha : { type : String, required : true },
 		token : { type : String, required : true },
-		visivel : { type : Number, default : 2 },
+		visivel : { type : Number, default : 0 },
 		nivel : { type : Number, default : 0 },
-		create_at : Date,
-		update_at : Date
+		create_at : { type : Date, default : Date.now },
+		update_at : { type : Date, default : Date.now }
 	})
 	
 	agentes.methods.gerartoken = function(nome){

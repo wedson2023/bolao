@@ -2,8 +2,9 @@ module.exports = function(app){
 	var url = require('url');
 	return {		
 		registros : function(req, res){
-			var limite = parseInt(url.parse(req.url, true).query.limite);
-			var bolao = parseInt(url.parse(req.url, true).query.bolao);
+			var limite = parseInt(url.parse(req.url, true).query.limite);			
+			var visivel = url.parse(req.url, true).query.visivel ? { visivel : 1 } : null;
+			
 			app.models.schemas.agentes.findOne({token : req.token}, function(err, resposta){
 				if(err){
 					res.status(500).json({resposta : false, mensagem : 'Houve algum problema tente novamente!', erro : err});
@@ -92,7 +93,7 @@ module.exports = function(app){
 					app.models.schemas.boloes.remove({_id : req.params.id }, function(err, resposta){
 						if(resposta){
 							app.models.schemas.apostador.find({ bolao : req.params.id }).remove(function(err, resposta){			
-								res.status(200).json({ resposta : true });
+								res.status(200).json(resposta);
 								})
 							}						
 					})

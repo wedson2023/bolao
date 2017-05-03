@@ -37,7 +37,7 @@ var app = angular.module('bolao', ['ionic'])
 			controller : 'homeCtrl as ctrl',
 			resolve : {
 				boloes : function(config, http){
-					return http('GET', config.host + '/boloes', null, { 'token' : config.token });
+					return http('GET', config.host + '/boloes?visivel=0', null, { 'token' : config.token });
 				}
 			}
 		}
@@ -82,6 +82,28 @@ var app = angular.module('bolao', ['ionic'])
 	.state('menu.bolao.listar-clientes', {
 		url : '/listar-clientes',
 		templateUrl : 'content/listar-clientes.html'			
+	})
+	
+		
+	
+	.state('menu.agentes', {
+		url : '/agentes',
+		views : {
+			'menucontent' : {
+			templateUrl : 'content/agentes.html',
+			controller : 'agentesCtrl as ctrl',
+			resolve : {
+				agentes : function(config, http){
+					return http('GET', config.host + '/agentes', null, { 'token' : config.token });
+				}
+			}
+		}
+	}		
+	})
+	
+	.state('menu.boloes.cadastrar-agentes', {
+		url : '/cadastrar-agentes',
+		templateUrl : 'content/cadastrar-agentes.html',
 	})
 	
 	$urlRouterProvider.otherwise('/login');

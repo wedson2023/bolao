@@ -5,10 +5,12 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var error = require('./middlewares/error');
 var cors = require('cors');
+var helmet = require('helmet');
 var app = express();
 
 global.conexao = mongoose.connect('mongodb://localhost/bolao');
 
+app.use(helmet());
 app.disable('x-powered-by');
 app.use(cors());
 app.use(expressSession({	 

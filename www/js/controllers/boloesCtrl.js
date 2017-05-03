@@ -13,7 +13,7 @@ app
 		}).then(function(res){
 			 if(res){
 				http('DELETE', config.host + '/boloes/' + boloes._id, null, { token : config.token }).then(function(response){
-					if(response.data.resposta){
+					if(response.data){
 						self.boloes.splice(self.boloes.indexOf(boloes), 1);
 					}
 				})				 
@@ -25,7 +25,8 @@ app
 	self.loadmore = function(){
 		var total = self.boloes.length;
 		var limite = total + 100;		
-		http('GET', config.host + '/boloes?limite=' + limite, null, { token : config.token }).then(function(response){			
+		http('GET', config.host + '/boloes?limite=' + limite, null, { token : config.token }).then(function(response){	
+			console.log(response)
 			self.cancelar = total == response.data.length ? false : true;
 			if(response) self.boloes = response.data;						
 		}, function(err){
@@ -91,6 +92,7 @@ app
 	}
 	
 	self.visivel = function(check, id){
+		console.log(check, id)
 		http('PUT', config.host + '/boloes/visivel/' + id, { visivel : check }, { token : config.token }).then(function(response){
 			console.log(response)
 		}, function(){

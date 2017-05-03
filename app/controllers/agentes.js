@@ -1,6 +1,6 @@
 module.exports = function(app){
 	return {		
-		registros : function(req, res){	
+		registros : function(req, res){
 			app.models.schemas.agentes.findOne({token : req.token}, function(err, resposta){
 				if(err){
 					res.status(500).json({resposta : false, mensagem : 'Houve algum problema tente novamente!', erro : err});
@@ -52,6 +52,11 @@ module.exports = function(app){
 					res.status(500).json({resposta : false, mensagem : 'Houve algum problema tente novamente!', erro : err.error.errmsg });
 				}else if(resposta){
 					app.models.schemas.agentes.findById(req.params.id, function(err, resposta){
+						var agentes = new app.models.schemas.agentes();
+						resposta.token = agentes.gerartoken(req.body.nome);
+						resposta.senha = agentes.criptografar(req.body.senha);
+						resposta.nome = req.body.nome;
+						resposta.visivel = req.body.visivel;
 						resposta.save(function(){
 							res.status(200).json(resposta);
 							});
