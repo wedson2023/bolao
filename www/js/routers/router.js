@@ -106,5 +106,20 @@ var app = angular.module('bolao', ['ionic'])
 		templateUrl : 'content/cadastrar-agentes.html',
 	})
 	
+	.state('menu.relatorio', {
+		url : '/relatorio',
+		views : {
+			'menucontent' : {
+			templateUrl : 'content/relatorio.html',
+			controller : 'relatorioCtrl as ctrl',
+			resolve : {
+				relatorio : function(config, http){
+					return http('GET', config.host + '/relatorio', null, { 'token' : config.token });
+				}
+			}
+		}
+	}		
+	})
+	
 	$urlRouterProvider.otherwise('/login');
 })

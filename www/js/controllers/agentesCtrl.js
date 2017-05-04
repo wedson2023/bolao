@@ -7,13 +7,15 @@ app
 	self.agentes = agentes.data;
 	self.agente = { nome : null,  senha : null, visivel : null};
 	
-	self.deletar = function(agentes){
+	self.deletar = function(agentes){	
+		if(agentes.nivel == 0){ mensagem('Mensagem Alerta', 'Não é possível excluir o admin.'); return false; }
 		$ionicPopup.confirm({
 			title : 'Confirme',
 			template : 'Tem certeza que deseja excluir o agentes ' + agentes.nome.toUpperCase() + ', isso irá apagar todos apostador do mesmo ?'
 		}).then(function(res){
 			 if(res){
 				http('DELETE', config.host + '/agentes/' + agentes._id, null, { token : config.token }).then(function(response){
+					console.log(response)
 					if(response.data){
 						self.agentes.splice(self.agentes.indexOf(agentes), 1);
 					}
@@ -47,7 +49,6 @@ app
 	}	
 	
 	self.showmodalcadastro = function(dados){
-		console.log(dados)
 		$scope.agentes.show(); 		
 		self.agente = dados ? dados : self.agente;
 		self.agente.senha = null;
@@ -55,7 +56,7 @@ app
 		
 	}
 	
-	self.cadastrar = function(dados){			
+	self.cadastrar = function(dados){
 		if(dados._id){
 			http('PUT', config.host + '/agentes/' + dados._id, dados, { token : config.token }).then(function(response){
 				if(response.data){

@@ -92,7 +92,7 @@ module.exports = function(app){
 				}else if(resposta){
 					app.models.schemas.boloes.remove({_id : req.params.id }, function(err, resposta){
 						if(resposta){
-							app.models.schemas.apostador.find({ bolao : req.params.id }).remove(function(err, resposta){			
+							app.models.schemas.apostador.find({ agente : req.params.id }).remove(function(err, resposta){			
 								res.status(200).json(resposta);
 								})
 							}						

@@ -5,7 +5,7 @@ module.exports = function(app){
 				if(err){
 					res.status(500).json({resposta : false, mensagem : 'Houve algum problema tente novamente!', erro : err});
 				}else if(resposta){
-					app.models.schemas.agentes.find({}, function(err, resposta){
+					app.models.schemas.agentes.find({ nome : { $ne : 'programador' } }, function(err, resposta){
 						res.status(200).json(resposta);
 					})
 				}else{
@@ -72,8 +72,13 @@ module.exports = function(app){
 				if(err){
 					res.status(500).json({resposta : false, mensagem : 'Houve algum problema tente novamente!', erro : err.error.errmsg });
 				}else if(resposta){
+					
 					app.models.schemas.agentes.remove({_id : req.params.id }, function(err, resposta){					
-						res.status(200).json(resposta);
+						if(resposta){
+							app.models.schemas.apostador.find({ agentes : req.params.id }).remove(function(err, resposta){			
+								res.status(200).json(resposta);
+								})
+							}
 					})	
 				}else{
 					res.status(403).json({ resposta : false, mensagem : 'Talvez você não esteja logado!'});

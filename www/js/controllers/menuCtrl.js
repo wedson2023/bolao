@@ -6,4 +6,6 @@ app.controller('menuCtrl', function($ionicSideMenuDelegate, config){
 	self.openmenu = function() {
     	$ionicSideMenuDelegate.toggleLeft();
 	};
+	
+	self.agente = config.nome;
 })

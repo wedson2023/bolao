@@ -8,7 +8,7 @@ module.exports = function(){
 		senha : { type : String, required : true },
 		token : { type : String, required : true },
 		visivel : { type : Number, default : 0 },
-		nivel : { type : Number, default : 0 },
+		nivel : { type : Number, default : 1 },
 		create_at : { type : Date, default : Date.now },
 		update_at : { type : Date, default : Date.now }
 	})

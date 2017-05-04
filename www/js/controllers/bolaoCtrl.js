@@ -3,8 +3,8 @@ app
 .controller('bolaoCtrl', ['http', 'config', 'mensagem', '$stateParams', '$ionicLoading', '$filter', '$ionicModal', '$scope', 'apostador', '$ionicListDelegate', '$ionicPopup', function(http, config, mensagem, $stateParams, $ionicLoading, $filter, $ionicModal, $scope, apostador, $ionicListDelegate, $ionicPopup){
 	
 	var self = this;
-	self.titulo = 'Bolão';
-	
+	self.titulo = 'Bolão';	
+		
 	$ionicLoading.show({ template: 'Aguarde ...', duration: 5000 });
 	http('GET', config.host + /boloes/ + $stateParams.id, null, { token : config.token }).then(function(response){
 		$ionicLoading.hide();
@@ -18,7 +18,9 @@ app
 	})	
 	
 	self.cadastrar = function(apostador){
-		console.log(apostador)
+		apostador.premio = self.bolao.porcentagem[0];	
+		apostador.agente = self.bolao.porcentagem[1];	
+		apostador.admin = self.bolao.porcentagem[2];	
 		http('POST', config.host + '/apostador/' , apostador, { token : config.token }).then(function(response){
 			console.log(response.data)
 			if(response){
@@ -55,7 +57,7 @@ app
 		
 	self.abrirmodalclientes = function(){		
 		$ionicLoading.show({ template: 'Aguarde ...', duration: 5000 });
-		http('GET', config.host + '/apostador?bolao=' + $stateParams.id + '&limite=100', null, { token : config.token }).then(function(response){
+		http('GET', config.host + '/apostador?bolao=' + $stateParams.id + '&limite=100&agente=' + config._id, null, { token : config.token }).then(function(response){
 			console.log(response.data);
 			$ionicLoading.hide();
 			if(response){

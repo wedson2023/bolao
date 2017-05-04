@@ -4,7 +4,7 @@ app
 	
 	var self = this;	
 	self.titulo = 'Gerenciar bolões';	
-	self.boloes = boloes.data;	
+	self.boloes = boloes.data;
 	
 	self.deletar = function(boloes){
 		$ionicPopup.confirm({
