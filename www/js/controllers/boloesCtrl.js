@@ -92,7 +92,6 @@ app
 	}
 	
 	self.visivel = function(check, id){
-		console.log(check, id)
 		http('PUT', config.host + '/boloes/visivel/' + id, { visivel : check }, { token : config.token }).then(function(response){
 			console.log(response)
 		}, function(){

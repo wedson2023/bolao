@@ -126,8 +126,22 @@ var app = angular.module('bolao', ['ionic'])
 				}
 			}
 		}
+	}	
+		
+	})
+	.state('menu.ranking', {
+		url : '/ranking',
+		views : {
+			'menucontent' : {
+			templateUrl : 'content/ranking.html',
+			controller : 'rankingCtrl as ctrl',
+			resolve : {
+				boloes : function(config, http){
+					return http('GET', config.host + '/boloes', null, { token : config.token });
+				}
+			}
+		}
 	}		
 	})
-	
 	$urlRouterProvider.otherwise('/login');
 })

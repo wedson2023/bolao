@@ -28,7 +28,7 @@
 .meus.cadastro.placar{border: solid #f1f1f1 thin; height: 25px; width: 100%; text-align: center; }
 .meus.campos{border:solid thin #f1f1f1; width: 100%; padding: 25px 10px;}
 .meus.blue{ background : #11c1f3; color: #fff; border: solid thin #11c1f3; padding: 6.5px;}
-
+.meus.zebra:nth-child(even){background: #000;}
 .button-float{
   background: #ef473a !important;
   color:white !important;
