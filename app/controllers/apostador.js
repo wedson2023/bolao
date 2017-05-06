@@ -1,6 +1,6 @@
 module.exports = function(app){	
 	var url = require('url');
-	return {
+	return {		
 		registros : function(req, res){
 			var limite = parseInt(url.parse(req.url, true).query.limite);
 			var bolao = url.parse(req.url, true).query.bolao;
@@ -40,7 +40,7 @@ module.exports = function(app){
 					res.status(500).json({resposta : false, mensagem : 'Houve algum problema tente novamente!', erro : err});
 				}else if(resposta){
 					req.body.premio = apostador.valorpremio(req.body.valor, req.body.premio);
-					req.body.agente = apostador.valoragente(req.body.valor, req.body.agente);
+					req.body.comissao = apostador.valorcomissao(req.body.valor, req.body.comissao);
 					req.body.admin = apostador.valoradmin(req.body.valor, req.body.admin);
 					app.models.schemas.apostador.create(req.body, function(err, resposta){
 							res.status(200).json(resposta);

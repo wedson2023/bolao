@@ -115,6 +115,14 @@ var app = angular.module('bolao', ['ionic'])
 			resolve : {
 				relatorio : function(config, http){
 					return http('GET', config.host + '/relatorio', null, { 'token' : config.token });
+				},
+				
+				agentes : function(config, http){
+					return http('GET', config.host + '/agentes', null, { token : config.token });
+				},
+				
+				boloes : function(config, http){
+					return http('GET', config.host + '/boloes', null, { 'token' : config.token });
 				}
 			}
 		}

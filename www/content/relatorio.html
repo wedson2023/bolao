@@ -1,8 +1,57 @@
 <ion-view view-title="{{ ctrl.titulo }}">	
 	<ion-content>
 	<!--inicio Content -->
-		<div class="card"> 	
-			
+		<div class="card">				
+				<form ng-submit="ctrl.carregar(dados)">
+					<div class="row">			  		
+					  <div class="meus padding-zero col border col-25 center"><input ng-model="dados.first" type="date" class="meus block center padding-10"/></button></div>
+					  <div class="meus padding-zero col border col-25 center"><input ng-model="dados.last" type="date" class="meus block center padding-10"/></button></div>
+					  <div class="meus padding-zero col border col-30 center">				  	
+						<select ng-model="dados.bolao" ng-options="bolao._id as bolao.nome for bolao in ctrl.boloes" class="meus block capitalize padding-5 margin-zero border-none">	  
+							<option value="">Selecione</option>
+						</select>						  	
+					  </div>
+					  <div class="meus padding-zero col border col-10 center"><button class="meus blue padding-5 block">Ir</button></div>		
+					</div>
+				</form>
+				<div class="row" style="padding: 0; margin: 0;">			  		
+				  <div class="col">Apostas:<button class="button button-block button-calm" ng-bind="ctrl.relatorio.apostas"></button></div>
+				  <div class="col">Prêmio: <button class="button button-block button-calm" ng-bind="ctrl.relatorio.premio | currency : 'R$ '"></button></div>
+				  <div class="col">Comissão: <button class="button button-block button-calm" ng-bind="ctrl.relatorio.comissao | currency : 'R$ '"></button></div>
+				</div>
+				<div class="row" style="padding: 0; margin :0;">
+				  <div class="col">Bruto: <button class="button button-block button-calm" ng-bind="ctrl.relatorio.bruto | currency : 'R$ '"></button></div>
+				  <div class="col">Líquido: <button class="button button-block button-calm" ng-bind="ctrl.relatorio.liquido | currency : 'R$ '"></button></div>
+				  <div class="col">Agente: <button class="meus capitalize button button-block button-calm" ng-bind="ctrl.agente.nome"></button></div>
+				</div>
+				<div class="list">
+			<div ng-repeat="agentes in ctrl.agentes" ng-if="ctrl.agente.nivel == 0">		 
+			  <div class="item item-divider">
+			   <span class="meus capitalize" ng-bind="agentes.nome"></span>
+			  </div>
+
+			  <a class="item" href>
+				  <span>Apostas:</span>
+				  </span><span class="badge badge-assertive" ng-bind="agentes.dados.apostas"></span>
+			  </a>
+			  <a class="item" href>
+				  <span>Prêmio:</span>
+				  </span><span class="badge badge-assertive" ng-bind="agentes.dados.premio | currency : 'R$ '"></span>
+			  </a>
+			  <a class="item" href>
+				  <span>Comissao:</span>
+				  </span><span class="badge badge-assertive" ng-bind="agentes.dados.comissao | currency : 'R$ '"></span>
+			  </a>
+			  <a class="item" href>
+				  <span>Bruto:</span>
+				  </span><span class="badge badge-assertive" ng-bind="agentes.dados.bruto | currency : 'R$ '"></span>
+			  </a>
+			  <a class="item" href>
+				  <span>Líquido:</span>
+				  </span><span class="badge badge-assertive" ng-bind="agentes.dados.liquido | currency : 'R$ '"></span>
+			  </a>
+			</div>
+	</div>
 		</div>
 	<!--fim Content -->
 	</ion-content>

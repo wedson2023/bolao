@@ -19,7 +19,7 @@ app
 	
 	self.cadastrar = function(apostador){
 		apostador.premio = self.bolao.porcentagem[0];	
-		apostador.agente = self.bolao.porcentagem[1];	
+		apostador.comissao = self.bolao.porcentagem[1];	
 		apostador.admin = self.bolao.porcentagem[2];	
 		http('POST', config.host + '/apostador/' , apostador, { token : config.token }).then(function(response){
 			console.log(response.data)

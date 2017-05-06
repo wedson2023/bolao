@@ -53,3 +53,15 @@ app
 		return $http({ method : method, url : url, data : data, headers : headers});		
 	}
 })
+
+.factory('dadosrelatorio', function(){
+	return function(dados){		
+		return {
+			apostas : dados.length,
+			premio : dados.reduce(function(prev, cur){ return prev + parseFloat(cur.premio) }, 0),
+			comissao : dados.reduce(function(prev, cur){ return prev + parseFloat(cur.comissao) }, 0),
+			bruto : dados.reduce(function(prev, cur){ return prev + parseFloat(cur.valor) }, 0),
+			liquido : dados.reduce(function(prev, cur){ return prev + parseFloat(cur.admin) }, 0),
+		}		
+	}
+})

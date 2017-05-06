@@ -12,7 +12,7 @@ module.exports = function(){
 			agente : String,
 			nome : { type : String, required : true },
 			premio : String,
-			agente : String,
+			comissao : String,
 			admin : String,
 			valor : { type : Number, required : true },
 			apostas : [aposta],
@@ -23,8 +23,8 @@ module.exports = function(){
 		return premio / 100 * porcentagem;
 	}
 	
-	apostador.methods.valoragente = function(agente, porcentagem){
-		return agente / 100 * porcentagem;
+	apostador.methods.valorcomissao = function(comissao, porcentagem){
+		return comissao / 100 * porcentagem;
 	}
 	
 	apostador.methods.valoradmin = function(admin, porcentagem){

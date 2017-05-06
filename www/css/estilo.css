@@ -12,17 +12,22 @@
 .meus.inputright{width:35%; text-align: center; height: 30px; padding: 2px 5px; float: right; border: solid thin #f1f1f1;}
 .meus.capitalize{text-transform: capitalize;}
 
-.padding-zero{padding : 0;}
-.cego{display : none;}
-.margin-zero{ margin : 0;}
-.border{border:solid thin #f1f1f1;}	
-.border-none{border: none;}
-.margin-bottom{ margin-bottom: 10px;}
-.block{width: 100%;}
-.center{text-align: center;}
-.bg-white{background: white;}
+.meus.padding-zero{padding : 0;}
+.meus.padding-10{padding : 10px;}
+.meus.padding-5{padding : 5px;}
+.meus.cego{display : none;}
+.meus.margin-zero{ margin : 0;}
+.meus.margin-10{ margin : 10px;}
+.meus.margin-bottom{ margin-bottom: 10px;}
+.meus.border{border:solid thin #f1f1f1;}	
+.meus.border-none{border: none;}
+.meus.block{width: 100%;}
+.meus.center{text-align: center;}
+.meus.bg-white{background: white;}
 .meus.cadastro.input{height: 25px; width: 100%; font: 1em; color: #666666; }		
-.meus.cadastro.placar{border: solid #f1f1f1 thin; height: 25px; width: 100%; text-align: center; }		
+.meus.cadastro.placar{border: solid #f1f1f1 thin; height: 25px; width: 100%; text-align: center; }
+.meus.campos{border:solid thin #f1f1f1; width: 100%; padding: 25px 10px;}
+.meus.blue{ background : #11c1f3; color: #fff; border: solid thin #11c1f3; padding: 6.5px;}
 
 .button-float{
   background: #ef473a !important;
@@ -48,5 +53,3 @@
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4) !important;
 	background: darken(#ef473a, 10%) !important;
 }
-
-.campos{border:solid thin #f1f1f1; width: 100%; padding: 20px 5px;}

@@ -7,54 +7,54 @@
 	<div class="card">
 		<form name="cadastro" ng-submit="ctrl.cadastrar(ctrl.bolao)">
 			<div class="row">
-				<div class="col col-80 border margin-bottom">
-					<input type="text" autofocus ng-required="true" placeholder="Digite o nome do bolão" class="center block" name="bolao" ng-model="ctrl.bolao.nome"/>
+				<div class="meus col col-80 border margin-bottom">
+					<input type="text" autofocus ng-required="true" placeholder="Digite o nome do bolão" class="meus center block" name="bolao" ng-model="ctrl.bolao.nome"/>
 				</div>
 
-				<div class="col col-20 border margin-bottom">
-					<input type="number" ng-required="true" placeholder="R$ 0,00" class="center block" name="bolao" ng-model="ctrl.bolao.valor"/>
+				<div class="meus col col-20 border margin-bottom">
+					<input type="number" ng-required="true" placeholder="R$ 0,00" class="meus center block" name="bolao" ng-model="ctrl.bolao.valor"/>
 				</div>
 			</div>
 
 			<div class="row">
-				<div class="col col-33 border margin-bottom">
-					<input type="number" ng-required="true" placeholder="% Prêmio" class="center block" name="bolao" ng-model="ctrl.bolao.porcentagem[0]"/>
+				<div class="meus col col-33 border margin-bottom">
+					<input type="number" ng-required="true" placeholder="% Prêmio" class="meus center block" name="bolao" ng-model="ctrl.bolao.porcentagem[0]"/>
 				</div>
-				<div class="col col-33 border margin-bottom">
-					<input type="number" ng-required="true" placeholder="% Agente" class="center block" name="bolao" ng-model="ctrl.bolao.porcentagem[1]"/>
+				<div class="meus col col-33 border margin-bottom">
+					<input type="number" ng-required="true" placeholder="% Agente" class="meus center block" name="bolao" ng-model="ctrl.bolao.porcentagem[1]"/>
 				</div>
-				<div class="col col-33 border margin-bottom">
-					<input type="number" ng-required="true" placeholder="% Admin" class="center block" name="bolao" ng-model="ctrl.bolao.porcentagem[2]"/>
+				<div class="meus col col-33 border margin-bottom">
+					<input type="number" ng-required="true" placeholder="% Admin" class="meus center block" name="bolao" ng-model="ctrl.bolao.porcentagem[2]"/>
 				</div>
 			</div>
 			<div class="row">
-				<div class="col col-10 center border margin-bottom">
+				<div class="meus col col-10 center border margin-bottom">
 					<i class="icon ion-trash-a" ng-click="ctrl.deletelugar()"></i>		
 				</div>			
-				<div ng-repeat="lugares in ctrl.bolao.lugares track by $index" class="col col-{{ (ctrl.bolao.lugares.length / 100) - 10 }} border margin-bottom padding-zero">
-					<input type="number" placeholder="{{ $index + 1 }}º Lugar" class="center block" name="bolao" ng-model="ctrl.bolao.lugares[$index]"/>		
+				<div ng-repeat="lugares in ctrl.bolao.lugares track by $index" class="meus col col-{{ (ctrl.bolao.lugares.length / 100) - 10 }} border margin-bottom padding-zero">
+					<input type="number" placeholder="{{ $index + 1 }}º Lugar" class="meus center block" name="bolao" ng-model="ctrl.bolao.lugares[$index]"/>		
 				</div>
 			</div>
 			<div class="row" ng-repeat="confrontos in ctrl.bolao.confrontos track by $index">
-				<div class="col col-30 margin-bottom border">
+				<div class="meus col col-30 margin-bottom border">
 					<input list="times" type="text" class="meus cadastro input" placeholder="Time Casa" ng-model="ctrl.bolao.confrontos[$index].casa" ng-required="true" name="bolao">
 				</div>			
-				<div class="col col-30 margin-bottom border">
+				<div class="meus col col-30 margin-bottom border">
 					<input list="times" type="text" class="meus cadastro input" placeholder="Time Fora" ng-model="ctrl.bolao.confrontos[$index].fora" ng-required="true" name="bolao">
 				</div>
-				<div class="col col-10 border center margin-bottom" ng-if="ctrl.bolao._id" >
+				<div class="meus col col-10 border center margin-bottom" ng-if="ctrl.bolao._id" >
 					<input type="number" class="meus cadastro placar" name="bolao" ng-model="ctrl.bolao.confrontos[$index].pcasa"/>
 				</div>
-				<div class="col col-10 border center margin-bottom" ng-if="ctrl.bolao._id">
+				<div class="meus col col-10 border center margin-bottom" ng-if="ctrl.bolao._id">
 					<input type="number"  class="meus cadastro placar" name="bolao" ng-model="ctrl.bolao.confrontos[$index].pfora"/>
 				</div>
 				
-				<div class="col col-10 border center margin-bottom">
-					<input style="display: none;" type="datetime-local" id="horario_id{{ ctrl.bolao.confrontos[$index]._id ? ctrl.bolao.confrontos[$index]._id : confrontos.id }}" ng-model="ctrl.bolao.confrontos[$index].horario"/>
+				<div class="meus col col-10 border center margin-bottom">
+					<input class="meus cego" type="datetime-local" id="horario_id{{ ctrl.bolao.confrontos[$index]._id ? ctrl.bolao.confrontos[$index]._id : confrontos.id }}" ng-model="ctrl.bolao.confrontos[$index].horario"/>
 					<i class="icon ion-calendar bg-white border-none" ng-click="ctrl.horario(ctrl.bolao.confrontos[$index]._id, confrontos.id)"></i>
 				</div>
 				
-				<div class="col col-10 border center margin-bottom">
+				<div class="meus col col-10 border center margin-bottom">
 					<i class="icon ion-trash-a bg-white border-none" ng-click="ctrl.deleteteam(confrontos)"></i>
 				</div>
 			</div>
