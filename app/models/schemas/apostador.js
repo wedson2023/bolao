@@ -16,7 +16,8 @@ module.exports = function(){
 			admin : String,
 			valor : { type : Number, required : true },
 			apostas : [aposta],
-			horario : {type : Date, default : Date.now }
+			horario : {type : Date, default : Date.now },
+			data : String
 		})
 	
 	apostador.methods.valorpremio = function(premio, porcentagem){

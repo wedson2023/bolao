@@ -1,0 +1,13 @@
+<ion-view view-title="{{ ctrl.titulo }}">
+	<ion-content padding="true">
+	<!--inicio Content -->
+		<div class="list">
+		<div class="item item-divider">
+				Conectada a <span ng-bind="ctrl.conectada ? ctrl.conectada : 'nenhuma impressora'"></span>
+			</div>
+			<a class="item" ng-repeat="impressora in ctrl.impressoras" href ng-bind="impressora.nome" ng-click="ctrl.conectar(impressora.id, impressora.name)"></a>
+		</div>
+		<button class="button button-block button-positive">Pesquisar</button>
+	<!--fim Content -->
+	</ion-content>
+</ion-view>

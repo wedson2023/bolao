@@ -19,7 +19,7 @@ module.exports = function(app){
 				})				
 		},
 		
-		sair : function(req, res){
+		sair : function(req, res){			
 			req.session.destroy(function(){
 				res.json({ resposta : true });
 				});		

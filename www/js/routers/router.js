@@ -28,6 +28,16 @@ var app = angular.module('bolao', ['ionic'])
 		templateUrl : 'content/menu.html',
 		controller : 'menuCtrl as ctrl'
 	})
+		
+	.state('menu.impressora', {
+		url : '/impressora',
+		views : {
+			'menucontent' : {
+			templateUrl : 'content/impressora.html',
+			controller : 'impressoraCtrl as ctrl'
+		}
+	}		
+	})
 	
 	.state('menu.home', {
 		url : '/home',
@@ -52,7 +62,7 @@ var app = angular.module('bolao', ['ionic'])
 			controller : 'boloesCtrl as ctrl',
 			resolve : {
 				boloes : function(config, http){
-					return http('GET', config.host + '/boloes', null, { 'token' : config.token });
+					return http('GET', config.host + '/boloes/todos', null, { 'token' : config.token });
 				}
 			}
 		}
@@ -77,6 +87,11 @@ var app = angular.module('bolao', ['ionic'])
 	.state('menu.bolao.cadastrar-aposta', {
 		url : '/cadastrar-aposta',
 		templateUrl : 'content/cadastrar-aposta.html'			
+	})
+	
+	.state('menu.bolao.ver-aposta', {
+		url : '/ver-aposta',
+		templateUrl : 'content/ver-aposta.html'
 	})
 	
 	.state('menu.bolao.listar-clientes', {
@@ -113,16 +128,11 @@ var app = angular.module('bolao', ['ionic'])
 			templateUrl : 'content/relatorio.html',
 			controller : 'relatorioCtrl as ctrl',
 			resolve : {
-				relatorio : function(config, http){
-					return http('GET', config.host + '/relatorio', null, { 'token' : config.token });
-				},
-				
 				agentes : function(config, http){
 					return http('GET', config.host + '/agentes', null, { token : config.token });
 				},
-				
 				boloes : function(config, http){
-					return http('GET', config.host + '/boloes', null, { 'token' : config.token });
+					return http('GET', config.host + '/boloes/todos', null, { 'token' : config.token });
 				}
 			}
 		}

@@ -15,13 +15,13 @@
 					</div>
 				</form>
 				<div class="row" style="padding: 0; margin: 0;">			  		
-				  <div class="col">Apostas:<button class="button button-block button-calm" ng-bind="ctrl.relatorio.apostas"></button></div>
-				  <div class="col">Prêmio: <button class="button button-block button-calm" ng-bind="ctrl.relatorio.premio | currency : 'R$ '"></button></div>
-				  <div class="col">Comissão: <button class="button button-block button-calm" ng-bind="ctrl.relatorio.comissao | currency : 'R$ '"></button></div>
+				  <div class="col">Apostas:<button class="button button-block button-calm" ng-bind="ctrl.relatorio.apostas ? ctrl.relatorio.apostas : 0"></button></div>
+				  <div class="col">Prêmio: <button class="button button-block button-calm" ng-bind="ctrl.relatorio.premio ? ctrl.relatorio.premio : 0 | currency : 'R$ '"></button></div>
+				  <div class="col">Comissão: <button class="button button-block button-calm" ng-bind="ctrl.relatorio.comissao ? ctrl.relatorio.comissao : 0 | currency : 'R$ '"></button></div>
 				</div>
 				<div class="row" style="padding: 0; margin :0;">
-				  <div class="col">Bruto: <button class="button button-block button-calm" ng-bind="ctrl.relatorio.bruto | currency : 'R$ '"></button></div>
-				  <div class="col">Líquido: <button class="button button-block button-calm" ng-bind="ctrl.relatorio.liquido | currency : 'R$ '"></button></div>
+				  <div class="col">Bruto: <button class="button button-block button-calm" ng-bind="ctrl.relatorio.bruto ? ctrl.relatorio.bruto : 0 | currency : 'R$ '"></button></div>
+				  <div class="col">Líquido: <button class="button button-block button-calm" ng-bind="ctrl.relatorio.liquido ? ctrl.relatorio.liquido : 0 | currency : 'R$ '"></button></div>
 				  <div class="col">Agente: <button class="meus capitalize button button-block button-calm" ng-bind="ctrl.agente.nome"></button></div>
 				</div>
 				<div class="list">
@@ -36,7 +36,7 @@
 			  </a>
 			  <a class="item" href>
 				  <span>Prêmio:</span>
-				  </span><span class="badge badge-assertive" ng-bind="agentes.dados.premio | currency : 'R$ '"></span>
+				  </span><span class="badge badge-assertive" ng-bind="agentes.dados.premio ? agentes.dados.premio : 0 | currency : 'R$ '"></span>
 			  </a>
 			  <a class="item" href>
 				  <span>Comissao:</span>

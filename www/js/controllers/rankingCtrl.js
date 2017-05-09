@@ -51,9 +51,9 @@ app
 			if(a < collection.length){
 				if(collection[a + 1]){
 					if(collection[a].pontos == collection[a + 1].pontos){
-						self.lugares++;
+						if(collection[a + 1].pontos != 0){ self.lugares++; }									
 					}
-				}
+				}				
 			}
 			a++;	
 		}

@@ -40,6 +40,14 @@ module.exports = [
         "clobbers": [
             "datePicker"
         ]
+    },
+    {
+        "id": "cordova-plugin-bluetooth-serial.bluetoothSerial",
+        "file": "plugins/cordova-plugin-bluetooth-serial/www/bluetoothSerial.js",
+        "pluginId": "cordova-plugin-bluetooth-serial",
+        "clobbers": [
+            "window.bluetoothSerial"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -51,7 +59,8 @@ module.exports.metadata =
     "cordova-plugin-statusbar": "2.2.2",
     "cordova-plugin-whitelist": "1.3.2",
     "ionic-plugin-keyboard": "2.2.1",
-    "cordova-plugin-datepicker": "0.9.2"
+    "cordova-plugin-datepicker": "0.9.2",
+    "cordova-plugin-bluetooth-serial": "0.4.7"
 };
 // BOTTOM OF METADATA
 });

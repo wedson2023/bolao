@@ -10,22 +10,40 @@ module.exports = function(app){
 			})
 		},
 		
+		data : function(req, res){
+			app.models.schemas.agentes.findOne({token : req.token}, function(err, resposta){
+				var data = new Date();
+				res.status(200).json(data);
+			})
+		},
+		
 		listar : function(req, res){
 			var first = url.parse(req.url, true).query.first;	
 			var last = url.parse(req.url, true).query.last;
 			var bolao = url.parse(req.url, true).query.bolao;
-			
-			var data = new Date();
+			var nivel = parseInt(url.parse(req.url, true).query.nivel);
+			var agente = url.parse(req.url, true).query.agente;
 			
 			if(first != 'null' && bolao != 'undefined'){
-				var query = { $and : [ { horario : { $gt : first } }, { horario : { $lte : last } }, { bolao : { $eq : bolao } } ] };
-			}else if(first == last){
-				// parei aqui 
-				//var query = { $and : [ { horario : { $gt : '2017-05-05 00:00:00' } }, { horario : { $lte : '2017-05-06 00:00:00' } }]}				
+				if(nivel){
+					var query = { $and : [ { data : { $gte : first } }, { data : { $lte : last } }, { bolao : { $eq : bolao } }, { agente : agente } ] };
+				}else{
+					var query = { $and : [ { data : { $gte : first } }, { data : { $lte : last } }, { bolao : { $eq : bolao } } ] };
+				}				
+			}else if(first != 'null' && first == last){
+				var query = { data : { $eq : first } };
 			}else if(first != 'null'){
-				var query = { $and : [ { horario : { $gt : first } }, { horario : { $lte : last } } ] };
+				if(nivel){
+					var query = { $and : [ { data : { $gte : first } }, { data : { $lte : last } }, { agente : agente } ] };
+				}else{
+					var query = { $and : [ { data : { $gte : first } }, { data : { $lte : last } } ] };	
+				}				
 			}else{
-				var query = { bolao : { $eq : bolao } };
+				if(nivel){
+					var query = { $and : [{ bolao : { $eq : bolao } }, { agente : agente }] };
+				}else{
+					var query = { bolao : { $eq : bolao } };
+				}				
 			}
 			
 			app.models.schemas.agentes.findOne({token : req.token}, function(err, resposta){

@@ -25,7 +25,7 @@ app
 	self.loadmore = function(){
 		var total = self.boloes.length;
 		var limite = total + 100;		
-		http('GET', config.host + '/boloes?limite=' + limite, null, { token : config.token }).then(function(response){	
+		http('GET', config.host + '/boloes/todos?limite=' + limite, null, { token : config.token }).then(function(response){	
 			console.log(response)
 			self.cancelar = total == response.data.length ? false : true;
 			if(response) self.boloes = response.data;						
@@ -45,7 +45,8 @@ app
 		$scope.boloes.hide();  	
 	}	
 	
-	self.showmodalcadastro = function(dados){
+	self.showmodalcadastro = function(dados){		
+		
 		$ionicLoading.show({ template: 'Aguarde ...', duration: 5000 });
 		
 		http('GET', 'times.json').then(function(response){			
@@ -54,9 +55,17 @@ app
 		}, function(err){
 			mensagem('Mensagem alerta', 'Verifique sua conexão com a internet ou tente novamente');
 		})
-		$scope.boloes.show(); 
+				
+		if(dados){
+			for(x in dados.confrontos){
+				var id = 'horario_id' + dados.confrontos[x]._id;
+				var horario = dados.confrontos[x].horario.substr(0, 19);
+				dados.confrontos[x].horario = new Date(horario);
+			}
+		}		
 		
 		self.bolao = dados ? dados : bolao;
+		$scope.boloes.show(); 
 	}
 	
 	var id = 5;

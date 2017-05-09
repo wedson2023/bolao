@@ -27,6 +27,9 @@
         },
         "cordova-plugin-datepicker": {
             "PACKAGE_NAME": "com.ionicframework.bolao"
+        },
+        "cordova-plugin-bluetooth-serial": {
+            "PACKAGE_NAME": "com.ionicframework.bolao"
         }
     },
     "dependent_plugins": {}

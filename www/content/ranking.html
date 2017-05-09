@@ -7,7 +7,7 @@
 			</select>
 			<div ng-repeat="clientes in ctrl.clientes | orderBy : 'pontos' : 'reverse'" class="row">
 			  <div class="meus dark border center col col-13">
-			  	<span ng-bind="$index + 1 + 'º '"></span><i ng-if="ctrl.lugares > $index" class="icon energized ion-trophy"></i>
+			  	<span ng-show="ctrl.lugares - 1 < $index" ng-bind="$index + 1 + 'º '"></span><i ng-if="ctrl.lugares > $index" class="icon energized ion-trophy"></i>
 			  </div>
 			  <div class="meus dark border center col col-40"><span class="meus capitalize" ng-bind="clientes.nome"></span></div>
 			  <div class="meus dark border center col col-13"><span ng-bind="clientes.placar"></span></div>

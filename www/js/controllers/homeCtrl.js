@@ -5,4 +5,5 @@ app
 	var self = this;	
 	self.titulo = 'Bolões';
 	self.boloes = boloes.data;
+	
 }])

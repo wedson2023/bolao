@@ -4,6 +4,7 @@ app
 	
 	var self = this;
 	self.titulo = 'Bolão';	
+	self.nivel = config.nivel;
 		
 	$ionicLoading.show({ template: 'Aguarde ...', duration: 5000 });
 	http('GET', config.host + /boloes/ + $stateParams.id, null, { token : config.token }).then(function(response){
@@ -21,15 +22,26 @@ app
 		apostador.premio = self.bolao.porcentagem[0];	
 		apostador.comissao = self.bolao.porcentagem[1];	
 		apostador.admin = self.bolao.porcentagem[2];	
-		http('POST', config.host + '/apostador/' , apostador, { token : config.token }).then(function(response){
-			console.log(response.data)
-			if(response){
-				self.apostador.nome = null;
-				self.apostador.apostas = [];				
-				mensagem('Mensagem de sucesso', 'Cadastro realizado com sucesso!');
+				
+		http('GET', config.host + '/relatorio/data', null, { token : config.token }).then(function(response){			
+			apostador.data = response.data.substr(0,10);
+			
+			if(response.data < self.horario.abertura){				
+				http('POST', config.host + '/apostador/' , apostador, { token : config.token }).then(function(response){
+					if(response){
+						self.apostador.nome = null;
+						self.apostador.apostas = [];				
+						mensagem('Mensagem de sucesso', 'Cadastro realizado com sucesso!');
+					}
+				}, function(err){
+					mensagem('Mensagem de sucesso', 'Cadastro realizado com sucesso! Erro: ' + err.data);
+				})				
+			}else{
+				$scope.cadastro.hide();  				
+				mensagem('Mensagem alerta', 'Um dos jogos já iniciou, tente outro bolão.');
+				window.location.href = '#/menu/home';
 			}
-		}, function(err){
-			mensagem('Mensagem de sucesso', 'Cadastro realizado com sucesso! Erro: ' + err.data);
+			
 		})
 	}	
 			
@@ -57,7 +69,7 @@ app
 		
 	self.abrirmodalclientes = function(){		
 		$ionicLoading.show({ template: 'Aguarde ...', duration: 5000 });
-		http('GET', config.host + '/apostador?bolao=' + $stateParams.id + '&limite=100&agente=' + config._id, null, { token : config.token }).then(function(response){
+		http('GET', config.host + '/apostador?bolao=' + $stateParams.id + '&limite=100&agente=' + config._id + '&nivel=' + config.nivel, null, { token : config.token }).then(function(response){
 			console.log(response.data);
 			$ionicLoading.hide();
 			if(response){
@@ -108,6 +120,29 @@ app
 				})				 
 			 }
 		})
+	}
+	
+	$ionicModal.fromTemplateUrl('content/ver-aposta.html', {
+		scope: $scope,
+		animation: 'slide-in-up'
+	}).then(function(modal){
+		$scope.veraposta = modal;
+	})
+		
+	self.abrirmodalveraposta = function(cliente){
+		for(x in cliente.apostas){
+			if(cliente.apostas[x]._id == self.bolao.confrontos[x]._id){
+				cliente.apostas[x].casa = self.bolao.confrontos[x].casa;
+				cliente.apostas[x].fora = self.bolao.confrontos[x].fora;
+			}			
+		}
+		
+		self.cliente = cliente.apostas;
+		$scope.veraposta.show();	
+	}
+	
+	self.fecharmodalveraposta = function(){			
+		$scope.veraposta.hide();  	
 	}
 	
 }])
