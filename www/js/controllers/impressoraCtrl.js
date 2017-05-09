@@ -4,9 +4,9 @@ app
 	
 	var self = this;	
 	self.titulo = 'Impressora';
-	self.impressoras = [];
+	self.impressoras = [];	
 	
-	bluetoothSerial.enable();
+	/*bluetoothSerial.enable();
 	
 	self.conectada = localStorage.getItem('impressora');
 	
@@ -26,6 +26,6 @@ app
 		}, function(){
 			mensagem('Mensagem alerta', 'Ocorreu um erro ao conectar a impressora.');
 		})
-	}
+	}*/
 	
 }])
