@@ -3,11 +3,15 @@
 	
 		<ion-nav-bar class="bar-positive">
 		
+			<ion-nav-buttons side="right">			
+				<a href="#/menu/impressora" class="button button-clear button-icon ion-ios-printer-outline"></a>
+			</ion-nav-buttons>
+		
 			<ion-nav-back-button>  			
 			</ion-nav-back-button>
 			
 			<ion-nav-buttons side="left">			
-				<button class="button button-clear button-icon ion-navicon" menu-toggle="left"></button>	
+				<button class="button button-clear button-icon ion-navicon" menu-toggle="left"></button>
 			</ion-nav-buttons>
 			
 		</ion-nav-bar>	
@@ -25,14 +29,15 @@
 		 <ion-content>	
 		 
 			</ion-list>
+				<ion-item class="meus capitalize item-divider" ng-bind="ctrl.agente"></ion-item>
 				<ion-item href="#/menu/home" class="item-icon-left" menu-close><i class="icon ion-ios-home-outline"></i>Início</ion-item>
-		 		<ion-item class="item-divider">Cadastrar</ion-item>
-		 		<ion-item class="item-icon-left" href="#/menu/boloes" menu-close><i class="icon ion-ios-football-outline"></i>Bolões</ion-item>
-		 		<ion-item class="item-icon-left" href="#/menu/Agentes" menu-close><i class="icon ion-ios-personadd-outline"></i>Agentes</ion-item>	
+		 		<ion-item ng-show="ctrl.nivel == 0" class="item-divider">Cadastrar</ion-item>
+		 		<ion-item ng-show="ctrl.nivel == 0" class="item-icon-left" href="#/menu/boloes" menu-close><i class="icon ion-ios-football-outline"></i>Bolões</ion-item>
+		 		<ion-item ng-show="ctrl.nivel == 0" class="item-icon-left" href="#/menu/agentes" menu-close><i class="icon ion-ios-personadd-outline"></i>Agentes</ion-item>	
 		 		<ion-item class="item-divider">Consultar</ion-item>	 		
-		 		<ion-item class="item-icon-left" href="#/menu/Raking" menu-close><i class="icon ion-arrow-graph-up-right"></i>Relatório</ion-item>		 		
-		 		<ion-item class="item-icon-left" href="#/menu/Raking" menu-close><i class="icon ion-arrow-graph-up-right"></i>Ranking</ion-item>		 		
-		 		<ion-item class="item-icon-left" href="#/menu/Sair" menu-close><i class="icon ion-ios-close"></i>Sair</ion-item>
+		 		<ion-item class="item-icon-left" href="#/menu/relatorio" menu-close><i class="icon ion-social-usd-outline"></i>Relatório</ion-item>		 		
+		 		<ion-item class="item-icon-left" href="#/menu/ranking" menu-close><i class="icon ion-ios-arrow-up"></i>Ranking</ion-item>
+		 		<ion-item class="item-icon-left" href ng-click="ctrl.sair()" menu-close><i class="icon ion-ios-close-outline"></i>Sair</ion-item>
 		 	</ion-list>
 		 			 	
 		 </ion-content>

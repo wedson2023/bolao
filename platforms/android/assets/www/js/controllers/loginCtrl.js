@@ -1,4 +1,4 @@
-app.controller('loginCtrl', ['config', 'agentes', 'http', '$window', 'sessoes', 'mensagem', '$ionicLoading', function(config, agentes, http, $window, sessoes, mensagem, $ionicLoading){
+app.controller('loginCtrl', ['config', '$timeout', 'agentes', 'http', '$window', 'sessoes', 'mensagem', '$ionicLoading', function(config, $timeout, agentes, http, $window, sessoes, mensagem, $ionicLoading){
 	
 	var self = this;	
 	self.agentes = agentes;	
@@ -6,7 +6,7 @@ app.controller('loginCtrl', ['config', 'agentes', 'http', '$window', 'sessoes', 
 		$ionicLoading.show({ template: 'Aguarde ...', duration: 5000 });
 		http('POST', config.host + '/entrar', agentes).then(function(response){	
 			if(response.data.resposta){
-				sessoes(response.data.resposta);
+				sessoes(response.data.resposta);				
 				$window.location.href = '#/menu/home';
 				$ionicLoading.hide();
 				}else{

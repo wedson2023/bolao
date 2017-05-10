@@ -50,7 +50,7 @@
 				</div>
 				
 				<div class="meus col col-10 border center margin-bottom">
-					<input class="meus " type="datetime-local" id="horario_id{{ ctrl.bolao.confrontos[$index]._id ? ctrl.bolao.confrontos[$index]._id : confrontos.id }}" ng-model="ctrl.bolao.confrontos[$index].horario"/>
+					<input class="meus cego" type="datetime-local" id="horario_id{{ ctrl.bolao.confrontos[$index]._id ? ctrl.bolao.confrontos[$index]._id : confrontos.id }}" ng-model="ctrl.bolao.confrontos[$index].horario"/>
 					<i class="icon ion-calendar bg-white border-none" ng-click="ctrl.horario(ctrl.bolao.confrontos[$index]._id, confrontos.id)"></i>
 				</div>
 				

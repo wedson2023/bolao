@@ -1,0 +1,34 @@
+﻿<ion-modal-view>
+	<ion-header-bar class="bar-positive">		
+		<h2 class="title">Cadastrar agentes</h2>			
+		<button ng-click="ctrl.fecharmodalcadastro()" class="button button-icon right button-clear ion-android-exit"></button>
+	</ion-header-bar>
+	<ion-content>
+	<div class="card">
+		<form name="cadastro" ng-submit="ctrl.cadastrar(ctrl.agente)">
+			<div class="row">
+				<div class="col col-80"><input ng-required="true" ng-model="ctrl.agente.nome" type="text" name="agentes" class="meus campos" placeholder="Nome do agente"  /></div>			
+				<div class="meus col col-20 center padding-10">
+				   <label class="toggle toggle-assertive">
+				   <input name="visivel" ng-checked="+ctrl.agente.visivel" ng-model="ctrl.agente.visivel" type="checkbox">
+					   <div class="track">
+						 <div class="handle"></div>
+					   </div>
+				   </label>
+				</div>			
+			</div>
+			<div class="row">
+				<div class="col col-100">
+					<input type="password" ng-required="true" name="agentes" ng-model="ctrl.agente.senha" class="meus campos" placeholder="Senha do agente"/>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col col-100">
+					<button ng-disabled="cadastro.agentes.$invalid" class="button button-block button-positive">Cadastrar</button>
+				</div>
+			</div>
+			
+		</form>
+	</div>	
+	</ion-content>
+</ion-modal-view>

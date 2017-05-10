@@ -1,6 +1,6 @@
 app
 
-.controller('bolaoCtrl', ['http', 'config', 'mensagem', '$stateParams', '$ionicLoading', '$filter', '$ionicModal', '$scope', 'apostador', '$ionicListDelegate', '$ionicPopup', function(http, config, mensagem, $stateParams, $ionicLoading, $filter, $ionicModal, $scope, apostador, $ionicListDelegate, $ionicPopup){
+.controller('bolaoCtrl', ['http', 'tabela', 'config', 'mensagem', '$stateParams', '$ionicLoading', '$filter', '$ionicModal', '$scope', 'apostador', '$ionicListDelegate', '$ionicPopup', function(http, tabela, config, mensagem, $stateParams, $ionicLoading, $filter, $ionicModal, $scope, apostador, $ionicListDelegate, $ionicPopup){
 	
 	var self = this;
 	self.titulo = 'Bolão';	
@@ -21,13 +21,18 @@ app
 	self.cadastrar = function(apostador){
 		apostador.premio = self.bolao.porcentagem[0];	
 		apostador.comissao = self.bolao.porcentagem[1];	
-		apostador.admin = self.bolao.porcentagem[2];	
-				
+		apostador.admin = self.bolao.porcentagem[2];		
+		
+		bluetoothSerial.write(tabela(apostador));
+		
 		http('GET', config.host + '/relatorio/data', null, { token : config.token }).then(function(response){			
 			apostador.data = response.data.substr(0,10);
 			
-			if(response.data < self.horario.abertura){				
+			if(response.data < self.horario.abertura){
+				console.log(apostador);
 				http('POST', config.host + '/apostador/' , apostador, { token : config.token }).then(function(response){
+					console.log(response.data);
+					return false;
 					if(response){
 						self.apostador.nome = null;
 						self.apostador.apostas = [];				

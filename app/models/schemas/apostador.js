@@ -2,9 +2,13 @@ module.exports = function(){
 	var Schema = require('mongoose').Schema;	
 	
 	var aposta = Schema({
+			horario : Date,
 			_id : String,
 			pcasa : Number,
-			pfora : Number
+			pfora : Number,
+			casa : String,
+			fora : String
+			
 		})
 	
 	var apostador = Schema({

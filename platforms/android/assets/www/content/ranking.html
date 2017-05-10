@@ -1,0 +1,20 @@
+<ion-view view-title="{{ ctrl.titulo }}">	
+	<ion-content>
+	<!-- inicio Content -->
+		<div class="card">
+			<select ng-change="ctrl.pesquisar(bolao)" ng-model="bolao" ng-options="bolao._id as bolao.nome for bolao in ctrl.boloes" class="meus block capitalize padding-10 margin-zero border">	  		
+				<option value="">Selecione um bolão</option>
+			</select>
+			<div ng-repeat="clientes in ctrl.clientes | orderBy : 'pontos' : 'reverse'" class="row">
+			  <div class="meus dark border center col col-13">
+			  	<span ng-show="ctrl.lugares - 1 < $index" ng-bind="$index + 1 + 'º '"></span><i ng-if="ctrl.lugares > $index" class="icon energized ion-trophy"></i>
+			  </div>
+			  <div class="meus dark border center col col-40"><span class="meus capitalize" ng-bind="clientes.nome"></span></div>
+			  <div class="meus dark border center col col-13"><span ng-bind="clientes.placar"></span></div>
+			  <div class="meus dark border center col col-13"><span ng-bind="clientes.time"></span></div>
+			  <div class="meus dark border center col col-13"><span ng-bind="clientes.pontos"></span></div>
+			</div>	
+		</div>
+	<!-- fim Content -->
+	</ion-content>
+</io-view>

@@ -1,10 +1,11 @@
 app
 
-.controller('bolaoCtrl', ['http', 'config', 'mensagem', '$stateParams', '$ionicLoading', '$filter', '$ionicModal', '$scope', 'apostador', '$ionicListDelegate', '$ionicPopup', function(http, config, mensagem, $stateParams, $ionicLoading, $filter, $ionicModal, $scope, apostador, $ionicListDelegate, $ionicPopup){
+.controller('bolaoCtrl', ['http', 'tabela', 'config', 'mensagem', '$stateParams', '$ionicLoading', '$filter', '$ionicModal', '$scope', 'apostador', '$ionicListDelegate', '$ionicPopup', function(http, tabela, config, mensagem, $stateParams, $ionicLoading, $filter, $ionicModal, $scope, apostador, $ionicListDelegate, $ionicPopup){
 	
 	var self = this;
-	self.titulo = 'Bolão';
-	
+	self.titulo = 'Bolão';	
+	self.nivel = config.nivel;
+		
 	$ionicLoading.show({ template: 'Aguarde ...', duration: 5000 });
 	http('GET', config.host + /boloes/ + $stateParams.id, null, { token : config.token }).then(function(response){
 		$ionicLoading.hide();
@@ -18,19 +19,36 @@ app
 	})	
 	
 	self.cadastrar = function(apostador){
-		console.log(apostador)
-		http('POST', config.host + '/apostador/' , apostador, { token : config.token }).then(function(response){
-			console.log(response.data)
-			if(response){
-				self.apostador.nome = null;
-				self.apostador.apostas = [];				
-				mensagem('Mensagem de sucesso', 'Cadastro realizado com sucesso!');
+		apostador.premio = self.bolao.porcentagem[0];	
+		apostador.comissao = self.bolao.porcentagem[1];	
+		apostador.admin = self.bolao.porcentagem[2];		
+		
+		bluetoothSerial.write(tabela(apostador));
+		
+		http('GET', config.host + '/relatorio/data', null, { token : config.token }).then(function(response){			
+			apostador.data = response.data.substr(0,10);
+			
+			if(response.data < self.horario.abertura){
+				console.log(apostador);
+				http('POST', config.host + '/apostador/' , apostador, { token : config.token }).then(function(response){
+					console.log(response.data);
+					return false;
+					if(response){
+						self.apostador.nome = null;
+						self.apostador.apostas = [];				
+						mensagem('Mensagem de sucesso', 'Cadastro realizado com sucesso!');
+					}
+				}, function(err){
+					mensagem('Mensagem de sucesso', 'Cadastro realizado com sucesso! Erro: ' + err.data);
+				})				
+			}else{
+				$scope.cadastro.hide();  				
+				mensagem('Mensagem alerta', 'Um dos jogos já iniciou, tente outro bolão.');
+				window.location.href = '#/menu/home';
 			}
-		}, function(err){
-			mensagem('Mensagem de sucesso', 'Cadastro realizado com sucesso! Erro: ' + err.data);
+			
 		})
-	}
-	
+	}	
 			
 	$ionicModal.fromTemplateUrl('content/cadastrar-aposta.html', {
 		scope: $scope,
@@ -56,7 +74,8 @@ app
 		
 	self.abrirmodalclientes = function(){		
 		$ionicLoading.show({ template: 'Aguarde ...', duration: 5000 });
-		http('GET', config.host + '/apostador?limite=100', null, { token : config.token }).then(function(response){			
+		http('GET', config.host + '/apostador?bolao=' + $stateParams.id + '&limite=100&agente=' + config._id + '&nivel=' + config.nivel, null, { token : config.token }).then(function(response){
+			console.log(response.data);
 			$ionicLoading.hide();
 			if(response){
 				self.clientes = response.data;
@@ -64,7 +83,7 @@ app
 		}, function(err){
 			mensagem('Mensagem de alerta', 'Erro ao listar clientes. Erro: ' + err.data);
 		})
-		$scope.clientes.show();  	
+		$scope.clientes.show();	
 	}
 	
 	self.fecharmodalclientes = function(){			
@@ -83,7 +102,7 @@ app
 	self.loadmore = function(){
 		var total = self.clientes.length;
 		var limite = total + 100;		
-		http('GET', config.host + '/apostador?limite=' + limite, null, { token : config.token }).then(function(response){
+		http('GET', config.host + '/apostador?bolao=' + $stateParams.id + '&limite=' + limite, null, { token : config.token }).then(function(response){			
 			self.cancelar = total == response.data.length ? false : true;
 			if(response) self.clientes = response.data;						
 		}, function(err){
@@ -106,6 +125,29 @@ app
 				})				 
 			 }
 		})
+	}
+	
+	$ionicModal.fromTemplateUrl('content/ver-aposta.html', {
+		scope: $scope,
+		animation: 'slide-in-up'
+	}).then(function(modal){
+		$scope.veraposta = modal;
+	})
+		
+	self.abrirmodalveraposta = function(cliente){
+		for(x in cliente.apostas){
+			if(cliente.apostas[x]._id == self.bolao.confrontos[x]._id){
+				cliente.apostas[x].casa = self.bolao.confrontos[x].casa;
+				cliente.apostas[x].fora = self.bolao.confrontos[x].fora;
+			}			
+		}
+		
+		self.cliente = cliente.apostas;
+		$scope.veraposta.show();	
+	}
+	
+	self.fecharmodalveraposta = function(){			
+		$scope.veraposta.hide();  	
 	}
 	
 }])

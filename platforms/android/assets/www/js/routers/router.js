@@ -28,6 +28,16 @@ var app = angular.module('bolao', ['ionic'])
 		templateUrl : 'content/menu.html',
 		controller : 'menuCtrl as ctrl'
 	})
+		
+	.state('menu.impressora', {
+		url : '/impressora',
+		views : {
+			'menucontent' : {
+			templateUrl : 'content/impressora.html',
+			controller : 'impressoraCtrl as ctrl'
+		}
+	}		
+	})
 	
 	.state('menu.home', {
 		url : '/home',
@@ -37,7 +47,7 @@ var app = angular.module('bolao', ['ionic'])
 			controller : 'homeCtrl as ctrl',
 			resolve : {
 				boloes : function(config, http){
-					return http('GET', config.host + '/boloes', null, { 'token' : config.token });
+					return http('GET', config.host + '/boloes?visivel=0', null, { 'token' : config.token });
 				}
 			}
 		}
@@ -52,7 +62,7 @@ var app = angular.module('bolao', ['ionic'])
 			controller : 'boloesCtrl as ctrl',
 			resolve : {
 				boloes : function(config, http){
-					return http('GET', config.host + '/boloes', null, { 'token' : config.token });
+					return http('GET', config.host + '/boloes/todos', null, { 'token' : config.token });
 				}
 			}
 		}
@@ -79,10 +89,69 @@ var app = angular.module('bolao', ['ionic'])
 		templateUrl : 'content/cadastrar-aposta.html'			
 	})
 	
+	.state('menu.bolao.ver-aposta', {
+		url : '/ver-aposta',
+		templateUrl : 'content/ver-aposta.html'
+	})
+	
 	.state('menu.bolao.listar-clientes', {
 		url : '/listar-clientes',
 		templateUrl : 'content/listar-clientes.html'			
 	})
 	
+		
+	
+	.state('menu.agentes', {
+		url : '/agentes',
+		views : {
+			'menucontent' : {
+			templateUrl : 'content/agentes.html',
+			controller : 'agentesCtrl as ctrl',
+			resolve : {
+				agentes : function(config, http){
+					return http('GET', config.host + '/agentes', null, { 'token' : config.token });
+				}
+			}
+		}
+	}		
+	})
+	
+	.state('menu.boloes.cadastrar-agentes', {
+		url : '/cadastrar-agentes',
+		templateUrl : 'content/cadastrar-agentes.html',
+	})
+	
+	.state('menu.relatorio', {
+		url : '/relatorio',
+		views : {
+			'menucontent' : {
+			templateUrl : 'content/relatorio.html',
+			controller : 'relatorioCtrl as ctrl',
+			resolve : {
+				agentes : function(config, http){
+					return http('GET', config.host + '/agentes', null, { token : config.token });
+				},
+				boloes : function(config, http){
+					return http('GET', config.host + '/boloes/todos', null, { 'token' : config.token });
+				}
+			}
+		}
+	}	
+		
+	})
+	.state('menu.ranking', {
+		url : '/ranking',
+		views : {
+			'menucontent' : {
+			templateUrl : 'content/ranking.html',
+			controller : 'rankingCtrl as ctrl',
+			resolve : {
+				boloes : function(config, http){
+					return http('GET', config.host + '/boloes', null, { token : config.token });
+				}
+			}
+		}
+	}		
+	})
 	$urlRouterProvider.otherwise('/login');
 })

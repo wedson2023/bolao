@@ -28,8 +28,9 @@ app
 		return {
 			nome : null,
 			valor : null,
-			lugares : [1, 2, 3],
-			porcentagem : [],
+			horario : null,
+			lugares : ['', '', ''],
+			porcentagem : [],			
 			confrontos : [
 				{id : 1, horario : null, casa : null, fora : null, pcasa : null, pfora : null },
 				{id : 2, horario : null, casa : null, fora : null, pcasa : null, pfora : null },
@@ -42,13 +43,25 @@ app
 
 .factory('agentes', function(){
 	return {
-		nome : null,
-		senha : null
+		nome : 'programador',
+		senha : '12345'
 	}
 })
 
 .factory('http', function($http){
 	return function(method, url, data, headers){		
 		return $http({ method : method, url : url, data : data, headers : headers});		
+	}
+})
+
+.factory('dadosrelatorio', function(){
+	return function(dados){		
+		return {
+			apostas : dados.length,
+			premio : dados.reduce(function(prev, cur){ return prev + parseFloat(cur.premio) }, 0),
+			comissao : dados.reduce(function(prev, cur){ return prev + parseFloat(cur.comissao) }, 0),
+			bruto : dados.reduce(function(prev, cur){ return prev + parseFloat(cur.valor) }, 0),
+			liquido : dados.reduce(function(prev, cur){ return prev + parseFloat(cur.admin) }, 0),
+		}		
 	}
 })

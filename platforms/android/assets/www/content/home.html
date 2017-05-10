@@ -9,7 +9,7 @@
 		<div ng-repeat="bolao in ctrl.boloes | filter : { nome : pesquisar }" class="list card">
 			<a ng-href="#/menu/bolao/{{ bolao._id }}" class="item item-icon-left">
 				<i class="icon ion-ios-football"></i>
-				<span ng-bind="bolao.nome"></span>
+				<span class="meus capitalize" ng-bind="bolao.nome"></span>
 			</a>
 		</div>
 	<!--fim Content -->

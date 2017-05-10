@@ -6,7 +6,7 @@ service('sessoes', function($http){
 		}
 	}
 })
-/*
+
 .service('tabela', function($ionicPopup){
 	return function(dados){	
 		var ESC = "\u001B";
@@ -20,11 +20,14 @@ service('sessoes', function($http){
 		var REVERSO = GS + "B" + "1";  //fundo negro e letras transparantes
 		var SMALL = ESC + "!" + "\u0001";  //fonte menor
 		
-		var text = CENTRO + NEGRITO + 'TESTANDO IMPRESSAO' + ENTER INI;
 		
-		return text
+		var text = ENTER + CENTRO + NEGRITO + 'SISTEMA BOLAO' + ENTER + INI;
+		for(x in dados.apostas){
+			text += ENTER + CENTRO + NEGRITO + DOUBLEON + dados.casa + ' ' + dados.apostas[x].pcasa + ' x ' + dados.apostas[x].pfora + ' ' + dados.fora + ENTER + INI;
+		}
+		return text;
 	}
-})*/
+})
 
 .service('mensagem', function($ionicPopup){
 	return function(titulo, mensagem){	
