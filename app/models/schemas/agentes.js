@@ -25,5 +25,5 @@ module.exports = function(){
 		return bcrypt.compare(senha, banco, callback);
 	}
 	
-	return conexao.model('agentes', agentes);	
+	return conexao.model('agentes', agentes);
 }

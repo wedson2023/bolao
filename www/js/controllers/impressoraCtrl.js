@@ -4,8 +4,7 @@ app
 	
 	var self = this;	
 	self.titulo = 'Impressora';
-	self.impressoras = [];	
-	
+	self.impressoras = [];
 	
 	bluetoothSerial.isEnabled(null,function(){
 		bluetoothSerial.enable();

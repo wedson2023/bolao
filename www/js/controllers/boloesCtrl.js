@@ -93,6 +93,7 @@ app
 	}
 	
 	self.horario = function(id, idjogo){
+		console.log(id, idjogo)
 		if(id){
 			angular.element(document.getElementById('horario_id' + id)).click();
 		}else{

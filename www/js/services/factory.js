@@ -2,7 +2,7 @@ app
 
 .factory('config', function(){
 	return {
-		host : 'http://localhost:3000',
+		host : 'http://159.203.133.215:3000',
 		empresa : 'Bolão Futebol',
 		_id : sessionStorage.getItem('_id'),
 		nome : sessionStorage.getItem('nome'),

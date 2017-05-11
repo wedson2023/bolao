@@ -23,7 +23,7 @@ service('sessoes', function($http){
 		
 		var text = ENTER + CENTRO + NEGRITO + 'SISTEMA BOLAO' + ENTER + INI;
 		for(x in dados.apostas){
-			text += ENTER + CENTRO + NEGRITO + DOUBLEON + dados.casa + ' ' + dados.apostas[x].pcasa + ' x ' + dados.apostas[x].pfora + ' ' + dados.fora + ENTER + INI;
+			text += ENTER + CENTRO + NEGRITO + DOUBLEON + dados.apostas[x].casa + ' ' + dados.apostas[x].pcasa + ' x ' + dados.apostas[x].pfora + ' ' + dados.apostas[x].fora + ENTER + INI;
 		}
 		return text;
 	}
