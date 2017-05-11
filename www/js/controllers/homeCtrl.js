@@ -1,6 +1,6 @@
 app
 
-.controller('homeCtrl', ['http', 'boloes', 'mensagem', function(http, boloes, mensagem){
+.controller('homeCtrl', ['http', 'boloes', 'mensagem', '$timeout', function(http, boloes, mensagem, $timeout){
 	
 	var self = this;	
 	self.titulo = 'Bolões';

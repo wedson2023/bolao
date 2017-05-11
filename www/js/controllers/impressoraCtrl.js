@@ -31,7 +31,6 @@ app
 			mensagem('Mensagem Sucesso', 'Você esta conectado há ' + impressora + ' agora está pronto para fazer impressões.');
 			localStorage.setItem('id', id);
 			localStorage.setItem('impressora', impressora);
-			self.conectada = impressora;
 			
 			ESC = "\u001B";
 			INI = ESC + "@";

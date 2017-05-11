@@ -6,9 +6,9 @@ app.controller('loginCtrl', ['config', '$timeout', 'agentes', 'http', '$window',
 		$ionicLoading.show({ template: 'Aguarde ...', duration: 5000 });
 		http('POST', config.host + '/entrar', agentes).then(function(response){	
 			if(response.data.resposta){
-				sessoes(response.data.resposta);
-				$window.location.href = '#/menu/home';								
+				sessoes(response.data.resposta);												
 				$ionicLoading.hide();
+				$window.location.href = '#/menu/home';
 				}else{
 					$ionicLoading.hide();
 					mensagem('Mensagem de alerta', response.data.mensagem);

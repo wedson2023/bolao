@@ -5,6 +5,22 @@ app
 	var self = this;
 	self.titulo = 'Bolão';	
 	self.nivel = config.nivel;
+	
+	bluetoothSerial.isEnabled(function(){
+		bluetoothSerial.isConnected(null, function() {
+			if(localStorage.getItem('id')){
+				bluetoothSerial.connect(localStorage.getItem('id'));
+			}
+		});
+	},function(){
+		bluetoothSerial.enable(function(){
+			bluetoothSerial.isConnected(null, function() {
+				if(localStorage.getItem('id')){
+					bluetoothSerial.connect(localStorage.getItem('id'));
+				}
+			});			
+		});
+	});
 		
 	$ionicLoading.show({ template: 'Aguarde ...', duration: 5000 });
 	http('GET', config.host + /boloes/ + $stateParams.id, null, { token : config.token }).then(function(response){
@@ -19,30 +35,42 @@ app
 	})	
 	
 	self.cadastrar = function(apostador){
-		apostador.premio = self.bolao.porcentagem[0];	
-		apostador.comissao = self.bolao.porcentagem[1];	
-		apostador.admin = self.bolao.porcentagem[2];	
 		
-		http('GET', config.host + '/relatorio/data', null, { token : config.token }).then(function(response){			
-			apostador.data = response.data.substr(0,10);
+		bluetoothSerial.isEnabled(function(){
+			apostador.premio = self.bolao.porcentagem[0];	
+			apostador.comissao = self.bolao.porcentagem[1];	
+			apostador.admin = self.bolao.porcentagem[2];
+			apostador.nagente = config.nome;
 			
-			if(response.data < self.horario.abertura){
-				console.log(apostador);
-				http('POST', config.host + '/apostador/' , apostador, { token : config.token }).then(function(response){					
-					if(response){
-						bluetoothSerial.write(tabela(apostador));
-						self.apostador.nome = null;
-						self.apostador.apostas = [];				
-						mensagem('Mensagem de sucesso', 'Cadastro realizado com sucesso!');
-					}
-				}, function(err){
-					mensagem('Mensagem de sucesso', 'Cadastro realizado com sucesso! Erro: ' + err.data);
-				})				
-			}else{
-				$scope.cadastro.hide();  				
-				mensagem('Mensagem alerta', 'Um dos jogos já iniciou, tente outro bolão.');
-				window.location.href = '#/menu/home';
-			}
+			//bluetoothSerial.isConnected(null, function(){ alert('conectou novamente'); bluetoothSerial.connect(localStorage.getItem('id')); });
+			
+			http('GET', config.host + '/relatorio/data', null, { token : config.token }).then(function(response){			
+				apostador.data = response.data.substr(0,10);
+
+				if(response.data < self.horario.abertura){
+					http('POST', config.host + '/apostador/' , apostador, { token : config.token }).then(function(response){
+						if(response){
+							
+							bluetoothSerial.write(tabela(response.data), null, function(){								
+								mensagem('Mensagem Alerta', 'Não foi possível emitir o comprovante tente emitir pela página dos apostadores.');
+							});
+							
+							self.apostador.nome = null;
+							self.apostador.apostas = [];				
+							mensagem('Mensagem de sucesso', 'Cadastro realizado com sucesso!');
+						}
+					}, function(err){
+						mensagem('Mensagem de sucesso', 'Cadastro realizado com sucesso! Erro: ' + err.data);
+					})				
+				}else{
+					$scope.cadastro.hide();  				
+					mensagem('Mensagem alerta', 'Um dos jogos já iniciou, tente outro bolão.');
+					window.location.href = '#/menu/home';
+				}
+
+			})
+		}, function(){			
+			mensagem('Mensagem Alerta', 'O Bluetooth estava desligado tente, ligue por favor.');
 			
 		})
 	}	

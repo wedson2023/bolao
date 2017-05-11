@@ -7,7 +7,22 @@ service('sessoes', function($http){
 	}
 })
 
-.service('tabela', function($ionicPopup){
+.service('replace', function(){
+	return function(dados){
+		var string = dados.replace('ã', 'a');
+		var string = string.replace('á', 'a');
+		var string = string.replace('â', 'a');
+		var string = string.replace('é', 'e');
+		var string = string.replace('õ', 'o');
+		var string = string.replace('ó', 'o');
+		var string = string.replace('ú', 'u');
+		var string = string.replace('ç', 'c');
+		
+		return string;
+	}
+})
+
+.service('tabela', function($ionicPopup, $filter, config, replace){
 	return function(dados){	
 		var ESC = "\u001B";
 		var GS = "\u001D";
@@ -21,10 +36,25 @@ service('sessoes', function($http){
 		var SMALL = ESC + "!" + "\u0001";  //fonte menor
 		
 		
-		var text = ENTER + CENTRO + NEGRITO + 'SISTEMA BOLAO' + ENTER + INI;
+		var text = ENTER + CENTRO + NEGRITO + replace(config.empresa).toUpperCase() + ENTER + INI;
+		text += ENTER + NEGRITO + 'ID : ' + dados._id + ENTER + INI;
+		text += NEGRITO + 'CLIENTE : ' + dados.nome + ENTER + INI;
+		text += NEGRITO + 'AGENTE : ' + dados.nagente + ENTER + INI;
+		text += NEGRITO + 'HORARIO : ' + $filter('date')(dados.horario, 'short') + ENTER + INI;
+		
+		text += ENTER + CENTRO + NEGRITO + replace(dados.nbolao).toUpperCase() + ENTER + INI;
+		
 		for(x in dados.apostas){
-			text += ENTER + CENTRO + NEGRITO + dados.apostas[x].casa.toUpperCase() + ' ' + dados.apostas[x].pcasa + ' x ' + dados.apostas[x].pfora.toUpperCase() + ' ' + dados.apostas[x].fora + ENTER + INI;
+			text += ENTER + CENTRO + NEGRITO + replace(dados.apostas[x].casa) + ' ' + dados.apostas[x].pcasa + ' x ' + dados.apostas[x].pfora + ' ' + replace(dados.apostas[x].fora) + ENTER + INI;
+			text += CENTRO + NEGRITO + $filter('date')(dados.apostas[x].horario, 'short') + ENTER + INI;
 		}
+		text += ENTER + ENTER + INI;
+		
+		text += NEGRITO + '- O premio sera pago ate 3 dias depois do ultimo jogo do bolao.' + ENTER + INI;
+		text += NEGRITO + '- Premio nao sera pago por erros de sistema.' + ENTER + INI;
+		
+		text += ENTER + ENTER + ENTER + INI;
+		
 		return text;
 	}
 })

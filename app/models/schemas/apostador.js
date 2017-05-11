@@ -14,6 +14,8 @@ module.exports = function(){
 	var apostador = Schema({
 			bolao : String,
 			agente : String,
+			nagente : String,
+			nbolao : String,
 			nome : { type : String, required : true },
 			premio : String,
 			comissao : String,

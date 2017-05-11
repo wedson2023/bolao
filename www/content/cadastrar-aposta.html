@@ -12,6 +12,7 @@
 			<div class="item" ng-repeat="confrontos in ctrl.bolao.confrontos">
 				<input type="hidden" ng-model="ctrl.apostador.apostas[$index]._id" ng-init="ctrl.apostador.apostas[$index]._id=confrontos._id">
 				<input type="hidden" ng-model="ctrl.apostador.apostas[$index].horario" ng-init="ctrl.apostador.apostas[$index].horario=confrontos.horario">
+				<input type="hidden" ng-model="ctrl.apostador.nbolao" ng-init="ctrl.apostador.nbolao=ctrl.bolao.nome">
 				<div class="row">				
 					<div class="col col-35 meus left"><span ng-bind="confrontos.casa"></span></div>
 					<div class="col col-30 meus center">

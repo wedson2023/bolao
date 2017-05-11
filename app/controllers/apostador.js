@@ -50,7 +50,7 @@ module.exports = function(app){
 					req.body.comissao = apostador.valorcomissao(req.body.valor, req.body.comissao);
 					req.body.admin = apostador.valoradmin(req.body.valor, req.body.admin);
 					app.models.schemas.apostador.create(req.body, function(err, resposta){
-							res.status(200).json(req.body);
+							res.status(200).json(resposta);
 					})	
 				}else{
 					res.status(403).json({ resposta : false, mensagem : 'Talvez você não esteja logado!'});

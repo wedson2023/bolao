@@ -14,5 +14,9 @@ app.controller('menuCtrl', function($ionicSideMenuDelegate, config, http){
 			window.location.href = '#/login';
 			sessionStorage.clear();
 		})
-	}	
+	}
+	
+	self.carregar = function(){
+		location.reload();
+	}
 })

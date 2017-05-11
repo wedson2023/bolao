@@ -2,16 +2,13 @@ app.controller('loginCtrl', ['config', '$timeout', 'agentes', 'http', '$window',
 	
 	var self = this;	
 	self.agentes = agentes;	
-	self.acessar = function(agentes){		
+	self.acessar = function(agentes){
 		$ionicLoading.show({ template: 'Aguarde ...', duration: 5000 });
 		http('POST', config.host + '/entrar', agentes).then(function(response){	
 			if(response.data.resposta){
-				sessoes(response.data.resposta);
-				$window.location.href = '#/menu/home';								
+				sessoes(response.data.resposta);												
 				$ionicLoading.hide();
-				$timeout(function(){
-					location.reload();
-				}, 1000)
+				$window.location.href = '#/menu/home';
 				}else{
 					$ionicLoading.hide();
 					mensagem('Mensagem de alerta', response.data.mensagem);
