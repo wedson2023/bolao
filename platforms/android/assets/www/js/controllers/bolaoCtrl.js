@@ -21,19 +21,16 @@ app
 	self.cadastrar = function(apostador){
 		apostador.premio = self.bolao.porcentagem[0];	
 		apostador.comissao = self.bolao.porcentagem[1];	
-		apostador.admin = self.bolao.porcentagem[2];		
-		
-		bluetoothSerial.write(tabela(apostador));
+		apostador.admin = self.bolao.porcentagem[2];	
 		
 		http('GET', config.host + '/relatorio/data', null, { token : config.token }).then(function(response){			
 			apostador.data = response.data.substr(0,10);
 			
 			if(response.data < self.horario.abertura){
 				console.log(apostador);
-				http('POST', config.host + '/apostador/' , apostador, { token : config.token }).then(function(response){
-					console.log(response.data);
-					return false;
+				http('POST', config.host + '/apostador/' , apostador, { token : config.token }).then(function(response){					
 					if(response){
+						bluetoothSerial.write(tabela(apostador));
 						self.apostador.nome = null;
 						self.apostador.apostas = [];				
 						mensagem('Mensagem de sucesso', 'Cadastro realizado com sucesso!');

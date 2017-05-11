@@ -4,18 +4,19 @@
   "description": "Bolão de apostas desportivas ",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon app.js",
+    "start": "node server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Wedson Santos <wedson_cross@hotmail.com>",
   "license": "ISC",
   "dependencies": {
-    "bcrypt": "1.0.2",
+    "bcrypt": "^1.0.2",
     "body-parser": "1.17.1",
     "cors": "^2.8.3",
     "express": "4.15.2",
     "express-load": "1.1.15",
     "express-session": "1.15.2",
+    "forever-monitor": "^1.7.1",
     "helmet": "^3.5.0",
     "jsonwebtoken": "7.3.0",
     "mongoose": "4.9.3"
