@@ -38,7 +38,6 @@ app
 	})	
 	
 	self.cadastrar = function(apostador){
-		
 		bluetoothSerial.isEnabled(function(){
 			apostador.premio = self.bolao.porcentagem[0];	
 			apostador.comissao = self.bolao.porcentagem[1];	
@@ -52,13 +51,14 @@ app
 				if(response.data < self.horario.abertura){
 					http('POST', config.host + '/apostador/' , apostador, { token : session.token }).then(function(response){
 						if(response){
+							self.debug = response.data;
 							response.data.lugares = self.bolao.lugares;
 							bluetoothSerial.write(comprovante(response.data), null, function(){								
 								mensagem('Mensagem Alerta', 'Não foi possível emitir o comprovante tente emitir pela página dos apostadores.');
-							});
-							
-							self.apostador.nome = null;
-							self.apostador.apostas = [];				
+							});							
+							angular.element(document.getElementById('casa')).val('');
+							angular.element(document.getElementById('fora')).val('');
+							angular.element(document.getElementById('nome')).val('');
 							mensagem('Mensagem de sucesso', 'Cadastro realizado com sucesso!');
 						}
 					}, function(err){

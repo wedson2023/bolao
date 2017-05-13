@@ -3,10 +3,11 @@ app.controller('loginCtrl', ['config', '$timeout', 'agentes', 'http', '$window',
 	var self = this;	
 	self.agentes = agentes;	
 	self.acessar = function(agentes){
+		agentes.nome = agentes.nome.toLowerCase();
 		$ionicLoading.show({ template: 'Aguarde ...', duration: 5000 });
 		http('POST', config.host + '/entrar', agentes).then(function(response){	
 			if(response.data.resposta){
-				sessoes(response.data.resposta);												
+				sessoes(response.data.resposta);
 				$ionicLoading.hide();
 				$window.location.href = '#/menu/home';
 				}else{

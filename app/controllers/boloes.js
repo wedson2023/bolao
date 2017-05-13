@@ -6,7 +6,7 @@ module.exports = function(app){
 			var visivel = url.parse(req.url, true).query.visivel ? { visivel : 1 } : null;			
 			
 			var data = new Date();
-			app.models.schemas.boloes.find({ 'confrontos.horario' : { $gte : data }}).limit(limite).exec(function(err, resposta){
+			app.models.schemas.boloes.find().limit(limite).exec(function(err, resposta){
 				res.status(200).json(resposta);
 			})
 		},
@@ -86,7 +86,7 @@ module.exports = function(app){
 				}else if(resposta){
 					app.models.schemas.boloes.remove({_id : req.params.id }, function(err, resposta){
 						if(resposta){
-							app.models.schemas.apostador.find({ agente : req.params.id }).remove(function(err, resposta){			
+							app.models.schemas.apostador.find({ bolao : req.params.id }).remove(function(err, resposta){			
 								res.status(200).json(resposta);
 								})
 							}						

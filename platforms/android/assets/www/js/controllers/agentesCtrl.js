@@ -57,7 +57,8 @@ app
 	}
 	
 	self.cadastrar = function(dados){
-		if(dados._id){
+		dados.nome = dados.nome.toLowerCase();
+		if(dados._id){			
 			http('PUT', config.host + '/agentes/' + dados._id, dados, { token : session.token }).then(function(response){
 				if(response.data){
 					if(session._id == response.data._id){ 
@@ -70,9 +71,10 @@ app
 				mensagem('Mensagem alerta', 'Verifique sua conexão com a internet ou tente novamente');
 			})
 		}else{
-			http('POST', config.host + '/agentes', dados, { token : session.token }).then(function(response){
-				console.log(response.data)
-				if(response.data){						
+			http('POST', config.host + '/agentes', dados, { token : session.token }).then(function(response){				
+				if(response.data){
+					angular.element(document.getElementById('nome')).val('');
+					angular.element(document.getElementById('senha')).val('');
 					self.agentes.push(response.data);
 					mensagem('Mensagem sucesso', 'Cadastro realizado com sucesso.');
 				}

@@ -7,6 +7,7 @@ app
 	self.boloes = boloes.data;	
 	
 	self.pesquisar = function(id){
+		if(!id) return false;
 		$ionicLoading.show({ template: 'Aguarde ...', duration: 5000 });
 		http('GET', config.host + '/ranking/' + id, null, { token : session.token }).then(function(response){			
 		var collection = [];
@@ -57,7 +58,7 @@ app
 			}
 			a++;	
 		}
-			
+		console.log(collection)
 		self.clientes = collection;
 		$ionicLoading.hide();
 	}, function(err){

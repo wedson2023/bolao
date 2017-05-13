@@ -57,10 +57,8 @@ app
 		
 				
 		if(dados){
-			for(x in dados.confrontos){
-				var id = 'horario_id' + dados.confrontos[x]._id;
-				var horario = dados.confrontos[x].horario.substr(0, 10) + ' ' + dados.confrontos[x].horario.substr(11, 8);
-				dados.confrontos[x].horario = new Date(horario);
+			for(x in dados.confrontos){				
+				dados.confrontos[x].horario = new Date(dados.confrontos[x].horario);
 			}
 		}	
 		
@@ -100,8 +98,15 @@ app
 	}
 	
 	self.cadastrar = function(dados){		
-		
-		// cadastrando 3 horas a mais parei aqui
+			
+		/*if(dados){
+			for(x in dados.confrontos){
+				var horario = $filter('date')(dados.confrontos[x].horario, 'yyyy-MM-dd hh:mm:ss');
+				var horario = horario.substr(0, 10) + ' ' + horario.substr(11, 8);
+				var horario = new  Date(horario);
+				dados.confrontos[x].horario = horario;
+			}
+		}*/
 		
 		var porcentagem = self.bolao.porcentagem.reduce(function(prev, cur){ return prev + cur; }, 0);
 		var lugares = self.bolao.lugares.reduce(function(prev, cur){ return prev + cur; }, 0);	

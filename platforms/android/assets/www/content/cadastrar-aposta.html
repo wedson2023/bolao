@@ -17,10 +17,10 @@
 					<div class="col col-35 meus left"><span ng-bind="confrontos.casa"></span></div>
 					<div class="col col-30 meus center">
 						<input type="hidden" ng-model="ctrl.apostador.apostas[$index].casa" ng-init="ctrl.apostador.apostas[$index].casa=confrontos.casa">	
-						<input type="number" name="placar" ng-required="true" class="meus inputleft" ng-model="ctrl.apostador.apostas[$index].pcasa" />
+						<input type="number" id="casa" name="placar" ng-required="true" class="meus inputleft" ng-model="ctrl.apostador.apostas[$index].pcasa" />
 						<span> x </span>
 						<input type="hidden" ng-model="ctrl.apostador.apostas[$index].fora" ng-init="ctrl.apostador.apostas[$index].fora=confrontos.fora">
-						<input type="number" name="placar" ng-required="true" class="meus inputright" ng-model="ctrl.apostador.apostas[$index].pfora" />
+						<input type="number" id="fora" name="placar" ng-required="true" class="meus inputright" ng-model="ctrl.apostador.apostas[$index].pfora" />
 					</div>
 					<div class="col col-35 meus right"><span ng-bind="confrontos.fora"></span></div>
 				</div>

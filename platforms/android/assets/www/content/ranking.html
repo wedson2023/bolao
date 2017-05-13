@@ -5,6 +5,15 @@
 			<select ng-change="ctrl.pesquisar(bolao)" ng-model="bolao" ng-options="bolao._id as bolao.nome for bolao in ctrl.boloes" class="meus block capitalize padding-10 margin-zero border">	  		
 				<option value="">Selecione um bolão</option>
 			</select>
+			<div class="row">
+			  <div class="meus dark border center col col-13">
+			  	Po.
+			  </div>
+			  <div class="meus dark border center col col-40">Clientes</div>
+			  <div class="meus dark border center col col-13">E</div>
+			  <div class="meus dark border center col col-13">T</div>
+			  <div class="meus dark border center col col-13">P</div>
+			</div>	
 			<div ng-repeat="clientes in ctrl.clientes | orderBy : 'pontos' : 'reverse'" class="row">
 			  <div class="meus dark border center col col-13">
 			  	<span ng-show="ctrl.lugares - 1 < $index" ng-bind="$index + 1 + 'º '"></span><i ng-if="ctrl.lugares > $index" class="icon energized ion-trophy"></i>

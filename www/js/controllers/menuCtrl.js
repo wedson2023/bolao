@@ -9,10 +9,11 @@ app.controller('menuCtrl', function($ionicSideMenuDelegate, config, http, sessio
     	$ionicSideMenuDelegate.toggleLeft();
 	};
 	
-	self.sair = function(){		
+	self.sair = function(){	
+		sessionStorage.clear();	
 		http('GET', config.host + '/sair', null, { token : session.token }).then(function(response){
 			window.location.href = '#/login';
-			sessionStorage.clear();
+			window.location.reload();
 		})
 	}
 })

@@ -7,7 +7,7 @@
 	<div class="card">
 		<form name="cadastro" ng-submit="ctrl.cadastrar(ctrl.agente)">
 			<div class="row">
-				<div class="col col-80"><input ng-required="true" ng-model="ctrl.agente.nome" type="text" name="agentes" class="meus campos" placeholder="Nome do agente"  /></div>			
+				<div class="col col-80"><input id="nome" ng-required="true" ng-model="ctrl.agente.nome" type="text" name="agentes" class="meus campos" placeholder="Nome do agente"  /></div>			
 				<div class="meus col col-20 center padding-10">
 				   <label class="toggle toggle-assertive">
 				   <input name="visivel" ng-checked="+ctrl.agente.visivel" ng-model="ctrl.agente.visivel" type="checkbox">
@@ -19,7 +19,7 @@
 			</div>
 			<div class="row">
 				<div class="col col-100">
-					<input type="password" ng-required="true" name="agentes" ng-model="ctrl.agente.senha" class="meus campos" placeholder="Senha do agente"/>
+					<input type="password" id="senha" ng-required="true" name="agentes" ng-model="ctrl.agente.senha" class="meus campos" placeholder="Senha do agente"/>
 				</div>
 			</div>
 			<div class="row">

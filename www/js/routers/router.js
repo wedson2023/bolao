@@ -56,9 +56,6 @@ var app = angular.module('bolao', ['ionic'])
 			templateUrl : 'content/home.html',
 			controller : 'homeCtrl as ctrl',
 			resolve : {
-				boloes : function(config, http){
-					return http('GET', config.host + '/boloes?visivel=0', null, { 'token' : sessionStorage.token });
-				},
 				session : function(){
 					return sessionStorage;
 				}
