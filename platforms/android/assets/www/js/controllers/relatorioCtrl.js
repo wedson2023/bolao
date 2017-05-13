@@ -1,10 +1,10 @@
 app
 
-.controller('relatorioCtrl', ['$filter', 'http', 'config', 'agentes', 'mensagem', 'dadosrelatorio', 'boloes', function($filter, http, config, agentes, mensagem, dadosrelatorio, boloes){
+.controller('relatorioCtrl', ['$filter', 'http', 'config', 'agentes', 'mensagem', 'dadosrelatorio', 'boloes', 'session', function($filter, http, config, agentes, mensagem, dadosrelatorio, boloes, session){
 	
 	var self = this;	
 	self.titulo = 'Relatório';
-	self.agente = config;
+	self.agente = session;
 	
 	self.boloes = boloes.data;
 	
@@ -20,7 +20,7 @@ app
 			var first = $filter('date')(dados.first, 'yyyy-MM-dd');
 			var last = $filter('date')(dados.last, 'yyyy-MM-dd');
 			
-			http('GET', config.host + '/relatorio/listar?first=' + first + '&last=' + last + '&bolao=' + dados.bolao + '&agente=' + config._id + '&nivel=' + config.nivel, null, { token : config.token }).then(function(response){
+			http('GET', config.host + '/relatorio/listar?first=' + first + '&last=' + last + '&bolao=' + dados.bolao + '&agente=' + session._id + '&nivel=' + session.nivel, null, { token : session.token }).then(function(response){
 				self.agentes = [];
 				self.relatorio = dadosrelatorio(response.data);
 				for(x in agentes.data){

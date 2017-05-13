@@ -1,12 +1,9 @@
 module.exports = function(app){
 	var url = require('url');
 	return {		
-		registros : function(req, res){
-			app.models.schemas.agentes.findOne({token : req.token}, function(err, resposta){
-				app.models.schemas.apostador.find({}, function(err, resposta){
-					res.status(200).json(resposta);
-				})
-				
+		registros : function(req, res){			
+			app.models.schemas.apostador.find({}, function(err, resposta){
+				res.status(200).json(resposta);
 			})
 		},
 		
@@ -46,12 +43,8 @@ module.exports = function(app){
 				}				
 			}
 			
-			app.models.schemas.agentes.findOne({token : req.token}, function(err, resposta){
-				if(resposta){
-					app.models.schemas.apostador.find(query, function(err, resposta){
-						res.status(200).json(resposta);
-					})
-				}
+			app.models.schemas.apostador.find(query, function(err, resposta){
+				res.status(200).json(resposta);
 			})
 		}
 	}

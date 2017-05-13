@@ -22,7 +22,7 @@ service('sessoes', function($http){
 	}
 })
 
-.service('tabela', function($ionicPopup, $filter, config, replace){
+.service('comprovante', function($filter, config, replace){
 	return function(dados){	
 		var ESC = "\u001B";
 		var GS = "\u001D";
@@ -45,13 +45,67 @@ service('sessoes', function($http){
 		text += ENTER + CENTRO + NEGRITO + replace(dados.nbolao).toUpperCase() + ENTER + INI;
 		
 		for(x in dados.apostas){
-			text += ENTER + CENTRO + NEGRITO + replace(dados.apostas[x].casa) + ' ' + dados.apostas[x].pcasa + ' x ' + dados.apostas[x].pfora + ' ' + replace(dados.apostas[x].fora) + ENTER + INI;
+			text += ENTER + CENTRO + NEGRITO + replace(dados.apostas[x].casa).toUpperCase() + ' ' + dados.apostas[x].pcasa + ' x ' + dados.apostas[x].pfora + ' ' + replace(dados.apostas[x].fora).toUpperCase() + ENTER + INI;
 			text += CENTRO + NEGRITO + $filter('date')(dados.apostas[x].horario, 'short') + ENTER + INI;
 		}
+		
+		text += ENTER + ENTER + INI;		
+		
+		var x = 0;
+		while(x < dados.lugares.length){
+			text += NEGRITO + (x + 1) + ' Lugar ' + dados.lugares[x] + ' % do valor acumulado.' + ENTER + INI;
+			x++;
+		}
+		
 		text += ENTER + ENTER + INI;
 		
 		text += NEGRITO + '- O premio sera pago ate 3 dias depois do ultimo jogo do bolao.' + ENTER + INI;
 		text += NEGRITO + '- Premio nao sera pago por erros de sistema.' + ENTER + INI;
+		text += NEGRITO + '- Em caso de empate na mesma posicao serao dividido o valor da premiacao.' + ENTER + INI;
+		
+		text += ENTER + ENTER + ENTER + INI;
+		
+		return text;
+	}
+})
+
+.service('tabela', function($filter, config, replace){
+	return function(dados){	
+		var ESC = "\u001B";
+		var GS = "\u001D";
+		var INI = ESC + "@";   //inicializa a impressora
+		var NEGRITO = ESC + "E" + "1";  //inicializa o negrito...para finalizar o negrito utilize Ini
+		var DOUBLEON = GS + "!" + "\u0001"; //inicializa dobra o tamanho da fonte... para finalizar utilize ini
+		var ENTER = String.fromCharCode(0x0A);  //LF funciona para pular a linha
+		var CENTRO = ESC + "a" + "1";  //inicializa centralizar para finalizar utilize ini
+		var LEFT = ESC + "a" + "0";  //alinha a esquerca
+		var REVERSO = GS + "B" + "1";  //fundo negro e letras transparantes
+		var SMALL = ESC + "!" + "\u0001";  //fonte menor		
+		
+		var text = ENTER + CENTRO + NEGRITO + replace(dados.nome).toUpperCase() + ENTER + INI;
+		
+		var confronto = function(confronto){
+			return confronto != null ? confronto : ' ';
+		}
+		
+		for(x in dados.confrontos){
+			text += ENTER + CENTRO + NEGRITO + replace(dados.confrontos[x].casa).toUpperCase() + '  ' + confronto(dados.confrontos[x].pcasa) + ' x ' + confronto(dados.confrontos[x].pfora) + '  ' + replace(dados.confrontos[x].fora).toUpperCase() + ENTER + ENTER + INI;
+			text += CENTRO + NEGRITO + $filter('date')(dados.confrontos[x].horario, 'short') + ENTER + INI;
+		}
+		
+		text += ENTER + ENTER + INI;		
+		
+		var x = 0;
+		while(x < dados.lugares.length){
+			text += NEGRITO + (x + 1) + ' Lugar ' + dados.lugares[x] + ' % do valor acumulado.' + ENTER + INI;
+			x++;
+		}
+		
+		text += ENTER + ENTER + INI;
+		
+		text += NEGRITO + '- O premio sera pago ate 3 dias depois do ultimo jogo do bolao.' + ENTER + INI;
+		text += NEGRITO + '- Premio nao sera pago por erros de sistema.' + ENTER + INI;
+		text += NEGRITO + '- Em caso de empate na mesma posicao serao dividido o valor da premiacao.' + ENTER + INI;
 		
 		text += ENTER + ENTER + ENTER + INI;
 		

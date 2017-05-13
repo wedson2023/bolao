@@ -1,6 +1,6 @@
 app
 
-.controller('agentesCtrl', ['$scope', 'config', 'http', 'agentes', 'mensagem', '$ionicPopup', '$ionicModal', function($scope, config, http, agentes, mensagem, $ionicPopup, $ionicModal){
+.controller('agentesCtrl', ['$scope', 'config', 'http', 'agentes', 'mensagem', '$ionicPopup', '$ionicModal', 'session', function($scope, config, http, agentes, mensagem, $ionicPopup, $ionicModal, session){
 	
 	var self = this;	
 	self.titulo = 'Gerenciar agentes';
@@ -14,7 +14,7 @@ app
 			template : 'Tem certeza que deseja excluir o agentes ' + agentes.nome.toUpperCase() + ', isso irá apagar todos apostador do mesmo ?'
 		}).then(function(res){
 			 if(res){
-				http('DELETE', config.host + '/agentes/' + agentes._id, null, { token : config.token }).then(function(response){
+				http('DELETE', config.host + '/agentes/' + agentes._id, null, { token : session.token }).then(function(response){
 					console.log(response)
 					if(response.data){
 						self.agentes.splice(self.agentes.indexOf(agentes), 1);
@@ -28,7 +28,7 @@ app
 	self.loadmore = function(){
 		var total = self.agentes.length;
 		var limite = total + 100;		
-		http('GET', config.host + '/agentes?limite=' + limite, null, { token : config.token }).then(function(response){	
+		http('GET', config.host + '/agentes?limite=' + limite, null, { token : session.token }).then(function(response){	
 			console.log(response)
 			self.cancelar = total == response.data.length ? false : true;
 			if(response) self.agentes = response.data;						
@@ -58,10 +58,10 @@ app
 	
 	self.cadastrar = function(dados){
 		if(dados._id){
-			http('PUT', config.host + '/agentes/' + dados._id, dados, { token : config.token }).then(function(response){
+			http('PUT', config.host + '/agentes/' + dados._id, dados, { token : session.token }).then(function(response){
 				if(response.data){
-					if(config._id == response.data._id){ 
-						config.token = response.data.token;
+					if(session._id == response.data._id){ 
+						session.token = response.data.token;
 						sessionStorage.setItem('token', response.data.token);
 						}
 					mensagem('Mensagem sucesso', 'Cadastro alterado com sucesso.');	
@@ -70,7 +70,7 @@ app
 				mensagem('Mensagem alerta', 'Verifique sua conexão com a internet ou tente novamente');
 			})
 		}else{
-			http('POST', config.host + '/agentes', dados, { token : config.token }).then(function(response){
+			http('POST', config.host + '/agentes', dados, { token : session.token }).then(function(response){
 				console.log(response.data)
 				if(response.data){						
 					self.agentes.push(response.data);

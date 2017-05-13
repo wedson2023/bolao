@@ -3,12 +3,12 @@ app
 .factory('config', function(){
 	return {
 		host : 'http://104.236.45.47:3000',
-		empresa : 'Bolão Futebol',
+		empresa : 'Bolão Futebol'/*,
 		_id : sessionStorage.getItem('_id'),
 		nome : sessionStorage.getItem('nome'),
 		nivel : sessionStorage.getItem('nivel'),
 		visivel : sessionStorage.getItem('visivel'),
-		token : sessionStorage.getItem('token')
+		token : sessionStorage.getItem('token')*/
 		
 	}
 })

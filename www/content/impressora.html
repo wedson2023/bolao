@@ -8,7 +8,8 @@
 			<a ng-hide="ctrl.impressoras.length" class="meus item center">Nenhum dispositivo listado</a>
 			<a class="item" ng-repeat="impressora in ctrl.impressoras" href ng-bind="impressora.name" ng-click="ctrl.conectar(impressora.id, impressora.name)"></a>
 		</div>
-		<button class="button button-block button-positive" ng-click="ctrl.pesquisar()">Pesquisar</button>
+		<button class="button button-block button-positive" ng-click="ctrl.pesquisar()">Pesquisar Impressoras</button>
+		<button class="button button-block button-assertive" ng-click="ctrl.desconectar()">Remover Impressora</button>
 	<!--fim Content -->
 	</ion-content>
 </ion-view>

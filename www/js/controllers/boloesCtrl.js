@@ -1,6 +1,6 @@
 app
 
-.controller('boloesCtrl', ['$scope', 'http', 'config', 'boloes', 'mensagem', '$ionicPopup', '$ionicModal', '$ionicLoading', 'bolao', function($scope, http, config, boloes, mensagem, $ionicPopup, $ionicModal, $ionicLoading, bolao){
+.controller('boloesCtrl', ['$scope', 'http', 'config', 'boloes', 'mensagem', '$ionicPopup', '$ionicModal', '$ionicLoading', 'bolao', 'session', '$filter', function($scope, http, config, boloes, mensagem, $ionicPopup, $ionicModal, $ionicLoading, bolao, session, $filter){
 	
 	var self = this;	
 	self.titulo = 'Gerenciar bolões';	
@@ -12,7 +12,7 @@ app
 			template : 'Tem certeza que deseja excluir o bolão ' + boloes.nome.toUpperCase() + ', isso irá apagar todos apostador do mesmo ?'
 		}).then(function(res){
 			 if(res){
-				http('DELETE', config.host + '/boloes/' + boloes._id, null, { token : config.token }).then(function(response){
+				http('DELETE', config.host + '/boloes/' + boloes._id, null, { token : session.token }).then(function(response){
 					if(response.data){
 						self.boloes.splice(self.boloes.indexOf(boloes), 1);
 					}
@@ -25,8 +25,7 @@ app
 	self.loadmore = function(){
 		var total = self.boloes.length;
 		var limite = total + 100;		
-		http('GET', config.host + '/boloes/todos?limite=' + limite, null, { token : config.token }).then(function(response){	
-			console.log(response)
+		http('GET', config.host + '/boloes/todos?limite=' + limite, null, { token : session.token }).then(function(response){	
 			self.cancelar = total == response.data.length ? false : true;
 			if(response) self.boloes = response.data;						
 		}, function(err){
@@ -55,14 +54,13 @@ app
 		}, function(err){
 			mensagem('Mensagem alerta', 'Verifique sua conexão com a internet ou tente novamente');
 		})
+		
 				
 		if(dados){
-			for(x in dados.confrontos){
-				var id = 'horario_id' + dados.confrontos[x]._id;
-				var horario = dados.confrontos[x].horario.substr(0, 19);
-				dados.confrontos[x].horario = new Date(horario);
+			for(x in dados.confrontos){				
+				dados.confrontos[x].horario = new Date(dados.confrontos[x].horario);
 			}
-		}		
+		}	
 		
 		self.bolao = dados ? dados : bolao;
 		$scope.boloes.show(); 
@@ -90,26 +88,26 @@ app
 	
 	self.deletelugar = function(){
 		if(self.bolao.lugares.length != 1) self.bolao.lugares.pop();		
-	}
-	
-	self.horario = function(id, idjogo){
-		console.log(id, idjogo)
-		if(id){
-			angular.element(document.getElementById('horario_id' + id)).click();
-		}else{
-			angular.element(document.getElementById('horario_id' + idjogo)).click();
-		}
-	}
+	}	
 	
 	self.visivel = function(check, id){
-		http('PUT', config.host + '/boloes/visivel/' + id, { visivel : check }, { token : config.token }).then(function(response){
-			console.log(response)
+		http('PUT', config.host + '/boloes/visivel/' + id, { visivel : check }, { token : session.token }).then(function(response){
 		}, function(){
 			mensagem('Mensagem Alerta', 'Não foi possível desabilitar o bolão talvez você esteja com problema de conexão com a internet.');
 		})
 	}
 	
-	self.cadastrar = function(dados){
+	self.cadastrar = function(dados){		
+			
+		if(dados){
+			for(x in dados.confrontos){
+				var horario = $filter('date')(dados.confrontos[x].horario, 'yyyy-MM-dd hh:mm:ss');
+				var horario = horario.substr(0, 10) + ' ' + horario.substr(11, 8);
+				var horario = new  Date(horario);
+				dados.confrontos[x].horario = horario;
+			}
+		}
+		
 		var porcentagem = self.bolao.porcentagem.reduce(function(prev, cur){ return prev + cur; }, 0);
 		var lugares = self.bolao.lugares.reduce(function(prev, cur){ return prev + cur; }, 0);	
 		var existe = self.bolao.lugares.some(function(elemento){ return elemento == null; });
@@ -120,7 +118,7 @@ app
 			mensagem('Mensagem alerta', 'A soma dos campos de lugares e porcentagem tem que ser igual a 100 por cento');
 		}else{
 			if(dados._id){
-				http('PUT', config.host + '/boloes/' + dados._id, dados, { token : config.token }).then(function(response){
+				http('PUT', config.host + '/boloes/' + dados._id, dados, { token : session.token }).then(function(response){
 					if(response.data){
 						mensagem('Mensagem sucesso', 'Cadastro alterado com sucesso.');	
 						}
@@ -128,7 +126,7 @@ app
 					mensagem('Mensagem alerta', 'Verifique sua conexão com a internet ou tente novamente');
 				})
 			}else{
-				http('POST', config.host + '/boloes', dados, { token : config.token }).then(function(response){
+				http('POST', config.host + '/boloes', dados, { token : session.token }).then(function(response){
 					if(response.data){
 						self.bolao.nome = null;
 						self.bolao.valor = null;

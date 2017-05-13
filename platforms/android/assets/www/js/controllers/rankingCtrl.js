@@ -1,6 +1,6 @@
 app
 
-.controller('rankingCtrl', ['config', 'http', 'boloes', 'mensagem', '$ionicLoading', function(config, http, boloes, mensagem, $ionicLoading){
+.controller('rankingCtrl', ['config', 'http', 'boloes', 'mensagem', '$ionicLoading', 'session', function(config, http, boloes, mensagem, $ionicLoading, session){
 	
 	var self = this;	
 	self.titulo = 'Ranking';
@@ -8,7 +8,7 @@ app
 	
 	self.pesquisar = function(id){
 		$ionicLoading.show({ template: 'Aguarde ...', duration: 5000 });
-		http('GET', config.host + '/ranking/' + id, null, { token : config.token }).then(function(response){			
+		http('GET', config.host + '/ranking/' + id, null, { token : session.token }).then(function(response){			
 		var collection = [];
 		var bolao = boloes.data.filter(function(elemento){ return elemento._id == id })[0];
 		for(x in response.data){			

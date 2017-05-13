@@ -26,7 +26,12 @@ var app = angular.module('bolao', ['ionic'])
 	.state('menu', {
 		url : '/menu',
 		templateUrl : 'content/menu.html',
-		controller : 'menuCtrl as ctrl'
+		controller : 'menuCtrl as ctrl',
+		resolve : {
+			session : function(){
+				return sessionStorage;
+			}
+		}
 	})
 		
 	.state('menu.impressora', {
@@ -34,7 +39,12 @@ var app = angular.module('bolao', ['ionic'])
 		views : {
 			'menucontent' : {
 			templateUrl : 'content/impressora.html',
-			controller : 'impressoraCtrl as ctrl'
+			controller : 'impressoraCtrl as ctrl',
+			resolve : {
+				session : function(){
+					return sessionStorage;
+				}
+			}
 		}
 	}		
 	})
@@ -47,7 +57,10 @@ var app = angular.module('bolao', ['ionic'])
 			controller : 'homeCtrl as ctrl',
 			resolve : {
 				boloes : function(config, http){
-					return http('GET', config.host + '/boloes?visivel=0', null, { 'token' : config.token });
+					return http('GET', config.host + '/boloes?visivel=0', null, { 'token' : sessionStorage.token });
+				},
+				session : function(){
+					return sessionStorage;
 				}
 			}
 		}
@@ -62,7 +75,10 @@ var app = angular.module('bolao', ['ionic'])
 			controller : 'boloesCtrl as ctrl',
 			resolve : {
 				boloes : function(config, http){
-					return http('GET', config.host + '/boloes/todos', null, { 'token' : config.token });
+					return http('GET', config.host + '/boloes/todos', null, { 'token' : sessionStorage.token });
+				},
+				session : function(){
+					return sessionStorage;
 				}
 			}
 		}
@@ -79,7 +95,12 @@ var app = angular.module('bolao', ['ionic'])
 		views : {
 			'menucontent' : {
 				templateUrl : 'content/bolao.html',
-				controller : 'bolaoCtrl as ctrl'
+				controller : 'bolaoCtrl as ctrl',
+				resolve : {
+					session : function(){
+						return sessionStorage;
+					}
+				}
 			}
 		}		
 	})
@@ -109,7 +130,10 @@ var app = angular.module('bolao', ['ionic'])
 			controller : 'agentesCtrl as ctrl',
 			resolve : {
 				agentes : function(config, http){
-					return http('GET', config.host + '/agentes', null, { 'token' : config.token });
+					return http('GET', config.host + '/agentes', null, { 'token' : sessionStorage.token });
+				},				
+				session : function(){
+					return sessionStorage;
 				}
 			}
 		}
@@ -129,10 +153,13 @@ var app = angular.module('bolao', ['ionic'])
 			controller : 'relatorioCtrl as ctrl',
 			resolve : {
 				agentes : function(config, http){
-					return http('GET', config.host + '/agentes', null, { token : config.token });
+					return http('GET', config.host + '/agentes', null, { token : sessionStorage.token });
 				},
 				boloes : function(config, http){
-					return http('GET', config.host + '/boloes/todos', null, { 'token' : config.token });
+					return http('GET', config.host + '/boloes/todos', null, { 'token' : sessionStorage.token });
+				},
+				session : function(){
+					return sessionStorage;
 				}
 			}
 		}
@@ -147,11 +174,15 @@ var app = angular.module('bolao', ['ionic'])
 			controller : 'rankingCtrl as ctrl',
 			resolve : {
 				boloes : function(config, http){
-					return http('GET', config.host + '/boloes', null, { token : config.token });
+					return http('GET', config.host + '/boloes', null, { token : sessionStorage.token });
+				},
+				session : function(){
+					return sessionStorage;
 				}
 			}
 		}
 	}		
 	})
+	
 	$urlRouterProvider.otherwise('/login');
 })

@@ -13,32 +13,16 @@ module.exports = function(app){
 		
 		todos : function(req, res){
 			var limite = parseInt(url.parse(req.url, true).query.limite);			
-			var visivel = url.parse(req.url, true).query.visivel ? { visivel : 1 } : null;
+			var visivel = url.parse(req.url, true).query.visivel ? { visivel : 1 } : null;			
 			
-			app.models.schemas.agentes.findOne({token : req.token}, function(err, resposta){
-				if(err){
-					res.status(500).json({resposta : false, mensagem : 'Houve algum problema tente novamente!', erro : err});
-				}else if(resposta){
-					app.models.schemas.boloes.find().limit(limite).exec(function(err, resposta){
-						res.status(200).json(resposta);
-					})
-				}else{
-					res.status(403).json({ resposta : false, mensagem : 'Talvez você não esteja logado!'});
-				}
+			app.models.schemas.boloes.find().limit(limite).exec(function(err, resposta){
+				res.status(200).json(resposta);
 			})
 		},
 		
-		registro : function(req, res){
-			app.models.schemas.agentes.findOne({token : req.token}, function(err, resposta){
-				if(err){
-					res.status(500).json({resposta : false, mensagem : 'Houve algum problema tente novamente!', erro : err});
-				}else if(resposta){
-					app.models.schemas.boloes.findById(req.params.id, function(err, resposta){
-						res.status(200).json(resposta);
-					})	
-				}else{
-					res.status(403).json({ resposta : false, mensagem : 'Talvez você não esteja logado!'});
-				}
+		registro : function(req, res){			
+			app.models.schemas.boloes.findById(req.params.id, function(err, resposta){
+				res.status(200).json(resposta);
 			})
 		},
 		

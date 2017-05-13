@@ -1,15 +1,18 @@
 app
 
-.controller('bolaoCtrl', ['http', 'tabela', 'config', 'mensagem', '$stateParams', '$ionicLoading', '$filter', '$ionicModal', '$scope', 'apostador', '$ionicListDelegate', '$ionicPopup', function(http, tabela, config, mensagem, $stateParams, $ionicLoading, $filter, $ionicModal, $scope, apostador, $ionicListDelegate, $ionicPopup){
+.controller('bolaoCtrl', ['http', 'tabela', 'config', 'mensagem', '$stateParams', '$ionicLoading', '$filter', '$ionicModal', '$scope', 'apostador', '$ionicListDelegate', '$ionicPopup', 'session', 'comprovante', function(http, tabela, config, mensagem, $stateParams, $ionicLoading, $filter, $ionicModal, $scope, apostador, $ionicListDelegate, $ionicPopup, session, comprovante){
 	
 	var self = this;
 	self.titulo = 'Bolão';	
-	self.nivel = config.nivel;
+	self.nivel = session.nivel;
 	
 	bluetoothSerial.isEnabled(function(){
 		bluetoothSerial.isConnected(null, function() {
 			if(localStorage.getItem('id')){
 				bluetoothSerial.connect(localStorage.getItem('id'));
+			}else{
+				mensagem('Mensagem Alerta', 'Por favor conecte-se a uma impressora.');
+				window.location.href = '#/menu/impressora';
 			}
 		});
 	},function(){
@@ -23,7 +26,7 @@ app
 	});
 		
 	$ionicLoading.show({ template: 'Aguarde ...', duration: 5000 });
-	http('GET', config.host + /boloes/ + $stateParams.id, null, { token : config.token }).then(function(response){
+	http('GET', config.host + /boloes/ + $stateParams.id, null, { token : session.token }).then(function(response){
 		$ionicLoading.hide();
 		self.bolao = response.data;	
 		var horario = response.data.confrontos.sort(function(a, b){ return a.horario > b.horario; })
@@ -40,18 +43,17 @@ app
 			apostador.premio = self.bolao.porcentagem[0];	
 			apostador.comissao = self.bolao.porcentagem[1];	
 			apostador.admin = self.bolao.porcentagem[2];
-			apostador.nagente = config.nome;
+			apostador.nagente = session.nome;
+			apostador.lugares = self.bolao.lugares;
 			
-			//bluetoothSerial.isConnected(null, function(){ alert('conectou novamente'); bluetoothSerial.connect(localStorage.getItem('id')); });
-			
-			http('GET', config.host + '/relatorio/data', null, { token : config.token }).then(function(response){			
+			http('GET', config.host + '/relatorio/data', null, { token : session.token }).then(function(response){			
 				apostador.data = response.data.substr(0,10);
 
 				if(response.data < self.horario.abertura){
-					http('POST', config.host + '/apostador/' , apostador, { token : config.token }).then(function(response){
+					http('POST', config.host + '/apostador/' , apostador, { token : session.token }).then(function(response){
 						if(response){
-							
-							bluetoothSerial.write(tabela(response.data), null, function(){								
+							response.data.lugares = self.bolao.lugares;
+							bluetoothSerial.write(comprovante(response.data), null, function(){								
 								mensagem('Mensagem Alerta', 'Não foi possível emitir o comprovante tente emitir pela página dos apostadores.');
 							});
 							
@@ -99,7 +101,7 @@ app
 		
 	self.abrirmodalclientes = function(){		
 		$ionicLoading.show({ template: 'Aguarde ...', duration: 5000 });
-		http('GET', config.host + '/apostador?bolao=' + $stateParams.id + '&limite=100&agente=' + config._id + '&nivel=' + config.nivel, null, { token : config.token }).then(function(response){
+		http('GET', config.host + '/apostador?bolao=' + $stateParams.id + '&limite=100&agente=' + session._id + '&nivel=' + session.nivel, null, { token : session.token }).then(function(response){
 			console.log(response.data);
 			$ionicLoading.hide();
 			if(response){
@@ -127,8 +129,9 @@ app
 	self.loadmore = function(){
 		var total = self.clientes.length;
 		var limite = total + 100;		
-		http('GET', config.host + '/apostador?bolao=' + $stateParams.id + '&limite=' + limite, null, { token : config.token }).then(function(response){			
-			self.cancelar = total == response.data.length ? false : true;
+		http('GET', config.host + '/apostador?bolao=' + $stateParams.id + '&limite=' + limite, null, { token : session.token }).then(function(response){
+			console.log(response.data.length, total);
+			self.cancelar = total == response.data.length ? true : false;
 			if(response) self.clientes = response.data;						
 		}, function(err){
 			mensagem('Mensagem de alerta', 'Erro ao listar clientes. Erro: ' + err.data);
@@ -141,7 +144,7 @@ app
 			template : 'Tem certeza que deseja excluir o cliente ' + cliente.nome.toUpperCase() + ' ?'
 		}).then(function(res){
 			 if(res){
-				http('DELETE', config.host + '/apostador/' + cliente._id, null, { token : config.token }).then(function(response){
+				http('DELETE', config.host + '/apostador/' + cliente._id, null, { token : session.token }).then(function(response){
 					if(response.data.resposta){
 						self.clientes.splice(self.clientes.indexOf(cliente), 1);
 					}else{
@@ -173,6 +176,31 @@ app
 	
 	self.fecharmodalveraposta = function(){			
 		$scope.veraposta.hide();  	
+	}
+	
+	self.tabela = function(){
+		bluetoothSerial.isEnabled(function(){
+			bluetoothSerial.write(tabela(self.bolao), function(){
+				mensagem('Mensagem sucesso', 'Comprovante sendo impresso.');
+			}, function(){
+				mensagem('Mensagem alerta', 'Nao foi possível enviar emitir a tabela tente novamente.');
+			});
+		}, function(){
+			mensagem('Mensagem alerta', 'Por favor ligue o bluetooth.');
+		})			
+	}
+	
+	self.imprimir = function(clientes){
+		clientes.lugares = self.bolao.lugares;		
+		bluetoothSerial.isEnabled(function(){
+			bluetoothSerial.write(comprovante(clientes), function(){
+				mensagem('Mensagem sucesso', 'Comprovante sendo impresso.');
+			}, function(){								
+				mensagem('Mensagem Alerta', 'Não foi possível emitir o comprovante tente emitir pela página dos apostadores.');
+			});
+		}, function(){
+			mensagem('Mensagem alerta', 'Por favor ligue o bluetooth.');
+		})	
 	}
 	
 }])
