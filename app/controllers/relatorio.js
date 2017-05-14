@@ -21,14 +21,18 @@ module.exports = function(app){
 			var nivel = parseInt(url.parse(req.url, true).query.nivel);
 			var agente = url.parse(req.url, true).query.agente;
 			
-			if(first != 'null' && bolao != 'undefined'){
+			if(first != 'null' && bolao != 'undefined' && bolao != 'null'){
 				if(nivel){
 					var query = { $and : [ { data : { $gte : first } }, { data : { $lte : last } }, { bolao : { $eq : bolao } }, { agente : agente } ] };
 				}else{
 					var query = { $and : [ { data : { $gte : first } }, { data : { $lte : last } }, { bolao : { $eq : bolao } } ] };
 				}				
 			}else if(first != 'null' && first == last){
-				var query = { data : { $eq : first } };
+				if(nivel){
+					var query = {$and : [ { data : { $eq : first } }, { agente : agente } ] };
+				}else{
+					var query = { data : { $eq : first } };
+				}					
 			}else if(first != 'null'){
 				if(nivel){
 					var query = { $and : [ { data : { $gte : first } }, { data : { $lte : last } }, { agente : agente } ] };

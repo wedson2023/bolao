@@ -1,6 +1,11 @@
 <ion-view view-title="{{ ctrl.titulo }}">	
 	<ion-content>
+	<ion-refresher on-refresh="ctrl.refresh()"></ion-refresher>
 	<!-- inicio Content -->
+		<div class="meus padding-10 card">
+			Prêmio acumulado: 
+			<span ng-bind="ctrl.clientes.acumulado ? ctrl.clientes.acumulado : 0 | currency : 'R$ '"></span>
+		</div>
 		<div class="card">
 			<select ng-change="ctrl.pesquisar(bolao)" ng-model="bolao" ng-options="bolao._id as bolao.nome for bolao in ctrl.boloes" class="meus block capitalize padding-10 margin-zero border">	  		
 				<option value="">Selecione um bolão</option>

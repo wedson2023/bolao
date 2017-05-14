@@ -20,7 +20,7 @@ app
 			var first = $filter('date')(dados.first, 'yyyy-MM-dd');
 			var last = $filter('date')(dados.last, 'yyyy-MM-dd');
 			
-			http('GET', config.host + '/relatorio/listar?first=' + first + '&last=' + last + '&bolao=' + dados.bolao + '&agente=' + session._id + '&nivel=' + session.nivel, null, { token : session.token }).then(function(response){
+			http('GET', config.host + '/relatorio/listar?first=' + first + '&last=' + last + '&bolao=' + dados.bolao + '&agente=' + session._id + '&nivel=' + session.nivel, null, { token : session.token }).then(function(response){			
 				self.agentes = [];
 				self.relatorio = dadosrelatorio(response.data);
 				for(x in agentes.data){
@@ -40,21 +40,7 @@ app
 			})	
 		}
 		
-	}/*	
-	
-	for(x in agentes.data){
-		if(agentes.data[x].nivel != 0){
-		var apostas = relatorio.data.filter(function(elemento){ return elemento.agente == agentes.data[x]._id });
-
-		self.agentes.push({ nome : agentes.data[x].nome, dados : {			
-			apostas : apostas.length,
-			comissao : apostas.reduce(function(prev, cur){ return prev + parseFloat(cur.comissao) }, 0),			
-			bruto : apostas.reduce(function(prev, cur){ return prev + parseFloat(cur.valor) }, 0),
-			premio : apostas.reduce(function(prev, cur){ return prev + parseFloat(cur.premio) }, 0),
-			liquido : apostas.reduce(function(prev, cur){ return prev + parseFloat(cur.admin) }, 0)
-		}});
-		}
-	}*/
+	}
 
 	
 }])

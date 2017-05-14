@@ -1,6 +1,6 @@
 app
 
-.controller('bolaoCtrl', ['http', 'tabela', 'config', 'mensagem', '$stateParams', '$ionicLoading', '$filter', '$ionicModal', '$scope', 'apostador', '$ionicListDelegate', '$ionicPopup', 'session', 'comprovante', function(http, tabela, config, mensagem, $stateParams, $ionicLoading, $filter, $ionicModal, $scope, apostador, $ionicListDelegate, $ionicPopup, session, comprovante){
+.controller('bolaoCtrl', ['http', 'tabela', 'config', 'mensagem', '$stateParams', '$ionicLoading', '$filter', '$ionicModal', '$scope', 'apostador', '$ionicListDelegate', '$ionicPopup', 'session', 'comprovante', '$timeout', function(http, tabela, config, mensagem, $stateParams, $ionicLoading, $filter, $ionicModal, $scope, apostador, $ionicListDelegate, $ionicPopup, session, comprovante, $timeout){
 	
 	var self = this;
 	self.titulo = 'Bolão';	
@@ -38,12 +38,14 @@ app
 	})	
 	
 	self.cadastrar = function(apostador){
+		
 		bluetoothSerial.isEnabled(function(){
 			apostador.premio = self.bolao.porcentagem[0];	
 			apostador.comissao = self.bolao.porcentagem[1];	
 			apostador.admin = self.bolao.porcentagem[2];
 			apostador.nagente = session.nome;
 			apostador.lugares = self.bolao.lugares;
+			apostador.agente = session._id;
 			
 			http('GET', config.host + '/relatorio/data', null, { token : session.token }).then(function(response){			
 				apostador.data = response.data.substr(0,10);
@@ -51,15 +53,20 @@ app
 				if(response.data < self.horario.abertura){
 					http('POST', config.host + '/apostador/' , apostador, { token : session.token }).then(function(response){
 						if(response){
-							self.debug = response.data;
 							response.data.lugares = self.bolao.lugares;
-							bluetoothSerial.write(comprovante(response.data), null, function(){								
+							response.data.hora = self.horario;
+							bluetoothSerial.write(comprovante(response.data), function(){
+								$ionicLoading.show({ template: 'Aguarde ...', duration: 5000 });								
+							}, function(){								
 								mensagem('Mensagem Alerta', 'Não foi possível emitir o comprovante tente emitir pela página dos apostadores.');
-							});							
-							angular.element(document.getElementById('casa')).val('');
-							angular.element(document.getElementById('fora')).val('');
+							});
+							
 							angular.element(document.getElementById('nome')).val('');
-							mensagem('Mensagem de sucesso', 'Cadastro realizado com sucesso!');
+							for(x in apostador.apostas){
+								angular.element(document.getElementById('casa_' + x)).val('');
+								angular.element(document.getElementById('fora_' + x)).val('');
+							}
+							$timeout(function(){ mensagem('Mensagem de sucesso', 'Cadastro realizado com sucesso!'); }, 5000);							
 						}
 					}, function(err){
 						mensagem('Mensagem de sucesso', 'Cadastro realizado com sucesso! Erro: ' + err.data);
@@ -72,9 +79,10 @@ app
 
 			})
 		}, function(){			
-			mensagem('Mensagem Alerta', 'O Bluetooth estava desligado tente, ligue por favor.');
-			
-		})
+			bluetoothSerial.enable(function(){
+				mensagem('Mensagem alerta', 'O bluetooth estava desligado tente agora.');
+			})		
+		})	
 	}	
 			
 	$ionicModal.fromTemplateUrl('content/cadastrar-aposta.html', {
@@ -179,27 +187,64 @@ app
 	}
 	
 	self.tabela = function(){
+		self.bolao.hora = self.horario;
+		
 		bluetoothSerial.isEnabled(function(){
-			bluetoothSerial.write(tabela(self.bolao), function(){
-				mensagem('Mensagem sucesso', 'Comprovante sendo impresso.');
-			}, function(){
-				mensagem('Mensagem alerta', 'Nao foi possível enviar emitir a tabela tente novamente.');
-			});
+			
+			bluetoothSerial.isConnected(function(){	
+				
+				bluetoothSerial.write(tabela(self.bolao), function(){					
+					$ionicLoading.show({ template: 'Aguarde ...', duration: 5000 });
+				}, function(){
+					$ionicLoading.hide();
+					mensagem('Mensagem alerta', 'Nao foi possível enviar emitir a tabela tente novamente.');
+				});
+				
+			}, function() {
+				
+			if(localStorage.getItem('id')){
+				bluetoothSerial.connect(localStorage.getItem('id'), function(){
+					
+					bluetoothSerial.write(tabela(self.bolao), function(){
+						$ionicLoading.show({ template: 'Aguarde ...', duration: 5000 });
+					}, function(){
+						$ionicLoading.hide();
+						mensagem('Mensagem alerta', 'Nao foi possível enviar emitir a tabela tente novamente.');
+					});
+					
+				});
+				
+			}else{
+				$ionicLoading.hide();
+				mensagem('Mensagem Alerta', 'Por favor conecte-se a uma impressora.');
+				window.location.href = '#/menu/impressora';
+			}
+				
+		});
+			
 		}, function(){
-			mensagem('Mensagem alerta', 'Por favor ligue o bluetooth.');
+			$ionicLoading.hide();
+			bluetoothSerial.enable(function(){
+				mensagem('Mensagem alerta', 'O bluetooth estava desligado tente agora.');
+			})
+			
 		})			
 	}
 	
 	self.imprimir = function(clientes){
-		clientes.lugares = self.bolao.lugares;		
+		clientes.hora = self.horario;
+		clientes.lugares = self.bolao.lugares;	
+		$ionicLoading.show({ template: 'Aguarde ...', duration: 5000 });
 		bluetoothSerial.isEnabled(function(){
-			bluetoothSerial.write(comprovante(clientes), function(){
-				mensagem('Mensagem sucesso', 'Comprovante sendo impresso.');
-			}, function(){								
+			bluetoothSerial.write(comprovante(clientes), null, function(){	
+				$ionicLoading.hide();
 				mensagem('Mensagem Alerta', 'Não foi possível emitir o comprovante tente emitir pela página dos apostadores.');
 			});
 		}, function(){
-			mensagem('Mensagem alerta', 'Por favor ligue o bluetooth.');
+			$ionicLoading.hide();
+			bluetoothSerial.enable(function(){
+				mensagem('Mensagem alerta', 'O bluetooth estava desligado tente agora.');
+			})
 		})	
 	}
 	

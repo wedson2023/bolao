@@ -57,8 +57,10 @@ service('sessoes', function($http){
 			x++;
 		}
 		
-		text += ENTER + ENTER + INI;
+		text += ENTER + ENTER + INI;		
 		
+		text += NEGRITO + '- Esse bolao fecha suas apostas em ' + $filter('date')(dados.hora.abertura, 'medium') + ' e finaliza em ' + $filter('date')( dados.hora.abertura, 'medium') + '.' + ENTER + INI;
+		text += NEGRITO + '- Placar EXATO vale 15 pontos, acertou o TIME mas não o placar 5 pontos.' + ENTER + INI;
 		text += NEGRITO + '- O premio sera pago ate 3 dias depois do ultimo jogo do bolao.' + ENTER + INI;
 		text += NEGRITO + '- Premio nao sera pago por erros de sistema.' + ENTER + INI;
 		text += NEGRITO + '- Em caso de empate na mesma posicao serao dividido o valor da premiacao.' + ENTER + INI;
@@ -101,8 +103,10 @@ service('sessoes', function($http){
 			x++;
 		}
 		
-		text += ENTER + ENTER + INI;
+		text += ENTER + ENTER + INI;		
 		
+		text += NEGRITO + '- Esse bolao fecha suas apostas em ' + $filter('date')(dados.hora.abertura, 'medium') + ' e finaliza em ' + $filter('date')( dados.hora.abertura, 'medium') + '.' + ENTER + INI;
+		text += NEGRITO + '- Placar EXATO vale 15 pontos, acertou o TIME mas não o placar 5 pontos.' + ENTER + INI;
 		text += NEGRITO + '- O premio sera pago ate 3 dias depois do ultimo jogo do bolao.' + ENTER + INI;
 		text += NEGRITO + '- Premio nao sera pago por erros de sistema.' + ENTER + INI;
 		text += NEGRITO + '- Em caso de empate na mesma posicao serao dividido o valor da premiacao.' + ENTER + INI;

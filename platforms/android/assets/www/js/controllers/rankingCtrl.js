@@ -1,16 +1,22 @@
 app
 
-.controller('rankingCtrl', ['config', 'http', 'boloes', 'mensagem', '$ionicLoading', 'session', function(config, http, boloes, mensagem, $ionicLoading, session){
+.controller('rankingCtrl', ['config', 'http', 'boloes', 'mensagem', '$ionicLoading', 'session', '$scope', function(config, http, boloes, mensagem, $ionicLoading, session, $scope){
 	
 	var self = this;	
 	self.titulo = 'Ranking';
 	self.boloes = boloes.data;	
 	
+	self.refresh = function(){
+		location.reload();
+		$scope.$broadcast('scroll.refreshComplete');
+	}
+	
 	self.pesquisar = function(id){
 		if(!id) return false;
 		$ionicLoading.show({ template: 'Aguarde ...', duration: 5000 });
-		http('GET', config.host + '/ranking/' + id, null, { token : session.token }).then(function(response){			
+		http('GET', config.host + '/ranking/' + id + '?agente=' + session._id + '&nivel=' + session.nivel , null, { token : session.token }).then(function(response){			
 		var collection = [];
+					
 		var bolao = boloes.data.filter(function(elemento){ return elemento._id == id })[0];
 		for(x in response.data){			
 			var cliente = [];
@@ -35,6 +41,7 @@ app
 			var time = cliente.filter(function(elemento){ return elemento == 5});
 			var erros = cliente.filter(function(elemento){ return elemento == 0});
 			
+			
 			collection.push({ 
 				nome : response.data[x].nome,
 				placar : placar.length,
@@ -58,8 +65,9 @@ app
 			}
 			a++;	
 		}
-		console.log(collection)
+		
 		self.clientes = collection;
+		self.clientes.acumulado = response.data.reduce(function(prev, cur){ return prev + parseInt(cur.premio);}, 0)
 		$ionicLoading.hide();
 	}, function(err){
 		$ionicLoading.hide();

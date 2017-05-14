@@ -171,7 +171,7 @@ var app = angular.module('bolao', ['ionic'])
 			controller : 'rankingCtrl as ctrl',
 			resolve : {
 				boloes : function(config, http){
-					return http('GET', config.host + '/boloes', null, { token : sessionStorage.token });
+					return http('GET', config.host + '/boloes/todos', null, { token : sessionStorage.token });
 				},
 				session : function(){
 					return sessionStorage;

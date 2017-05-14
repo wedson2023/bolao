@@ -28,7 +28,7 @@ app
 	self.conectar = function(id, impressora){
 		localStorage.clear();
 		bluetoothSerial.disconnect();
-
+		$ionicLoading.show({ template: 'Aguarde ...', duration: 15000 });
 		bluetoothSerial.connect(id, function(){			
 			mensagem('Mensagem Sucesso', 'Você esta conectado há ' + impressora + ' agora está pronto para fazer impressões.');
 			localStorage.setItem('id', id);
@@ -41,8 +41,10 @@ app
 			ENTER = String.fromCharCode(0x0A); 
 
 			bluetoothSerial.write(ENTER + CENTRO + NEGRITO + 'IMPRESSORA PRONTA' + ENTER + ENTER + ENTER + ENTER + ENTER + INI);
+			$ionicLoading.hide();
 		}, function(){
 			mensagem('Mensagem alerta', 'Verifique se a impressora esta ligada, caso esteja e o problema persista ligue e desligue seu aparelho e a impressora.');
+			$ionicLoading.hide();
 		})
 	}
 	

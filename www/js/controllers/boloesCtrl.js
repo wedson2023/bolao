@@ -44,7 +44,7 @@ app
 		$scope.boloes.hide();  	
 	}	
 	
-	self.showmodalcadastro = function(dados){		
+	self.showmodalcadastro = function(dados){			
 		
 		$ionicLoading.show({ template: 'Aguarde ...', duration: 5000 });
 		
@@ -54,7 +54,6 @@ app
 		}, function(err){
 			mensagem('Mensagem alerta', 'Verifique sua conexão com a internet ou tente novamente');
 		})
-		
 				
 		if(dados){
 			for(x in dados.confrontos){				
@@ -97,16 +96,17 @@ app
 		})
 	}
 	
-	self.cadastrar = function(dados){		
-			
-		/*if(dados){
-			for(x in dados.confrontos){
-				var horario = $filter('date')(dados.confrontos[x].horario, 'yyyy-MM-dd hh:mm:ss');
-				var horario = horario.substr(0, 10) + ' ' + horario.substr(11, 8);
-				var horario = new  Date(horario);
-				dados.confrontos[x].horario = horario;
+	self.cadastrar = function(dados){	
+		
+		var atual = new Date($filter('date')(new Date(), 'yyyy-MM-dd hh:mm:ss'));
+		
+		for(x in dados.confrontos){
+			var confronto = new Date(dados.confrontos[x].horario);
+			if(atual > confronto || confronto == null){
+				mensagem('Mensagem Alerta', 'Cadastre uma hora válida para todos os confrontos.');
+				return false;
 			}
-		}*/
+		}
 		
 		var porcentagem = self.bolao.porcentagem.reduce(function(prev, cur){ return prev + cur; }, 0);
 		var lugares = self.bolao.lugares.reduce(function(prev, cur){ return prev + cur; }, 0);	

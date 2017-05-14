@@ -1,5 +1,6 @@
 <ion-view view-title="{{ ctrl.titulo }}">
 	<ion-content padding="true">
+	<ion-refresher on-refresh="ctrl.refresh()"></ion-refresher>
 	<!--inicio Content -->
 		<label class="item item-input">
 			<i class="icon ion-search placeholder-icon"></i>
@@ -10,6 +11,7 @@
 			<a ng-href="#/menu/bolao/{{ bolao._id }}" class="item item-icon-left">
 				<i class="icon ion-ios-football"></i>
 				<span class="meus capitalize" ng-bind="bolao.nome"></span>
+				<span class="badge badge-assertive" ng-bind="bolao.acumulado | currency : 'R$ '"></span>
 			</a>
 		</div>
 	<!--fim Content -->
