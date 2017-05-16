@@ -14,9 +14,11 @@ app
 	self.pesquisar = function(id){
 		if(!id) return false;
 		$ionicLoading.show({ template: 'Aguarde ...', duration: 5000 });
-		http('GET', config.host + '/ranking/' + id + '?agente=' + session._id + '&nivel=' + session.nivel , null, { token : session.token }).then(function(response){			
+		http('GET', config.host + '/ranking/' + id + '?agente=' + session._id + '&nivel=' + session.nivel , null, { token : session.token }).then(function(response){	
+		
 		var collection = [];
-					
+		var acumulado = response.data.bolao;	
+		response.data = parseInt(session.nivel) ? response.data.usuario : response.data.bolao;
 		var bolao = boloes.data.filter(function(elemento){ return elemento._id == id })[0];
 		for(x in response.data){			
 			var cliente = [];
@@ -24,11 +26,11 @@ app
 				if(response.data[x].apostas[i]._id == bolao.confrontos[i]._id){	
 					if(response.data[x].apostas[i].pcasa == bolao.confrontos[i].pcasa && response.data[x].apostas[i].pfora == bolao.confrontos[i].pfora){
 						cliente.push(15);
-					}else if(response.data[x].apostas[i].pcasa == response.data[x].apostas[i].pcasa && response.data[x].apostas[i].pfora == bolao.confrontos[i].pfora){
+					}else if(response.data[x].apostas[i].pcasa == response.data[x].apostas[i].pfora && bolao.confrontos[i].pcasa == bolao.confrontos[i].pfora && bolao.confrontos[i].pcasa != null && bolao.confrontos[i].pfora != null){
 						cliente.push(5);
-					}else if(response.data[x].apostas[i].pcasa > response.data[x].apostas[i].pfora && bolao.confrontos[i].pcasa > bolao.confrontos[i].pfora){
+					}else if(response.data[x].apostas[i].pcasa > response.data[x].apostas[i].pfora && bolao.confrontos[i].pcasa > bolao.confrontos[i].pfora && bolao.confrontos[i].pcasa != null && bolao.confrontos[i].pfora != null){
 						cliente.push(5);
-					}else if(response.data[x].apostas[i].pfora > response.data[x].apostas[i].pcasa && bolao.confrontos[i].pfora > bolao.confrontos[i].pcasa){
+					}else if(response.data[x].apostas[i].pfora > response.data[x].apostas[i].pcasa && bolao.confrontos[i].pfora > bolao.confrontos[i].pcasa && bolao.confrontos[i].pcasa != null && bolao.confrontos[i].pfora != null){
 						cliente.push(5);	
 					}else{
 						cliente.push(0);
@@ -67,7 +69,7 @@ app
 		}
 		
 		self.clientes = collection;
-		self.clientes.acumulado = response.data.reduce(function(prev, cur){ return prev + parseInt(cur.premio);}, 0)
+		self.clientes.acumulado = acumulado.reduce(function(prev, cur){ return prev + parseInt(cur.premio);}, 0)
 		$ionicLoading.hide();
 	}, function(err){
 		$ionicLoading.hide();

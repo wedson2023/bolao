@@ -98,13 +98,16 @@ app
 	
 	self.cadastrar = function(dados){	
 		
-		var atual = new Date($filter('date')(new Date(), 'yyyy-MM-dd hh:mm:ss'));
+		console.log(typeof dados._id)
+		if(dados._id == undefined){
+			var atual = new Date($filter('date')(new Date(), 'yyyy-MM-dd hh:mm:ss'));
 		
-		for(x in dados.confrontos){
-			var confronto = new Date(dados.confrontos[x].horario);
-			if(atual > confronto || confronto == null){
-				mensagem('Mensagem Alerta', 'Cadastre uma hora válida para todos os confrontos.');
-				return false;
+			for(x in dados.confrontos){
+				var confronto = new Date(dados.confrontos[x].horario);
+				if(atual > confronto || confronto == null){
+					mensagem('Mensagem Alerta', 'Cadastre uma hora válida para todos os confrontos.');
+					return false;
+				}
 			}
 		}
 		
