@@ -14,27 +14,26 @@ app
 	self.pesquisar = function(id){
 		if(!id) return false;
 		$ionicLoading.show({ template: 'Aguarde ...', duration: 5000 });
-		http('GET', config.host + '/ranking/' + id + '?agente=' + session._id + '&nivel=' + session.nivel , null, { token : session.token }).then(function(response){	
-		
+		http('GET', config.host + '/ranking/' + id + '?agente=' + session._id + '&nivel=' + session.nivel , null, { token : session.token }).then(function(response){
 		var collection = [];
-		var acumulado = response.data.bolao;	
+		var acumulado = response.data.bolao;
 		response.data = parseInt(session.nivel) ? response.data.usuario : response.data.bolao;
 		var bolao = boloes.data.filter(function(elemento){ return elemento._id == id })[0];
+			
 		for(x in response.data){			
-			var cliente = [];
+			var cliente = [];			
 			for(i in response.data[x].apostas){
-				if(response.data[x].apostas[i]._id == bolao.confrontos[i]._id){	
-					if(response.data[x].apostas[i].pcasa == bolao.confrontos[i].pcasa && response.data[x].apostas[i].pfora == bolao.confrontos[i].pfora){
-						cliente.push(15);
-					}else if(response.data[x].apostas[i].pcasa == response.data[x].apostas[i].pfora && bolao.confrontos[i].pcasa == bolao.confrontos[i].pfora && bolao.confrontos[i].pcasa != null && bolao.confrontos[i].pfora != null){
-						cliente.push(5);
-					}else if(response.data[x].apostas[i].pcasa > response.data[x].apostas[i].pfora && bolao.confrontos[i].pcasa > bolao.confrontos[i].pfora && bolao.confrontos[i].pcasa != null && bolao.confrontos[i].pfora != null){
-						cliente.push(5);
-					}else if(response.data[x].apostas[i].pfora > response.data[x].apostas[i].pcasa && bolao.confrontos[i].pfora > bolao.confrontos[i].pcasa && bolao.confrontos[i].pcasa != null && bolao.confrontos[i].pfora != null){
-						cliente.push(5);	
-					}else{
-						cliente.push(0);
-					}
+				var confronto = bolao.confrontos.filter(function(elemento){ return elemento._id == response.data[x].apostas[i]._id })[0];
+				if(response.data[x].apostas[i].pcasa == confronto.pcasa && response.data[x].apostas[i].pfora == confronto.pfora){
+					cliente.push(15);					
+				}else if(response.data[x].apostas[i].pcasa == response.data[x].apostas[i].pfora && confronto.pcasa == confronto.pfora && confronto.pcasa != null && confronto.pfora != null){
+					cliente.push(5);
+				}else if(response.data[x].apostas[i].pcasa > response.data[x].apostas[i].pfora && confronto.pcasa > confronto.pfora && confronto.pcasa != null && confronto.pfora != null){
+					cliente.push(5);
+				}else if(response.data[x].apostas[i].pfora > response.data[x].apostas[i].pcasa && confronto.pfora > confronto.pcasa && confronto.pcasa != null && confronto.pfora != null){
+					cliente.push(5);	
+				}else{
+					cliente.push(0);
 				}
 			}
 			

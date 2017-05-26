@@ -43,8 +43,8 @@ app
 
 .factory('agentes', function(){
 	return {
-		nome : 'programador',
-		senha : '12345'
+		nome : '',
+		senha : ''
 	}
 })
 

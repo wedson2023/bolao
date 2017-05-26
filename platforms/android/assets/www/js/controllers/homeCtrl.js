@@ -4,7 +4,7 @@ app
 	
 	var self = this;	
 	self.titulo = 'Bolões';	
-	self.boloes = [];		
+	self.boloes = [];
 	
 	$ionicLoading.show({ template: 'Aguarde ...', duration: 5000 });
 	http('GET', config.host + '/boloes?visivel=0', null, { 'token' : session.token }).then(function(response){	
