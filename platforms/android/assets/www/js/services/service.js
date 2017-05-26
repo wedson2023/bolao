@@ -59,7 +59,7 @@ service('sessoes', function($http){
 		
 		text += ENTER + ENTER + INI;		
 		
-		text += NEGRITO + '- Esse bolao fecha suas apostas em ' + $filter('date')(dados.hora.abertura, 'medium') + ' e finaliza em ' + $filter('date')( dados.hora.abertura, 'medium') + '.' + ENTER + INI;
+		text += NEGRITO + '- Esse bolao fecha suas apostas em ' + $filter('date')(dados.hora.abertura, 'medium') + ' e finaliza em ' + $filter('date')( dados.hora.fechamento, 'medium') + '.' + ENTER + INI;
 		text += NEGRITO + '- Placar EXATO vale 15 pontos, acertou o TIME mas não o placar 5 pontos.' + ENTER + INI;
 		text += NEGRITO + '- O premio sera pago ate 3 dias depois do ultimo jogo do bolao.' + ENTER + INI;
 		text += NEGRITO + '- Premio nao sera pago por erros de sistema.' + ENTER + INI;
@@ -72,7 +72,8 @@ service('sessoes', function($http){
 })
 
 .service('tabela', function($filter, config, replace){
-	return function(dados){	
+	return function(dados){
+		console.log(dados)
 		var ESC = "\u001B";
 		var GS = "\u001D";
 		var INI = ESC + "@";   //inicializa a impressora
@@ -105,7 +106,7 @@ service('sessoes', function($http){
 		
 		text += ENTER + ENTER + INI;		
 		
-		text += NEGRITO + '- Esse bolao fecha suas apostas em ' + $filter('date')(dados.hora.abertura, 'medium') + ' e finaliza em ' + $filter('date')( dados.hora.abertura, 'medium') + '.' + ENTER + INI;
+		text += NEGRITO + '- Esse bolao fecha suas apostas em ' + $filter('date')(dados.hora.abertura, 'medium') + ' e finaliza em ' + $filter('date')( dados.hora.fechamento, 'medium') + '.' + ENTER + INI;
 		text += NEGRITO + '- Placar EXATO vale 15 pontos, acertou o TIME mas não o placar 5 pontos.' + ENTER + INI;
 		text += NEGRITO + '- O premio sera pago ate 3 dias depois do ultimo jogo do bolao.' + ENTER + INI;
 		text += NEGRITO + '- Premio nao sera pago por erros de sistema.' + ENTER + INI;

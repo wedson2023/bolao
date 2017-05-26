@@ -28,10 +28,13 @@ app
 	$ionicLoading.show({ template: 'Aguarde ...', duration: 5000 });
 	http('GET', config.host + /boloes/ + $stateParams.id, null, { token : session.token }).then(function(response){
 		$ionicLoading.hide();
-		self.bolao = response.data;	
-		var horario = response.data.confrontos.sort(function(a, b){ return a.horario > b.horario; })
-		self.horario = { abertura :horario[0].horario, fechamento : horario[horario.length - 1].horario };		
+		self.bolao = response.data;		
+		
+		var horario = response.data.confrontos.map(function(elemento){ return elemento.horario; });
+		var horario = horario.sort(function(a, b){ return a > b; })	
+		self.horario = { abertura :horario[0], fechamento : horario[horario.length - 1] };		
 		self.apostador = apostador(response.data);
+		
 	 }, function(err){
 		$ionicLoading.hide();
 		mensagem('Mensagem de alerta', response.data.mensagem);

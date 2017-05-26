@@ -12,9 +12,10 @@ app
 				
 				var cur = new Date(resp.data);
 
-				for(x in response.data){				
-					var horario = response.data[x].confrontos.sort(function(a, b){ return a.horario > b.horario; });
-					var horario = new Date(horario[0].horario)
+				for(x in response.data){
+					var horario = response.data[x].confrontos.map(function(elemento){ return elemento.horario; });
+					var horario = horario.sort(function(a, b){ return a > b; })					
+					var horario = new Date(horario[0]);
 					
 					http('GET', config.host + '/apostador?agente=' + session._id + '&nivel=0&bolao=' + response.data[x]._id, null, { 'token' : session.token }).then(function(total){
 						response.data[x].acumulado = total.data.reduce(function(prev, cur){
