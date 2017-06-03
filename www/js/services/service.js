@@ -22,6 +22,44 @@ service('sessoes', function($http){
 	}
 })
 
+.service('gerarpdf', function($filter, config, replace){
+	return function(clientes){		
+			var text = '<strong style="font-family: Arial; font-size: 0.7em; display:block; text-align: center; margin-bottom: 10px; text-transform: uppercase;">' + config.empresa + '</strong>';
+			text += '<strong style="font-family: Arial; font-size: 0.7em; margin-bottom: 3px;">Id: <span style="text-transform: capitalize;">' + clientes._id + '</span></strong><br>';
+			text += '<strong style="font-family: Arial; font-size: 0.7em; margin-bottom: 3px;">Agente: <span style="text-transform: capitalize;">' + clientes.nagente + '</span></strong><br>';
+			text += '<strong style="font-family: Arial; font-size: 0.7em; margin-bottom: 3px;">Cliente: <span style="text-transform: capitalize;">' + clientes.nome + '</span></strong><br>';
+			text += '<strong style="font-family: Arial; font-size: 0.7em; display:block; margin-bottom: 30px;">Horário: <span>' + $filter('date')(clientes.horario, 'short') + '</span></strong>';
+
+			text += '<strong style="font-family: Arial; font-size: 0.8em; display:block; text-align: center; margin-bottom: 10px; text-transform: uppercase;">' + clientes.nbolao + '</strong>';
+			for(x in clientes.apostas){
+				text += '<span style="font-family: Arial; font-size: 0.7em; font-weight:bold; display:block; padding: 5px; text-align:center;">' 
+					+ clientes.apostas[x].casa + ' ' + clientes.apostas[x].pcasa 
+					+ '  x  ' 
+					+ ' ' + clientes.apostas[x].pfora + ' ' + clientes.apostas[x].fora +
+				'</span>';
+				text += '<span style="font-family: Arial; font-size: 0.7em; font-weight:bold; display:block; text-align:center;"> ' + $filter('date')(clientes.apostas[x].horario, 'short') + ' </span>';
+			}		
+		
+			var x = 0;
+			text += '<div style="font-family: Arial; font-size: 0.7em; display: block; text-align:left; margin: 20px 0;">';
+				while(x < clientes.lugares.length){
+					text += (x + 1) + ' Lugar ' + clientes.lugares[x] + ' % do valor acumulado.<br>';
+					x++;
+				}
+			text += '</div>';
+
+			text += '<div style="font-family: Arial; font-size: 0.7em; display: block; text-align:left;">';
+				text += '- Esse bolao fecha suas apostas em ' + $filter('date')(clientes.hora.abertura, 'medium') + ' e finaliza em ' + $filter('date')( clientes.hora.fechamento, 'medium') + '.<br>';
+				text += '- Placar EXATO vale 15 pontos, acertou o TIME mas não o placar 5 pontos.<br>';
+				text += '- O premio sera pago ate 3 dias depois do ultimo jogo do bolao.<br>';
+				text += '- Premio nao sera pago por erros de sistema.<br>';
+				text += '- Em caso de empate na mesma posicao serao dividido o valor da premiacao.';
+			text += '</div>';
+		
+		return text;
+	}
+})
+
 .service('comprovante', function($filter, config, replace){
 	return function(dados){	
 		var ESC = "\u001B";

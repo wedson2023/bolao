@@ -1,2 +1,6 @@
-app/npm-debug.log
-node_modules/
+app/node_modules/
+app/logs/app.log
+app/logs/error.log
+app/logs/forever.log
+npm-debug.log
+platforms/

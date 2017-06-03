@@ -6,7 +6,7 @@
 			<input type="text" list="times" placeholder="Digite um bolão" ng-model="pesquisar">
 		</label>		 
 		<ion-list>
-			<ion-item can-swipe="true" ng-repeat="bolao in ctrl.boloes | filter : { nome : pesquisar }" class="item item-icon-left">			
+			<ion-item can-swipe="true" ng-href="#/menu/bolao/{{ bolao._id }}" ng-repeat="bolao in ctrl.boloes | filter : { nome : pesquisar }" class="item item-icon-left">			
 				<i class="icon ion-ios-football"></i>
 				<span class="meus capitalize" ng-bind="bolao.nome"></span>
 				 <ion-option-button class="button-assertive button-dark" ng-click="ctrl.showmodalcadastro(bolao)">Editar</ion-option-button>

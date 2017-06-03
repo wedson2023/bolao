@@ -1,5 +1,8 @@
 module.exports = function(app){	
 	var url = require('url');
+	var pdf = require('html-pdf');
+	
+	var options = { format: 'A6' };
 	return {		
 		registros : function(req, res){
 			var limite = parseInt(url.parse(req.url, true).query.limite);			
@@ -35,9 +38,16 @@ module.exports = function(app){
 						res.status(200).json(resposta);
 					})
 				}else{
-					res.status(403).json({ resposta : false, mensagem : 'Talvez você não esteja logado!'});
+					res.status(403).json({ resposta : false, me00nsagem : 'Talvez você não esteja logado!'});
 				}
 			})					
+		},
+		
+		pdf : function(req, res){
+			pdf.create(req.body.html, options).toFile('./comprovantes/' + req.body.apostador + '.pdf', function(err, resp) {
+			  if (err) return console.log(err);
+			  res.status(200).json({resposta : true });			
+			});
 		},
 		
 		alterar : function(req, res){	

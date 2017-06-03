@@ -3,6 +3,7 @@ app
 .factory('config', function(){
 	return {
 		host : 'http://138.197.98.87:3000',
+		path : 'http://138.197.98.87',
 		empresa : 'Bolão Futebol'		
 	}
 })

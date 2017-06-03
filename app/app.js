@@ -31,5 +31,5 @@ app.use(error.notFound);
 app.use(error.serverError);
 
 app.listen(3000, function(){
-	console.log('Servidor online');
+	console.log('Servidor online')
 })

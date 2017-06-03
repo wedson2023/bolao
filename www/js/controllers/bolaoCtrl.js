@@ -1,6 +1,6 @@
 app
 
-.controller('bolaoCtrl', ['http', 'tabela', 'config', 'mensagem', '$stateParams', '$ionicLoading', '$filter', '$ionicModal', '$scope', 'apostador', '$ionicListDelegate', '$ionicPopup', 'session', 'comprovante', '$timeout', function(http, tabela, config, mensagem, $stateParams, $ionicLoading, $filter, $ionicModal, $scope, apostador, $ionicListDelegate, $ionicPopup, session, comprovante, $timeout){
+.controller('bolaoCtrl', ['http', 'tabela', 'config', 'mensagem', '$stateParams', '$ionicLoading', '$filter', '$ionicModal', '$scope', 'apostador', '$ionicListDelegate', '$ionicPopup', 'session', 'comprovante', '$timeout', 'gerarpdf', function(http, tabela, config, mensagem, $stateParams, $ionicLoading, $filter, $ionicModal, $scope, apostador, $ionicListDelegate, $ionicPopup, session, comprovante, $timeout, gerarpdf){
 	
 	var self = this;
 	self.titulo = 'Bolão';	
@@ -28,7 +28,7 @@ app
 	$ionicLoading.show({ template: 'Aguarde ...', duration: 5000 });
 	http('GET', config.host + /boloes/ + $stateParams.id, null, { token : session.token }).then(function(response){
 		$ionicLoading.hide();
-		self.bolao = response.data;		
+		self.bolao = response.data;
 		
 		var horario = response.data.confrontos.map(function(elemento){ return elemento.horario; });
 		var horario = horario.sort(function(a, b){ return a > b; })	
@@ -232,6 +232,19 @@ app
 			})
 			
 		})			
+	}
+	
+	self.enviar = function(clientes){
+		console.log(clientes)
+		clientes.hora = self.horario;
+		clientes.lugares = self.bolao.lugares;	
+		clientes.nagente = session.nome;
+		clientes.nbolao = self.bolao.nome;
+		var html = gerarpdf(clientes);
+		
+		http('POST', config.host + '/boloes/pdf', { html : html, apostador : clientes._id }, { token : session.token }).then(function(response){			
+			window.open(config.path + '/bolao/app/comprovantes/' +  clientes._id + '.pdf', '_blank');
+		})
 	}
 	
 	self.imprimir = function(clientes){
