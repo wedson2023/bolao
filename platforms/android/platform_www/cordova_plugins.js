@@ -48,6 +48,15 @@ module.exports = [
         "clobbers": [
             "window.bluetoothSerial"
         ]
+    },
+    {
+        "id": "cordova-plugin-inappbrowser.inappbrowser",
+        "file": "plugins/cordova-plugin-inappbrowser/www/inappbrowser.js",
+        "pluginId": "cordova-plugin-inappbrowser",
+        "clobbers": [
+            "cordova.InAppBrowser.open",
+            "window.open"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -60,7 +69,8 @@ module.exports.metadata =
     "cordova-plugin-whitelist": "1.3.2",
     "ionic-plugin-keyboard": "2.2.1",
     "cordova-plugin-datepicker": "0.9.2",
-    "cordova-plugin-bluetooth-serial": "0.4.7"
+    "cordova-plugin-bluetooth-serial": "0.4.7",
+    "cordova-plugin-inappbrowser": "1.7.1"
 };
 // BOTTOM OF METADATA
 });

@@ -243,7 +243,7 @@ app
 		var html = gerarpdf(clientes);
 		
 		http('POST', config.host + '/boloes/pdf', { html : html, apostador : clientes._id }, { token : session.token }).then(function(response){			
-			window.open(config.path + '/bolao/app/comprovantes/' +  clientes._id + '.pdf', '_blank');
+			cordova.InAppBrowser.open(config.path + '/bolao/app/comprovantes/' +  clientes._id + '.pdf', '_system', 'location=yes');
 		})
 	}
 	

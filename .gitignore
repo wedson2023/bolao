@@ -3,4 +3,3 @@ app/logs/app.log
 app/logs/error.log
 app/logs/forever.log
 npm-debug.log
-platforms/
