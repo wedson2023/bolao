@@ -29,20 +29,12 @@ module.exports = function(app){
 		},
 		
 		cadastrar : function(req, res){
-			app.models.schemas.agentes.findOne({token : req.token}, function(err, resposta){
-				if(err){
-					res.status(500).json({resposta : false, mensagem : 'Houve algum problema tente novamente!', erro : err.error.errmsg });
-				}else if(resposta){
-					var agentes = new app.models.schemas.agentes();
-					req.body.token = agentes.gerartoken(req.body.nome);
-					req.body.senha = agentes.criptografar(req.body.senha);					
-					app.models.schemas.agentes.create(req.body, function(err, resposta){					
-						if(err) res.status(500).json({ resposta : false , mensagem : 'Aconteceu algum erro tente novamente!', error : err });
-						res.status(200).json(resposta);
-					})
-				}else{
-					res.status(403).json({ resposta : false, mensagem : 'Talvez você não esteja logado!'});
-				}
+			var agentes = new app.models.schemas.agentes();
+			req.body.token = agentes.gerartoken(req.body.nome);
+			req.body.senha = agentes.criptografar(req.body.senha);					
+			app.models.schemas.agentes.create(req.body, function(err, resposta){					
+				if(err) res.status(500).json({ resposta : false , mensagem : 'Aconteceu algum erro tente novamente!', error : err });
+				res.status(200).json(resposta);
 			})
 		},
 		
