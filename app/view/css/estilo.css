@@ -1,0 +1,58 @@
+*{ box-sizing: border-box; }
+.form-login { width: 75%; display: block; margin: 10% auto;}
+.logo { display: block; margin: 10% auto; width: 100%;}
+.meus.center{text-align: center;}
+.meus.left{text-align: left;}
+.meus.right{text-align: right;}
+
+.meus.titulo{display: block; text-align: center; font-size: 1.2em; margin: 5px;}
+.meus.placar{border: solid thin #f1f1f1;}
+.meus.placar.number{border-bottom: solid thin #f1f1f1; padding:5px 20px;}
+.meus.inputleft{width:35%; text-align: center; height: 30px; padding: 2px 5px; float: left; border: solid thin #f1f1f1;}
+.meus.inputright{width:35%; text-align: center; height: 30px; padding: 2px 5px; float: right; border: solid thin #f1f1f1;}
+.meus.capitalize{text-transform: capitalize;}
+.meus.horario{width: 100%; height: 25px;}
+
+.meus.padding-zero{padding : 0;}
+.meus.padding-10{padding : 10px;}
+.meus.padding-5{padding : 5px;}
+.meus.padding-8{padding : 8px;}
+.meus.cego{display : none;}
+.meus.margin-zero{ margin : 0;}
+.meus.margin-10{ margin : 10px;}
+.meus.margin-bottom{ margin-bottom: 10px;}
+.meus.border{border:solid thin #f1f1f1;}	
+.meus.border-none{border: none;}
+.meus.block{width: 100%;}
+.meus.center{text-align: center;}
+.meus.bg-white{background: white;}
+.meus.cadastro.input{height: 25px; width: 100%; font: 1em; color: #666666; }		
+.meus.cadastro.placar{border: solid #f1f1f1 thin; height: 25px; width: 100%; text-align: center; }
+.meus.campos{border:solid thin #f1f1f1; width: 100%; padding: 25px 10px;}
+.meus.blue{ background : #11c1f3; color: #fff; border: solid thin #11c1f3; padding: 6.5px;}
+.meus.zebra:nth-child(even){background: #000;}
+.button-float{
+  background: #ef473a !important;
+  color:white !important;
+  z-index: 12 !important;
+  position: absolute !important; 
+  bottom: 10px !important;
+  right: 10px !important;
+  border-radius: 50% !important;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26) !important;
+  -webkit-transform: translate3d(0, 0, 0) !important;
+  transform: translate3d(0, 0, 0) !important;
+  -webkit-transition: 0.2s linear !important;
+  transition: 0.2s linear !important;
+  -webkit-transition-property: -webkit-transform, all !important;
+  transition-property: transform, all !important;
+
+}
+
+.button-float:hover{
+  -webkit-transform: translate3d(0, -1px, 0)  !important;
+  transform: translate3d(0, -1px, 0) !important;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4) !important;
+	background: darken(#ef473a, 10%) !important;
+}
+
